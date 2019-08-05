@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "com.yanis48.mooblooms.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"FlowerForestBiomeMixin",
+		"BambooJungleBiomeMixin",
+		"NetherBiomeMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

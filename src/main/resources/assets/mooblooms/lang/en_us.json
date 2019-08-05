@@ -1,0 +1,19 @@
+{
+	"entity.mooblooms.dandelion_moobloom": "Dandelion Moobloom",
+	"entity.mooblooms.poppy_moobloom": "Poppy Moobloom",
+	"entity.mooblooms.blue_orchid_moobloom": "Blue Orchid Moobloom",
+	"entity.mooblooms.allium_moobloom": "Allium Moobloom",
+	"entity.mooblooms.oxeye_daisy_moobloom": "Oxeye Daisy Moobloom",
+	"entity.mooblooms.cornflower_moobloom": "Cornflower Moobloom",
+	"entity.mooblooms.wither_rose_moobloom": "Wither Rose Moobloom",
+	"entity.mooblooms.bambmoo": "Bambmoo",
+	
+	"item.mooblooms.dandelion_moobloom_spawn_egg": "Dandelion Moobloom Spawn Egg",
+	"item.mooblooms.poppy_moobloom_spawn_egg": "Poppy Moobloom Spawn Egg",
+	"item.mooblooms.blue_orchid_moobloom_spawn_egg": "Blue Orchid Moobloom Spawn Egg",
+	"item.mooblooms.allium_moobloom_spawn_egg": "Allium Moobloom Spawn Egg",
+	"item.mooblooms.oxeye_daisy_moobloom_spawn_egg": "Oxeye Daisy Moobloom Spawn Egg",
+	"item.mooblooms.cornflower_moobloom_spawn_egg": "Cornflower Moobloom Spawn Egg",
+	"item.mooblooms.wither_rose_moobloom_spawn_egg": "Wither Rose Moobloom Spawn Egg",
+	"item.mooblooms.bambmoo_spawn_egg": "Bambmoo Spawn Egg"
+}

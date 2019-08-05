@@ -1,0 +1,35 @@
+{
+    "schemaVersion": 1,
+    "id": "mooblooms",
+    "version": "${version}",
+
+    "name": "Mooblooms",
+    "description": "A mod adding colorful and flowery cows. Moo!",
+    "authors": [
+        "Yanis48"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/mooblooms",
+        "sources": "https://github.com/Yanis48/Mooblooms",
+        "issues": "https://github.com/Yanis48/Mooblooms/issues"
+    },
+
+    "icon": "assets/mooblooms/icon.png",
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.yanis48.mooblooms.Mooblooms"
+        ],
+        "client": [
+            "com.yanis48.mooblooms.MoobloomsClient"
+        ]
+    },
+    "mixins": [
+        "mooblooms.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.4.5",
+        "fabric": "*"
+    }
+}
