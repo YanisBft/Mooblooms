@@ -3,8 +3,10 @@ package com.yanis48.mooblooms.entity;
 import com.yanis48.mooblooms.Mooblooms;
 
 import net.minecraft.block.BambooBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.enums.BambooLeaves;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -15,10 +17,12 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -53,6 +57,14 @@ public class MoobloomEntity extends CowEntity {
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return true;
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo()) {
+			stack.decrement(1);
+			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
+			FlowerBlock flowerBlock = (FlowerBlock) this.getFlowerState().getBlock();
+			SuspiciousStewItem.addEffectToStew(suspiciousStew, flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration());
+			player.setStackInHand(hand, suspiciousStew);
+			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
+			return true;
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -72,6 +84,15 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	public void tickMovement() {
+		if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
+			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.x, this.y - 1, this.z)).getBlock();
+			if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
+				int i = this.random.nextInt(1000);
+				if (i == 0) {
+					this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+				}
+			}
+		}
 		if (this.world.isClient && this.isWitherRose()) {
 			for(int i = 0; i < 3; ++i) {
 				this.world.addParticle(ParticleTypes.SMOKE, this.x + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.y + this.random.nextDouble() * this.getHeight(), this.z + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);

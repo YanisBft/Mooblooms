@@ -19,7 +19,7 @@ public class MoobloomsEntities {
 	public static final EntityType<MoobloomEntity> ALLIUM_MOOBLOOM = register("allium_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).build());
 	public static final EntityType<MoobloomEntity> OXEYE_DAISY_MOOBLOOM = register("oxeye_daisy_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).build());
 	public static final EntityType<MoobloomEntity> CORNFLOWER_MOOBLOOM = register("cornflower_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).build());
-	public static final EntityType<MoobloomEntity> WITHER_ROSE_MOOBLOOM = register("wither_rose_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).build());
+	public static final EntityType<MoobloomEntity> WITHER_ROSE_MOOBLOOM = register("wither_rose_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).setImmuneToFire().build());
 	public static final EntityType<MoobloomEntity> BAMBMOO = register("bambmoo", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(0.9F, 1.4F).build());
 	
 	private static <T extends Entity> EntityType<T> register(String name, EntityType<T> builder) {
