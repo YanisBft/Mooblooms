@@ -19,7 +19,7 @@ public class NetherBiomeMixin extends Biome {
 	}
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
-    private void init(CallbackInfo info) {
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.WITHER_ROSE_MOOBLOOM, 80, 2, 4));
+	private void init(CallbackInfo info) {
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.WITHER_ROSE_MOOBLOOM, 80, 2, 4));
 	}
 }

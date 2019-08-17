@@ -45,7 +45,7 @@ public class MoobloomEntity extends CowEntity {
 				}
 				this.world.spawnEntity(cow);
 				for(int i = 0; i < 5; ++i) {
-					this.world.spawnEntity(new ItemEntity(this.world, this.x, this.y + this.getHeight(), this.z, new ItemStack(this.getFlowerType().getBlock())));
+					this.world.spawnEntity(new ItemEntity(this.world, this.x, this.y + this.getHeight(), this.z, new ItemStack(this.getFlowerState().getBlock())));
 				}
 				stack.damage(1, player, ((playerEntity) -> {
 					playerEntity.sendToolBreakStatus(hand);
@@ -65,24 +65,32 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public boolean isPotionEffective(StatusEffectInstance statusEffectInstance) {
-		if (statusEffectInstance.getEffectType() == StatusEffects.WITHER && this.id.equals("wither_rose_moobloom")) {
+		if (statusEffectInstance.getEffectType() == StatusEffects.WITHER && this.isWitherRose()) {
 			return false;
 		}
 		return super.isPotionEffective(statusEffectInstance);
 	}
 	
 	public void tickMovement() {
-		if (this.world.isClient && this.id.equals("wither_rose_moobloom")) {
+		if (this.world.isClient && this.isWitherRose()) {
 			for(int i = 0; i < 3; ++i) {
-				this.world.addParticle(ParticleTypes.SMOKE, this.x + (this.random.nextDouble() - 0.5D) * (double)this.getWidth(), this.y + this.random.nextDouble() * (double)this.getHeight(), this.z + (this.random.nextDouble() - 0.5D) * (double)this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.SMOKE, this.x + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.y + this.random.nextDouble() * this.getHeight(), this.z + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		super.tickMovement();
 	}
 	
-	public BlockState getFlowerType() {
+	public boolean isWitherRose() {
+		return this.id.equals("wither_rose_moobloom") ? true : false;
+	}
+	
+	public boolean isBambmoo() {
+		return this.id.equals("bambmoo") ? true : false;
+	}
+	
+	public BlockState getFlowerState() {
 		BlockState state;
-		if (this.id.equals("bambmoo")) {
+		if (this.isBambmoo()) {
 			state = Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL);
 		} else {
 			String flowerId = this.id.replace("_moobloom", "");

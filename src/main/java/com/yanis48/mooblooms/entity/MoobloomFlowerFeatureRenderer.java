@@ -22,7 +22,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
 	@Override
 	public void render(MoobloomEntity moobloom, float float_1, float float_2, float float_3, float float_4, float float_5, float float_6, float float_7) {
 		if (!moobloom.isBaby() && !moobloom.isInvisible()) {
-			BlockState state = moobloom.getFlowerType();
+			BlockState state = moobloom.getFlowerState();
 			this.bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
 			GlStateManager.enableCull();
 			GlStateManager.cullFace(GlStateManager.FaceSides.FRONT);

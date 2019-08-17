@@ -19,12 +19,12 @@ public class FlowerForestBiomeMixin extends Biome {
 	}
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
-    private void init(CallbackInfo info) {
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM, 8, 2, 4));
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.POPPY_MOOBLOOM, 8, 2, 4));
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM, 8, 2, 4));
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.ALLIUM_MOOBLOOM, 8, 2, 4));
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM, 8, 2, 4));
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.CORNFLOWER_MOOBLOOM, 8, 2, 4));
-    }
+	private void init(CallbackInfo info) {
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.POPPY_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.ALLIUM_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.CORNFLOWER_MOOBLOOM, 10, 2, 4));
+	}
 }

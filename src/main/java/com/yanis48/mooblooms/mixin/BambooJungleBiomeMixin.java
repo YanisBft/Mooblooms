@@ -19,7 +19,7 @@ public class BambooJungleBiomeMixin extends Biome {
 	}
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
-    private void init(CallbackInfo info) {
-        this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BAMBMOO, 40, 2, 4));
+	private void init(CallbackInfo info) {
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BAMBMOO, 60, 2, 4));
 	}
 }
