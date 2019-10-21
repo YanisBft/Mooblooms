@@ -20,7 +20,7 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Co
 	}
 
 	@Override
-	protected Identifier getTexture(MoobloomEntity moobloom) {
+	public Identifier getTexture(MoobloomEntity moobloom) {
 		if (moobloom.isBambmoo()) {
 			return BAMBMOO_SKIN;
 		} else {

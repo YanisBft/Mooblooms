@@ -37,19 +37,19 @@ public class MoobloomEntity extends CowEntity {
 	public boolean interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
-			this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y + this.getHeight() / 2.0F, this.z, 0.0D, 0.0D, 0.0D);
+			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
 			if (!this.world.isClient) {
 				this.remove();
 				CowEntity cow = EntityType.COW.create(this.world);
-				cow.setPositionAndAngles(this.x, this.y, this.z, this.yaw, this.pitch);
+				cow.setPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
 				cow.setHealth(this.getHealth());
-				cow.field_6283 = this.field_6283;
+				cow.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
 					cow.setCustomName(this.getCustomName());
 				}
 				this.world.spawnEntity(cow);
 				for(int i = 0; i < 5; ++i) {
-					this.world.spawnEntity(new ItemEntity(this.world, this.x, this.y + this.getHeight(), this.z, new ItemStack(this.getFlowerState().getBlock())));
+					this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.getFlowerState().getBlock())));
 				}
 				stack.damage(1, player, ((playerEntity) -> {
 					playerEntity.sendToolBreakStatus(hand);
@@ -76,16 +76,16 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	@Override
-	public boolean isPotionEffective(StatusEffectInstance statusEffectInstance) {
+	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
 		if (statusEffectInstance.getEffectType() == StatusEffects.WITHER && this.isWitherRose()) {
 			return false;
 		}
-		return super.isPotionEffective(statusEffectInstance);
+		return super.canHaveStatusEffect(statusEffectInstance);
 	}
 	
 	public void tickMovement() {
 		if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
-			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.x, this.y - 1, this.z)).getBlock();
+			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 			if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
 				int i = this.random.nextInt(1000);
 				if (i == 0) {
@@ -95,7 +95,7 @@ public class MoobloomEntity extends CowEntity {
 		}
 		if (this.world.isClient && this.isWitherRose()) {
 			for(int i = 0; i < 3; ++i) {
-				this.world.addParticle(ParticleTypes.SMOKE, this.x + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.y + this.random.nextDouble() * this.getHeight(), this.z + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.SMOKE, this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		super.tickMovement();
