@@ -1,0 +1,19 @@
+{
+	"entity.mooblooms.dandelion_moobloom": "Florimeuh pissenlit",
+	"entity.mooblooms.poppy_moobloom": "Florimeuh coquelicot",
+	"entity.mooblooms.blue_orchid_moobloom": "Florimeuh orchidée bleue",
+	"entity.mooblooms.allium_moobloom": "Florimeuh allium",
+	"entity.mooblooms.oxeye_daisy_moobloom": "Florimeuh margueurite",
+	"entity.mooblooms.cornflower_moobloom": "Florimeuh bleuet",
+	"entity.mooblooms.wither_rose_moobloom": "Florimeuh rose de Wither",
+	"entity.mooblooms.bambmoo": "Bamboumeuh",
+	
+	"item.mooblooms.dandelion_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh pissenlit",
+	"item.mooblooms.poppy_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh coquelicot",
+	"item.mooblooms.blue_orchid_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh orchidée bleue",
+	"item.mooblooms.allium_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh allium",
+	"item.mooblooms.oxeye_daisy_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh margueurite",
+	"item.mooblooms.cornflower_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh bleuet",
+	"item.mooblooms.wither_rose_moobloom_spawn_egg": "Oeuf d'apparition de florimeuh rose de Wither",
+	"item.mooblooms.bambmoo_spawn_egg": "Oeuf d'apparition de bamboumeuh"
+}
