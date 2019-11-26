@@ -19,6 +19,7 @@ public class MoobloomsItems {
 	public static final Item OXEYE_DAISY_MOOBLOOM_SPAWN_EGG = register("oxeye_daisy_moobloom", MoobloomsEntities.OXEYE_DAISY_MOOBLOOM, 14084328, 16772175);
 	public static final Item CORNFLOWER_MOOBLOOM_SPAWN_EGG = register("cornflower_moobloom", MoobloomsEntities.CORNFLOWER_MOOBLOOM, 4614891, 12239583);
 	public static final Item WITHER_ROSE_MOOBLOOM_SPAWN_EGG = register("wither_rose_moobloom", MoobloomsEntities.WITHER_ROSE_MOOBLOOM, 2760473, 6513507);
+	public static final Item SUNCOWER_SPAWN_EGG = register("suncower", MoobloomsEntities.SUNCOWER, 15834405, 16772175);
 	public static final Item BAMBMOO_SPAWN_EGG = register("bambmoo", MoobloomsEntities.BAMBMOO, 5472777, 9949525);
 	
 	private static Item register(String name, EntityType entity, int primaryColor, int secondaryColor) {

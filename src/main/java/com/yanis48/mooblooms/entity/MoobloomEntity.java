@@ -7,7 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.enums.BambooLeaves;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -57,7 +59,7 @@ public class MoobloomEntity extends CowEntity {
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return true;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo()) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !this.isSuncower()) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			FlowerBlock flowerBlock = (FlowerBlock) this.getFlowerState().getBlock();
@@ -84,7 +86,7 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	public void tickMovement() {
-		if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
+		if (!this.world.isClient && !this.isBambmoo() && !this.isSuncower() && !this.isBaby()) {
 			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 			if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
 				int i = this.random.nextInt(1000);
@@ -102,17 +104,23 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	public boolean isWitherRose() {
-		return this.id.equals("wither_rose_moobloom") ? true : false;
+		return this.id.equals("wither_rose_moobloom");
+	}
+	
+	public boolean isSuncower() {
+		return this.id.equals("suncower");
 	}
 	
 	public boolean isBambmoo() {
-		return this.id.equals("bambmoo") ? true : false;
+		return this.id.equals("bambmoo");
 	}
 	
 	public BlockState getFlowerState() {
 		BlockState state;
 		if (this.isBambmoo()) {
 			state = Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL);
+		} else if (this.isSuncower()) {
+			state = Blocks.SUNFLOWER.getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		} else {
 			String flowerId = this.id.replace("_moobloom", "");
 			state = Registry.BLOCK.get(new Identifier("minecraft", flowerId)).getDefaultState();

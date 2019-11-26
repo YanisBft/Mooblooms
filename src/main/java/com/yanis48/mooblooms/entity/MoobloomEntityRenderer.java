@@ -12,7 +12,6 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, CowEntityModel<MoobloomEntity>> {
-	private static final Identifier BAMBMOO_SKIN = new Identifier(Mooblooms.MOD_ID, "textures/entity/bambmoo.png");
 	
 	public MoobloomEntityRenderer(EntityRenderDispatcher dispatcher) {
 		super(dispatcher, new CowEntityModel(), 0.7F);
@@ -21,10 +20,6 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Co
 
 	@Override
 	public Identifier getTexture(MoobloomEntity moobloom) {
-		if (moobloom.isBambmoo()) {
-			return BAMBMOO_SKIN;
-		} else {
-			return new Identifier(Mooblooms.MOD_ID, "textures/entity/" + moobloom.id + ".png");
-		}
+		return new Identifier(Mooblooms.MOD_ID, "textures/entity/" + moobloom.id + ".png");
 	}	
 }
