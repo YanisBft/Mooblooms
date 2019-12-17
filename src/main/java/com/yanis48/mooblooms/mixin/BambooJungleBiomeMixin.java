@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.yanis48.mooblooms.MoobloomsConfig;
 import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.entity.EntityCategory;
@@ -20,6 +21,6 @@ public class BambooJungleBiomeMixin extends Biome {
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
 	private void init(CallbackInfo info) {
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BAMBMOO, 60, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BAMBMOO, MoobloomsConfig.SpawnWeight.bambmoo, 2, 4));
 	}
 }

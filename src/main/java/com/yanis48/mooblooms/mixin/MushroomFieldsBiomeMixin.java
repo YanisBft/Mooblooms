@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.yanis48.mooblooms.MoobloomsConfig;
 import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.entity.EntityCategory;
@@ -20,6 +21,6 @@ public class MushroomFieldsBiomeMixin extends Biome {
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
 	private void init(CallbackInfo info) {
-		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(MoobloomsEntities.CLUCKSHROOM, 10, 4, 8));
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(MoobloomsEntities.CLUCKSHROOM, MoobloomsConfig.SpawnWeight.cluckshroom, 4, 8));
 	}
 }

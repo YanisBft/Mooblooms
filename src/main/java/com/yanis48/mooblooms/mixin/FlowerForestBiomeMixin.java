@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.yanis48.mooblooms.MoobloomsConfig;
 import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.entity.EntityCategory;
@@ -20,11 +21,11 @@ public class FlowerForestBiomeMixin extends Biome {
 	
 	@Inject(at = @At("RETURN"), method = "<init>()V")
 	private void init(CallbackInfo info) {
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM, 10, 2, 4));
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.POPPY_MOOBLOOM, 10, 2, 4));
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM, 10, 2, 4));
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.ALLIUM_MOOBLOOM, 10, 2, 4));
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM, 10, 2, 4));
-		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.CORNFLOWER_MOOBLOOM, 10, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM, MoobloomsConfig.SpawnWeight.dandelionMoobloom, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.POPPY_MOOBLOOM, MoobloomsConfig.SpawnWeight.poppyMoobloom, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM, MoobloomsConfig.SpawnWeight.blueOrchidMoobloom, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.ALLIUM_MOOBLOOM, MoobloomsConfig.SpawnWeight.alliumMoobloom, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM, MoobloomsConfig.SpawnWeight.oxeyeDaisyMoobloom, 2, 4));
+		this.addSpawn(EntityCategory.CREATURE, new SpawnEntry(MoobloomsEntities.CORNFLOWER_MOOBLOOM, MoobloomsConfig.SpawnWeight.cornflowerMoobloom, 2, 4));
 	}
 }
