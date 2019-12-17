@@ -1,6 +1,7 @@
 package com.yanis48.mooblooms;
 
-import com.yanis48.mooblooms.entity.MoobloomEntityRenderer;
+import com.yanis48.mooblooms.client.CluckshroomEntityRenderer;
+import com.yanis48.mooblooms.client.MoobloomEntityRenderer;
 import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -19,5 +20,7 @@ public class MoobloomsClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.WITHER_ROSE_MOOBLOOM, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.SUNCOWER, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.BAMBMOO, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
+	
+		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.CLUCKSHROOM, (dispatcher, context) -> new CluckshroomEntityRenderer(dispatcher));
 	}
 }

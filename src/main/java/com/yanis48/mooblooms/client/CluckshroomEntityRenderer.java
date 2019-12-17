@@ -1,0 +1,34 @@
+package com.yanis48.mooblooms.client;
+
+import com.yanis48.mooblooms.Mooblooms;
+import com.yanis48.mooblooms.entity.CluckshroomEntity;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.ChickenEntityModel;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+
+@Environment(EnvType.CLIENT)
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEntity, ChickenEntityModel<CluckshroomEntity>> {
+	private static final Identifier SKIN = new Identifier(Mooblooms.MOD_ID, "textures/entity/cluckshroom.png");
+	
+	public CluckshroomEntityRenderer(EntityRenderDispatcher dispatcher) {
+		super(dispatcher, new ChickenEntityModel(), 0.3F);
+		this.addFeature(new CluckshroomMushroomFeatureRenderer(this));
+	}
+
+	@Override
+	public Identifier getTexture(CluckshroomEntity cluckshroom) {
+		return SKIN;
+	}
+	
+	protected float getCustomAngle(CluckshroomEntity cluckshroom, float f) {
+		float g = MathHelper.lerp(f, cluckshroom.field_6736, cluckshroom.field_6741);
+		float h = MathHelper.lerp(f, cluckshroom.field_6738, cluckshroom.field_6743);
+		return (MathHelper.sin(g) + 1.0F) * h;
+	}
+}

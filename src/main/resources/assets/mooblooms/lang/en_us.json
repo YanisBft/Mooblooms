@@ -8,6 +8,7 @@
 	"entity.mooblooms.wither_rose_moobloom": "Wither Rose Moobloom",
 	"entity.mooblooms.suncower": "Suncower",
 	"entity.mooblooms.bambmoo": "Bambmoo",
+	"entity.mooblooms.cluckshroom": "Cluckshroom",
 	
 	"item.mooblooms.dandelion_moobloom_spawn_egg": "Dandelion Moobloom Spawn Egg",
 	"item.mooblooms.poppy_moobloom_spawn_egg": "Poppy Moobloom Spawn Egg",
@@ -17,5 +18,6 @@
 	"item.mooblooms.cornflower_moobloom_spawn_egg": "Cornflower Moobloom Spawn Egg",
 	"item.mooblooms.wither_rose_moobloom_spawn_egg": "Wither Rose Moobloom Spawn Egg",
 	"item.mooblooms.suncower_spawn_egg": "Suncower Spawn Egg",
-	"item.mooblooms.bambmoo_spawn_egg": "Bambmoo Spawn Egg"
+	"item.mooblooms.bambmoo_spawn_egg": "Bambmoo Spawn Egg",
+	"item.mooblooms.cluckshroom_spawn_egg": "Cluckshroom Spawn Egg"
 }
