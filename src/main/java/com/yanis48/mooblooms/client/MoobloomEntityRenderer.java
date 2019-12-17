@@ -1,6 +1,7 @@
-package com.yanis48.mooblooms.entity;
+package com.yanis48.mooblooms.client;
 
 import com.yanis48.mooblooms.Mooblooms;
+import com.yanis48.mooblooms.entity.MoobloomEntity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
