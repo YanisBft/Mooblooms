@@ -1,6 +1,7 @@
 package com.yanis48.mooblooms.entity;
 
 import com.yanis48.mooblooms.MoobloomsConfig;
+import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -49,6 +51,11 @@ public class CluckshroomEntity extends ChickenEntity {
 		} else {
 			return super.interactMob(player, hand);
 		}
+	}
+	
+	@Override
+	public CluckshroomEntity createChild(PassiveEntity entity) {
+		return (CluckshroomEntity) MoobloomsEntities.CLUCKSHROOM.create(this.world);
 	}
 	
 	public void tickMovement() {
