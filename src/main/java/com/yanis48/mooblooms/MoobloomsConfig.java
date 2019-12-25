@@ -29,6 +29,10 @@ public class MoobloomsConfig {
 		SpawnWeight.suncower = spawnWeight.getInt("suncower", SpawnWeight.suncower);
 		SpawnWeight.bambmoo = spawnWeight.getInt("bambmoo", SpawnWeight.bambmoo);
 		SpawnWeight.cluckshroom = spawnWeight.getInt("cluckshroom", SpawnWeight.cluckshroom);
+		
+		JsonObject autoBlockSpawning = getObjectOrEmpty("auto_block_spawning", obj);
+		AutoBlockSpawning.mooblooms = autoBlockSpawning.getBoolean("mooblooms", AutoBlockSpawning.mooblooms);
+		AutoBlockSpawning.cluckshroom = autoBlockSpawning.getBoolean("cluckshroom", AutoBlockSpawning.cluckshroom);
 	}
 	
 	public static void saveTo(JsonObject obj) {
@@ -43,12 +47,16 @@ public class MoobloomsConfig {
 		spawnWeight.putDefault("suncower", SpawnWeight.suncower, "");
 		spawnWeight.putDefault("bambmoo", SpawnWeight.bambmoo, "");
 		spawnWeight.putDefault("cluckshroom", SpawnWeight.cluckshroom, "");
+		
+		JsonObject autoBlockSpawning = defaultPutButNotNull("auto_block_spawning", new JsonObject(), obj);
+		autoBlockSpawning.putDefault("mooblooms", AutoBlockSpawning.mooblooms, "If mooblooms can spawn flowers automatically");
+		autoBlockSpawning.putDefault("cluckshroom", AutoBlockSpawning.cluckshroom, "If cluckshrooms can spawn mushrooms automatically");
 	}
 	
 	public static void sync() {
 		File configFile = new File("config/mooblooms.json5");
 		JsonObject config = new JsonObject();
-		if(configFile.exists()) {
+		if (configFile.exists()) {
 			try {
 				config = JANKSON.load(configFile);
 				loadFrom(config);
@@ -64,7 +72,7 @@ public class MoobloomsConfig {
 	
 	private static void writeConfigFile(File file, JsonObject config) {
 		saveTo(config);
-		try(OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+		try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
 			out.write(config.toJson(JsonGrammar.JANKSON).getBytes(StandardCharsets.UTF_8));
 		} catch (IOException e) {
 			Mooblooms.LOGGER.error("Mooblooms config could not be written. This probably won't cause any problems, but it shouldn't happen.", e);
@@ -93,5 +101,10 @@ public class MoobloomsConfig {
 		public static int suncower = 10;
 		public static int bambmoo = 60;
 		public static int cluckshroom = 10;
+	}
+	
+	public static class AutoBlockSpawning {
+		public static boolean mooblooms = true;
+		public static boolean cluckshroom = true;
 	}
 }

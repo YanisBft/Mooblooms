@@ -1,5 +1,7 @@
 package com.yanis48.mooblooms.entity;
 
+import com.yanis48.mooblooms.MoobloomsConfig;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -50,12 +52,14 @@ public class CluckshroomEntity extends ChickenEntity {
 	}
 	
 	public void tickMovement() {
-		if (!this.world.isClient && !this.isBaby()) {
-			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-			if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
-				int i = this.random.nextInt(1000);
-				if (i == 0) {
-					this.world.setBlockState(this.getBlockPos(), this.getMushroomState());
+		if (MoobloomsConfig.AutoBlockSpawning.cluckshroom) {
+			if (!this.world.isClient && !this.isBaby()) {
+				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
+				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
+					int i = this.random.nextInt(1000);
+					if (i == 0) {
+						this.world.setBlockState(this.getBlockPos(), this.getMushroomState());
+					}
 				}
 			}
 		}

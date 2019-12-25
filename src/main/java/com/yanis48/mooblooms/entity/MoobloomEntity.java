@@ -1,6 +1,7 @@
 package com.yanis48.mooblooms.entity;
 
 import com.yanis48.mooblooms.Mooblooms;
+import com.yanis48.mooblooms.MoobloomsConfig;
 
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;
@@ -86,12 +87,19 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	public void tickMovement() {
-		if (!this.world.isClient && !this.isBambmoo() && !this.isSuncower() && !this.isBaby()) {
-			Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-			if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
-				int i = this.random.nextInt(1000);
-				if (i == 0) {
-					this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+		if (MoobloomsConfig.AutoBlockSpawning.mooblooms) {
+			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
+				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
+				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
+					int i = this.random.nextInt(1000);
+					if (i == 0) {
+						if (this.isSuncower()) {
+							this.world.setBlockState(this.getBlockPos(), Blocks.SUNFLOWER.getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER));
+							this.world.setBlockState(this.getBlockPos().up(), this.getFlowerState());
+						} else {
+							this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+						}
+					}
 				}
 			}
 		}
