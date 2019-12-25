@@ -11,14 +11,13 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.ChickenEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, ChickenEntityModel<T>> {
+public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, CluckshroomEntityModel<T>> {
 
-	public CluckshroomMushroomFeatureRenderer(FeatureRendererContext<T, ChickenEntityModel<T>> context) {
+	public CluckshroomMushroomFeatureRenderer(FeatureRendererContext<T, CluckshroomEntityModel<T>> context) {
 		super(context);
 	}
 	
@@ -37,7 +36,8 @@ public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> ext
 			matrixStack.pop();
 			
 			matrixStack.push();
-			matrixStack.translate(0.03D, 0.08D, -0.28D);
+			this.getContextModel().getHead().rotate(matrixStack);
+			matrixStack.translate(0.02D, -0.8D, -0.03D);
 			matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
 			matrixStack.scale(-1.0F, -1.0F, 1.0F);
 			matrixStack.translate(-0.5D, -0.5D, -0.5D);
