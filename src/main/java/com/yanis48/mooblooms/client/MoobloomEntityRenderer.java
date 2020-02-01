@@ -21,6 +21,6 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Co
 
 	@Override
 	public Identifier getTexture(MoobloomEntity moobloom) {
-		return new Identifier(Mooblooms.MOD_ID, "textures/entity/" + moobloom.id + ".png");
+		return new Identifier(Mooblooms.MOD_ID, "textures/entity/" + moobloom.getIdPath() + ".png");
 	}	
 }

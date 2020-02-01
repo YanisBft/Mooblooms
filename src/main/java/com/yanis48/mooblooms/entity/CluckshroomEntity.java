@@ -25,6 +25,7 @@ public class CluckshroomEntity extends ChickenEntity {
 		super(entityType, world);
 	}
 	
+	@Override
 	public boolean interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
@@ -32,7 +33,7 @@ public class CluckshroomEntity extends ChickenEntity {
 			if (!this.world.isClient) {
 				this.remove();
 				ChickenEntity chicken = EntityType.CHICKEN.create(this.world);
-				chicken.setPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
 				chicken.setHealth(this.getHealth());
 				chicken.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
@@ -58,6 +59,7 @@ public class CluckshroomEntity extends ChickenEntity {
 		return (CluckshroomEntity) MoobloomsEntities.CLUCKSHROOM.create(this.world);
 	}
 	
+	@Override
 	public void tickMovement() {
 		if (MoobloomsConfig.AutoBlockSpawning.cluckshroom) {
 			if (!this.world.isClient && !this.isBaby()) {

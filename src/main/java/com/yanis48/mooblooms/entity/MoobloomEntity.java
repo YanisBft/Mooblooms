@@ -8,9 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.enums.BambooLeaves;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -30,13 +28,18 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class MoobloomEntity extends CowEntity {
-	public final String id;
+	private final Identifier id;
 	
 	public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
 		super(entityType, world);
-		this.id = Registry.ENTITY_TYPE.getId(entityType).getPath();
+		this.id = Registry.ENTITY_TYPE.getId(entityType);
 	}
 	
+	public String getIdPath() {
+		return this.id.getPath();
+	}
+	
+	@Override
 	public boolean interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
@@ -44,7 +47,7 @@ public class MoobloomEntity extends CowEntity {
 			if (!this.world.isClient) {
 				this.remove();
 				CowEntity cow = EntityType.COW.create(this.world);
-				cow.setPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
 				cow.setHealth(this.getHealth());
 				cow.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
@@ -60,7 +63,7 @@ public class MoobloomEntity extends CowEntity {
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return true;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !this.isSuncower()) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !(this instanceof TallMoobloomEntity)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			FlowerBlock flowerBlock = (FlowerBlock) this.getFlowerState().getBlock();
@@ -75,7 +78,7 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public MoobloomEntity createChild(PassiveEntity entity) {
-		return (MoobloomEntity) Registry.ENTITY_TYPE.get(new Identifier(Mooblooms.MOD_ID, this.id)).create(this.world);
+		return (MoobloomEntity) Registry.ENTITY_TYPE.get(this.id).create(this.world);
 	}
 	
 	@Override
@@ -86,6 +89,7 @@ public class MoobloomEntity extends CowEntity {
 		return super.canHaveStatusEffect(statusEffectInstance);
 	}
 	
+	@Override
 	public void tickMovement() {
 		if (MoobloomsConfig.AutoBlockSpawning.mooblooms) {
 			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
@@ -93,12 +97,7 @@ public class MoobloomEntity extends CowEntity {
 				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						if (this.isSuncower()) {
-							this.world.setBlockState(this.getBlockPos(), Blocks.SUNFLOWER.getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER));
-							this.world.setBlockState(this.getBlockPos().up(), this.getFlowerState());
-						} else {
-							this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
-						}
+						this.placeBlocks();
 					}
 				}
 			}
@@ -111,27 +110,29 @@ public class MoobloomEntity extends CowEntity {
 		super.tickMovement();
 	}
 	
+	protected void placeBlocks() {
+		this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+	}
+	
 	public boolean isWitherRose() {
-		return this.id.equals("wither_rose_moobloom");
+		return this.getIdPath().equals("wither_rose_moobloom");
 	}
 	
 	public boolean isSuncower() {
-		return this.id.equals("suncower");
+		return this.getIdPath().equals("suncower");
 	}
 	
 	public boolean isBambmoo() {
-		return this.id.equals("bambmoo");
+		return this.getIdPath().equals("bambmoo");
 	}
 	
 	public BlockState getFlowerState() {
 		BlockState state;
 		if (this.isBambmoo()) {
 			state = Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL);
-		} else if (this.isSuncower()) {
-			state = Blocks.SUNFLOWER.getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		} else {
-			String flowerId = this.id.replace("_moobloom", "");
-			state = Registry.BLOCK.get(new Identifier("minecraft", flowerId)).getDefaultState();
+			String flowerName = this.getIdPath().replace("_moobloom", "");
+			state = Registry.BLOCK.get(new Identifier("minecraft", flowerName)).getDefaultState();
 		}
 		return state;
 	}
