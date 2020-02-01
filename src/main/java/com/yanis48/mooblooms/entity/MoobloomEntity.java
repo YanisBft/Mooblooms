@@ -1,7 +1,6 @@
 package com.yanis48.mooblooms.entity;
 
-import com.yanis48.mooblooms.Mooblooms;
-import com.yanis48.mooblooms.MoobloomsConfig;
+import com.google.common.base.CaseFormat;
 
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;
@@ -91,7 +90,7 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public void tickMovement() {
-		if (MoobloomsConfig.AutoBlockSpawning.mooblooms) {
+		if (this.canSpawnBlocks(this.getIdPath())) {
 			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
@@ -135,5 +134,17 @@ public class MoobloomEntity extends CowEntity {
 			state = Registry.BLOCK.get(new Identifier("minecraft", flowerName)).getDefaultState();
 		}
 		return state;
+	}
+	
+	private boolean canSpawnBlocks(String idPath) {
+		String className = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, idPath);
+		boolean enabled = false;
+		try {
+			Class<?> classType = Class.forName("com.yanis48.mooblooms.MoobloomsConfig$" + className);
+			enabled = classType.getDeclaredField("spawnBlocks").getBoolean(this);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return enabled;
 	}
 }

@@ -61,7 +61,7 @@ public class CluckshroomEntity extends ChickenEntity {
 	
 	@Override
 	public void tickMovement() {
-		if (MoobloomsConfig.AutoBlockSpawning.cluckshroom) {
+		if (MoobloomsConfig.Cluckshroom.spawnBlocks) {
 			if (!this.world.isClient && !this.isBaby()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
