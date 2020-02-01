@@ -26,9 +26,6 @@
             "com.yanis48.mooblooms.MoobloomsClient"
         ]
     },
-    "mixins": [
-        "mooblooms.mixins.json"
-    ],
     "depends": {
         "fabricloader": ">=0.7.2",
         "fabric": "*"

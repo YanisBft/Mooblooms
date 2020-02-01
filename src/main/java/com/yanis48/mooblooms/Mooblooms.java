@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.yanis48.mooblooms.init.MoobloomsEntities;
+import com.yanis48.mooblooms.init.MoobloomsGeneration;
 import com.yanis48.mooblooms.init.MoobloomsItems;
 
 import net.fabricmc.api.ModInitializer;
@@ -17,6 +18,8 @@ public class Mooblooms implements ModInitializer {
 	public void onInitialize() {		
 		new MoobloomsEntities();
 		new MoobloomsItems();
+		
+		MoobloomsGeneration.init();
 		
 		MoobloomsConfig.sync();
 	}
