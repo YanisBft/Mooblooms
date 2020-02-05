@@ -62,7 +62,7 @@ public class MoobloomEntity extends CowEntity {
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return true;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !(this instanceof TallMoobloomEntity)) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !(this instanceof TallMoobloomEntity) && !(this instanceof MooshroomEntity)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			FlowerBlock flowerBlock = (FlowerBlock) this.getFlowerState().getBlock();
