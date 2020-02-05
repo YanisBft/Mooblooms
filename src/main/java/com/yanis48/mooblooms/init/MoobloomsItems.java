@@ -9,7 +9,6 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-@SuppressWarnings("rawtypes")
 public class MoobloomsItems {
 	
 	public static final Item DANDELION_MOOBLOOM_SPAWN_EGG = register("dandelion_moobloom", MoobloomsEntities.DANDELION_MOOBLOOM, 0xFED639, 0xFBEBAE);
@@ -24,7 +23,7 @@ public class MoobloomsItems {
 	
 	public static final Item CLUCKSHROOM_SPAWN_EGG = register("cluckshroom", MoobloomsEntities.CLUCKSHROOM, 0xA0181F, 0xFA292A);
 	
-	private static Item register(String name, EntityType entity, int primaryColor, int secondaryColor) {
+	private static Item register(String name, EntityType<?> entity, int primaryColor, int secondaryColor) {
 		return Registry.register(Registry.ITEM, new Identifier(Mooblooms.MOD_ID, name + "_spawn_egg"), new SpawnEggItem(entity, primaryColor, secondaryColor, new Item.Settings().maxCount(64).group(ItemGroup.MISC)));
 	}
 }

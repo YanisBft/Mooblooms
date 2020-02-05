@@ -84,7 +84,7 @@ public class MoobloomsConfig {
 		public static boolean spawnBlocks = true;
 	}
 	
-	public static void loadFrom(JsonObject obj) {
+	public static void readConfig(JsonObject obj) {
 		JsonObject dandelionMoobloom = getObjectOrEmpty("dandelion_moobloom", obj);
 		DandelionMoobloom.weight = dandelionMoobloom.getInt("weight", DandelionMoobloom.weight);
 		DandelionMoobloom.minGroupSize = dandelionMoobloom.getInt("min_group_size", DandelionMoobloom.minGroupSize);
@@ -146,7 +146,7 @@ public class MoobloomsConfig {
 		Cluckshroom.spawnBlocks = cluckshroom.getBoolean("spawn_blocks", Cluckshroom.spawnBlocks);
 	}
 	
-	public static void saveTo(JsonObject obj) {
+	public static void writeConfig(JsonObject obj) {
 		JsonObject dandelionMoobloom = defaultPutButNotNull("dandelion_moobloom", new JsonObject(), obj);
 		dandelionMoobloom.putDefault("weight", DandelionMoobloom.weight, "");
 		dandelionMoobloom.putDefault("min_group_size", DandelionMoobloom.minGroupSize, "");
@@ -214,25 +214,25 @@ public class MoobloomsConfig {
 		File file = FabricLoader.getInstance().getConfigDirectory().toPath().resolve("mooblooms.json5").toFile();
 		JsonObject config = new JsonObject();
 		if (file.exists()) {
-			loadConfig(file, config);
+			loadFile(file, config);
 		} else {
-			saveTo(config);
-			saveConfig(file, config);
+			writeConfig(config);
+			saveFile(file, config);
 		}
 	}
 	
-	private static void loadConfig(File file, JsonObject config) {
+	private static void loadFile(File file, JsonObject config) {
 		try {
 			config = JANKSON.load(file);
-			loadFrom(config);
-			saveConfig(file, config);
+			readConfig(config);
+			saveFile(file, config);
 		} catch (Exception e) {
 			Mooblooms.LOGGER.error("[Mooblooms] Config could not be loaded: {}", e.getMessage());
 		}
 	}
 	
-	private static void saveConfig(File file, JsonObject config) {
-		saveTo(config);
+	private static void saveFile(File file, JsonObject config) {
+		writeConfig(config);
 		try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
 			if (!file.exists()) {
 				file.createNewFile();
