@@ -20,7 +20,10 @@ public class MoobloomsClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.WITHER_ROSE_MOOBLOOM, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.SUNCOWER, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.BAMBMOO, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
-	
+		
+		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.CRIMSON_MOOSHROOM, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
+		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.WARPED_MOOSHROOM, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
+		
 		EntityRendererRegistry.INSTANCE.register(MoobloomsEntities.CLUCKSHROOM, (dispatcher, context) -> new CluckshroomEntityRenderer(dispatcher));
 	}
 }

@@ -3,6 +3,7 @@ package com.yanis48.mooblooms.init;
 import com.yanis48.mooblooms.Mooblooms;
 import com.yanis48.mooblooms.entity.CluckshroomEntity;
 import com.yanis48.mooblooms.entity.MoobloomEntity;
+import com.yanis48.mooblooms.entity.MooshroomEntity;
 import com.yanis48.mooblooms.entity.TallMoobloomEntity;
 
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
@@ -24,6 +25,9 @@ public class MoobloomsEntities {
 	public static final EntityType<MoobloomEntity> WITHER_ROSE_MOOBLOOM = register("wither_rose_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).setImmuneToFire().build());
 	public static final EntityType<TallMoobloomEntity> SUNCOWER = register("suncower", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, TallMoobloomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).build());
 	public static final EntityType<MoobloomEntity> BAMBMOO = register("bambmoo", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).build());
+	
+	public static final EntityType<MooshroomEntity> CRIMSON_MOOSHROOM = register("crimson_mooshroom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MooshroomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).setImmuneToFire().build());
+	public static final EntityType<MooshroomEntity> WARPED_MOOSHROOM = register("warped_mooshroom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MooshroomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).setImmuneToFire().build());
 	
 	public static final EntityType<CluckshroomEntity> CLUCKSHROOM = register("cluckshroom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, CluckshroomEntity::new).size(EntityDimensions.fixed(0.4F, 0.7F)).build());
 	
