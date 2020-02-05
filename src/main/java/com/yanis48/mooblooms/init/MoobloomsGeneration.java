@@ -37,6 +37,14 @@ public class MoobloomsGeneration {
 				spawnList.add(new SpawnEntry(MoobloomsEntities.BAMBMOO, MoobloomsConfig.Bambmoo.weight, MoobloomsConfig.Bambmoo.minGroupSize, MoobloomsConfig.Bambmoo.maxGroupSize));
 			}
 			
+			if (biome.equals(Biomes.CRIMSON_FOREST)) {
+				spawnList.add(new SpawnEntry(MoobloomsEntities.CRIMSON_MOOSHROOM, MoobloomsConfig.CrimsonMooshroom.weight, MoobloomsConfig.CrimsonMooshroom.minGroupSize, MoobloomsConfig.CrimsonMooshroom.maxGroupSize));
+			}
+			
+			if (biome.equals(Biomes.WARPED_FOREST)) {
+				spawnList.add(new SpawnEntry(MoobloomsEntities.WARPED_MOOSHROOM, MoobloomsConfig.WarpedMooshroom.weight, MoobloomsConfig.WarpedMooshroom.minGroupSize, MoobloomsConfig.WarpedMooshroom.maxGroupSize));
+			}
+			
 			if (biome.getCategory().equals(Biome.Category.MUSHROOM)) {
 				spawnList.add(new Biome.SpawnEntry(MoobloomsEntities.CLUCKSHROOM, MoobloomsConfig.Cluckshroom.weight, MoobloomsConfig.Cluckshroom.minGroupSize, MoobloomsConfig.Cluckshroom.maxGroupSize));
 			}

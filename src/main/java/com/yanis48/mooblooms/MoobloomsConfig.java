@@ -77,6 +77,20 @@ public class MoobloomsConfig {
 		public static boolean spawnBlocks = true;
 	}
 	
+	public static class CrimsonMooshroom {
+		public static int weight = 100;
+		public static int minGroupSize = 4;
+		public static int maxGroupSize = 8;
+		public static boolean spawnBlocks = true;
+	}
+	
+	public static class WarpedMooshroom {
+		public static int weight = 100;
+		public static int minGroupSize = 4;
+		public static int maxGroupSize = 8;
+		public static boolean spawnBlocks = true;
+	}
+	
 	public static class Cluckshroom {
 		public static int weight = 10;
 		public static int minGroupSize = 4;
@@ -139,6 +153,18 @@ public class MoobloomsConfig {
 		Bambmoo.maxGroupSize = bambmoo.getInt("max_group_size", Bambmoo.maxGroupSize);
 		Bambmoo.spawnBlocks = bambmoo.getBoolean("spawn_blocks", Bambmoo.spawnBlocks);
 		
+		JsonObject crimsonMooshroom = getObjectOrEmpty("allium_moobloom", obj);
+		CrimsonMooshroom.weight = crimsonMooshroom.getInt("weight", CrimsonMooshroom.weight);
+		CrimsonMooshroom.minGroupSize = crimsonMooshroom.getInt("min_group_size", CrimsonMooshroom.minGroupSize);
+		CrimsonMooshroom.maxGroupSize = crimsonMooshroom.getInt("max_group_size", CrimsonMooshroom.maxGroupSize);
+		CrimsonMooshroom.spawnBlocks = crimsonMooshroom.getBoolean("spawn_blocks", CrimsonMooshroom.spawnBlocks);
+		
+		JsonObject warpedMooshroom = getObjectOrEmpty("allium_moobloom", obj);
+		WarpedMooshroom.weight = warpedMooshroom.getInt("weight", WarpedMooshroom.weight);
+		WarpedMooshroom.minGroupSize = warpedMooshroom.getInt("min_group_size", WarpedMooshroom.minGroupSize);
+		WarpedMooshroom.maxGroupSize = warpedMooshroom.getInt("max_group_size", WarpedMooshroom.maxGroupSize);
+		WarpedMooshroom.spawnBlocks = warpedMooshroom.getBoolean("spawn_blocks", WarpedMooshroom.spawnBlocks);
+		
 		JsonObject cluckshroom = getObjectOrEmpty("cluckshroom", obj);
 		Cluckshroom.weight = cluckshroom.getInt("weight", Cluckshroom.weight);
 		Cluckshroom.minGroupSize = cluckshroom.getInt("min_group_size", Cluckshroom.minGroupSize);
@@ -200,6 +226,18 @@ public class MoobloomsConfig {
 		bambmoo.putDefault("min_group_size", Bambmoo.minGroupSize, "");
 		bambmoo.putDefault("max_group_size", Bambmoo.maxGroupSize, "");
 		bambmoo.putDefault("spawn_blocks", Bambmoo.spawnBlocks, "");
+		
+		JsonObject crimsonMooshroom = defaultPutButNotNull("allium_moobloom", new JsonObject(), obj);
+		crimsonMooshroom.putDefault("weight", CrimsonMooshroom.weight, "");
+		crimsonMooshroom.putDefault("min_group_size", CrimsonMooshroom.minGroupSize, "");
+		crimsonMooshroom.putDefault("max_group_size", CrimsonMooshroom.maxGroupSize, "");
+		crimsonMooshroom.putDefault("spawn_blocks", CrimsonMooshroom.spawnBlocks, "");
+		
+		JsonObject warpedMooshroom = defaultPutButNotNull("allium_moobloom", new JsonObject(), obj);
+		warpedMooshroom.putDefault("weight", WarpedMooshroom.weight, "");
+		warpedMooshroom.putDefault("min_group_size", WarpedMooshroom.minGroupSize, "");
+		warpedMooshroom.putDefault("max_group_size", WarpedMooshroom.maxGroupSize, "");
+		warpedMooshroom.putDefault("spawn_blocks", WarpedMooshroom.spawnBlocks, "");
 		
 		JsonObject cluckshroom = defaultPutButNotNull("cluckshroom", new JsonObject(), obj);
 		cluckshroom.putDefault("weight", Cluckshroom.weight, "");

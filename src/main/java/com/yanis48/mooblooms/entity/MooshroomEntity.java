@@ -5,11 +5,19 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 
 public class MooshroomEntity extends MoobloomEntity {
 
 	public MooshroomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
 		super(entityType, world);
+	}
+	
+	@Override
+	protected void placeBlocks() {
+		if (this.getEntityWorld().getDimension().getType() == DimensionType.THE_NETHER) {
+			super.placeBlocks();
+		}
 	}
 	
 	@Override
