@@ -61,6 +61,7 @@ public class MoobloomsConfig {
 		public static int minGroupSize = 2;
 		public static int maxGroupSize = 4;
 		public static boolean spawnBlocks = true;
+		public static boolean damagePlayers = true;
 	}
 	
 	public static class Suncower {
@@ -140,6 +141,7 @@ public class MoobloomsConfig {
 		WitherRoseMoobloom.minGroupSize = witherRoseMoobloom.getInt("min_group_size", WitherRoseMoobloom.minGroupSize);
 		WitherRoseMoobloom.maxGroupSize = witherRoseMoobloom.getInt("max_group_size", WitherRoseMoobloom.maxGroupSize);
 		WitherRoseMoobloom.spawnBlocks = witherRoseMoobloom.getBoolean("spawn_blocks", WitherRoseMoobloom.spawnBlocks);
+		WitherRoseMoobloom.damagePlayers = witherRoseMoobloom.getBoolean("damage_players", WitherRoseMoobloom.damagePlayers);
 		
 		JsonObject suncower = getObjectOrEmpty("suncower", obj);
 		Suncower.weight = suncower.getInt("weight", Suncower.weight);
@@ -214,6 +216,7 @@ public class MoobloomsConfig {
 		witherRoseMoobloom.putDefault("min_group_size", WitherRoseMoobloom.minGroupSize, "");
 		witherRoseMoobloom.putDefault("max_group_size", WitherRoseMoobloom.maxGroupSize, "");
 		witherRoseMoobloom.putDefault("spawn_blocks", WitherRoseMoobloom.spawnBlocks, "");
+		witherRoseMoobloom.putDefault("damage_players", WitherRoseMoobloom.damagePlayers, "");
 		
 		JsonObject suncower = defaultPutButNotNull("suncower", new JsonObject(), obj);
 		suncower.putDefault("weight", Suncower.weight, "");
@@ -263,6 +266,7 @@ public class MoobloomsConfig {
 		try {
 			config = JANKSON.load(file);
 			readConfig(config);
+			saveFile(file, config);
 			saveFile(file, config);
 		} catch (Exception e) {
 			Mooblooms.LOGGER.error("[Mooblooms] Config could not be loaded: {}", e.getMessage());

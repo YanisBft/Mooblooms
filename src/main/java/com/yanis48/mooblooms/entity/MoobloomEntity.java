@@ -1,6 +1,7 @@
 package com.yanis48.mooblooms.entity;
 
 import com.google.common.base.CaseFormat;
+import com.yanis48.mooblooms.MoobloomsConfig;
 
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;
@@ -89,11 +90,20 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	@Override
+	public void onPlayerCollision(PlayerEntity player) {
+		if (this.isWitherRose() && !player.abilities.creativeMode) {
+			if (MoobloomsConfig.WitherRoseMoobloom.damagePlayers) {
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
+			}
+		}
+	}
+	
+	@Override
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.getIdPath())) {
 			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
+				if (this.isUnderneathBlockValid(blockUnderneath) && this.world.isAir(new BlockPos(this.getPos()))) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
 						this.placeBlocks();
@@ -109,8 +119,12 @@ public class MoobloomEntity extends CowEntity {
 		super.tickMovement();
 	}
 	
+	protected boolean isUnderneathBlockValid(Block block) {
+		return block == Blocks.GRASS_BLOCK;
+	}
+	
 	protected void placeBlocks() {
-		this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+		this.world.setBlockState(new BlockPos(this.getPos()), this.getFlowerState());
 	}
 	
 	public boolean isWitherRose() {

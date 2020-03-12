@@ -6,6 +6,7 @@ import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -17,8 +18,8 @@ public class TallMoobloomEntity extends MoobloomEntity {
 	
 	@Override
 	protected void placeBlocks() {
-		this.world.setBlockState(this.getBlockPos(), this.getStemState());
-		this.world.setBlockState(this.getBlockPos().up(), this.getFlowerState());
+		this.world.setBlockState(new BlockPos(this.getPos()), this.getStemState());
+		this.world.setBlockState(new BlockPos(this.getPos()).up(), this.getFlowerState());
 	}
 	
 	@Override
