@@ -25,7 +25,8 @@ public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEnti
 		return SKIN;
 	}
 	
-	protected float getCustomAngle(CluckshroomEntity cluckshroom, float f) {
+	@Override
+	protected float getAnimationProgress(CluckshroomEntity cluckshroom, float f) {
 		float g = MathHelper.lerp(f, cluckshroom.field_6736, cluckshroom.field_6741);
 		float h = MathHelper.lerp(f, cluckshroom.field_6738, cluckshroom.field_6743);
 		return (MathHelper.sin(g) + 1.0F) * h;

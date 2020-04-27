@@ -19,6 +19,8 @@ public class Mooblooms implements ModInitializer {
 		new MoobloomsEntities();
 		new MoobloomsItems();
 		
+		MoobloomsEntities.registerEntityAttributes();
+		
 		MoobloomsGeneration.init();
 		
 		MoobloomsConfig.sync();

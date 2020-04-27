@@ -25,14 +25,14 @@ public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> ext
 		if (!cluckshroom.isBaby() && !cluckshroom.isInvisible()) {
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 			BlockState state = cluckshroom.getMushroomState();
-			int m = LivingEntityRenderer.getOverlay(cluckshroom, 0.0F);
+			int overlay = LivingEntityRenderer.getOverlay(cluckshroom, 0.0F);
 			
 			matrixStack.push();
 			matrixStack.translate(0.0D, 0.36D, 0.15D);
 			matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-6.0F));
 			matrixStack.scale(-1.0F, -1.0F, 1.0F);
 			matrixStack.translate(-0.5D, -0.5D, -0.5D);
-			blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, i, m);
+			blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, i, overlay);
 			matrixStack.pop();
 			
 			matrixStack.push();
@@ -41,7 +41,7 @@ public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> ext
 			matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
 			matrixStack.scale(-1.0F, -1.0F, 1.0F);
 			matrixStack.translate(-0.5D, -0.5D, -0.5D);
-			blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, i, m);
+			blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, i, overlay);
 			matrixStack.pop();
 		}
 	}

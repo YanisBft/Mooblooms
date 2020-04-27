@@ -64,10 +64,10 @@ public class CluckshroomEntity extends ChickenEntity {
 		if (MoobloomsConfig.Cluckshroom.spawnBlocks) {
 			if (!this.world.isClient && !this.isBaby()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(new BlockPos(this.getPos()))) {
+				if (blockUnderneath == Blocks.GRASS_BLOCK && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.world.setBlockState(new BlockPos(this.getPos()), this.getMushroomState());
+						this.world.setBlockState(this.getBlockPos(), this.getMushroomState());
 					}
 				}
 			}

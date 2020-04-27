@@ -103,7 +103,7 @@ public class MoobloomEntity extends CowEntity {
 		if (this.canSpawnBlocks(this.getIdPath())) {
 			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-				if (this.isUnderneathBlockValid(blockUnderneath) && this.world.isAir(new BlockPos(this.getPos()))) {
+				if (this.isUnderneathBlockValid(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
 						this.placeBlocks();
@@ -124,7 +124,7 @@ public class MoobloomEntity extends CowEntity {
 	}
 	
 	protected void placeBlocks() {
-		this.world.setBlockState(new BlockPos(this.getPos()), this.getFlowerState());
+		this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
 	}
 	
 	public boolean isWitherRose() {

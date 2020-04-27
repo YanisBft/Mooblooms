@@ -6,6 +6,7 @@ import com.yanis48.mooblooms.entity.MoobloomEntity;
 import com.yanis48.mooblooms.entity.MooshroomEntity;
 import com.yanis48.mooblooms.entity.TallMoobloomEntity;
 
+import net.fabricmc.fabric.api.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCategory;
@@ -14,6 +15,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+@SuppressWarnings("deprecation")
 public class MoobloomsEntities {
 	
 	public static final EntityType<MoobloomEntity> DANDELION_MOOBLOOM = register("dandelion_moobloom", FabricEntityTypeBuilder.create(EntityCategory.CREATURE, MoobloomEntity::new).size(EntityDimensions.fixed(0.9F, 1.4F)).build());
@@ -33,5 +35,22 @@ public class MoobloomsEntities {
 	
 	private static <T extends Entity> EntityType<T> register(String name, EntityType<T> builder) {
 		return Registry.register(Registry.ENTITY_TYPE, new Identifier(Mooblooms.MOD_ID, name), builder);
+	}
+	
+	public static void registerEntityAttributes() {
+		FabricDefaultAttributeRegistry.register(DANDELION_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(POPPY_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(BLUE_ORCHID_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(ALLIUM_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(OXEYE_DAISY_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(CORNFLOWER_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(WITHER_ROSE_MOOBLOOM, MoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(SUNCOWER, TallMoobloomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(BAMBMOO, MoobloomEntity.createCowAttributes());
+		
+		FabricDefaultAttributeRegistry.register(CRIMSON_MOOSHROOM, MooshroomEntity.createCowAttributes());
+		FabricDefaultAttributeRegistry.register(WARPED_MOOSHROOM, MooshroomEntity.createCowAttributes());
+		
+		FabricDefaultAttributeRegistry.register(CLUCKSHROOM, CluckshroomEntity.createChickenAttributes());
 	}
 }

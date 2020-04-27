@@ -28,6 +28,6 @@
     },
     "depends": {
         "fabricloader": ">=0.7.8",
-        "fabric": "*"
+        "fabric": ">=0.7.0"
     }
 }
