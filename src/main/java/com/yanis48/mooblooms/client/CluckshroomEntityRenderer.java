@@ -27,8 +27,8 @@ public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEnti
 	
 	@Override
 	protected float getAnimationProgress(CluckshroomEntity cluckshroom, float f) {
-		float g = MathHelper.lerp(f, cluckshroom.field_6736, cluckshroom.field_6741);
-		float h = MathHelper.lerp(f, cluckshroom.field_6738, cluckshroom.field_6743);
+		float g = MathHelper.lerp(f, cluckshroom.prevFlapProgress, cluckshroom.flapProgress);
+		float h = MathHelper.lerp(f, cluckshroom.prevMaxWingDeviation, cluckshroom.maxWingDeviation);
 		return (MathHelper.sin(g) + 1.0F) * h;
 	}
 }

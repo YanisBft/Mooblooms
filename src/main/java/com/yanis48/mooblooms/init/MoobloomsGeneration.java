@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.yanis48.mooblooms.MoobloomsConfig;
 
-import net.minecraft.entity.EntityCategory;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -14,7 +14,7 @@ public class MoobloomsGeneration {
 	
 	public static void init() {
 		for (Biome biome : Registry.BIOME) {
-			List<SpawnEntry> spawnList = biome.getEntitySpawnList(EntityCategory.CREATURE);
+			List<SpawnEntry> spawnList = biome.getEntitySpawnList(SpawnGroup.CREATURE);
 			
 			if (biome.equals(Biomes.FLOWER_FOREST)) {
 				spawnList.add(new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM, MoobloomsConfig.DandelionMoobloom.weight, MoobloomsConfig.DandelionMoobloom.minGroupSize, MoobloomsConfig.DandelionMoobloom.maxGroupSize));
