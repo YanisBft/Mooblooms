@@ -26,8 +26,13 @@ dependencies {
 	
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	modImplementation "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
-	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
+	modImplementation "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config}"
+	include "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config}"
+	
+	modImplementation "me.shedaniel.cloth:config-2:${project.cloth_config}"
+	include "me.shedaniel.cloth:config-2:${project.cloth_config}"
+	
+	modImplementation "io.github.prospector:modmenu:${project.mod_menu}"
 }
 
 processResources {

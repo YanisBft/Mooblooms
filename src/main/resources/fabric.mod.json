@@ -22,8 +22,8 @@
         "main": [
             "com.yanis48.mooblooms.Mooblooms"
         ],
-        "client": [
-            "com.yanis48.mooblooms.MoobloomsClient"
+        "modmenu": [
+            "com.yanis48.mooblooms.config.ModMenuIntegration"
         ]
     },
     "depends": {
