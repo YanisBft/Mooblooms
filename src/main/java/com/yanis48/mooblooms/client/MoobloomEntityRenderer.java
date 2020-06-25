@@ -1,6 +1,5 @@
 package com.yanis48.mooblooms.client;
 
-import com.yanis48.mooblooms.Mooblooms;
 import com.yanis48.mooblooms.entity.MoobloomEntity;
 
 import net.fabricmc.api.EnvType;
@@ -16,11 +15,13 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Co
 	
 	public MoobloomEntityRenderer(EntityRenderDispatcher dispatcher) {
 		super(dispatcher, new CowEntityModel(), 0.7F);
-		this.addFeature(new MoobloomFlowerFeatureRenderer(this));
+		this.addFeature(new MoobloomBlockStateRenderer(this));
 	}
 
 	@Override
 	public Identifier getTexture(MoobloomEntity moobloom) {
-		return new Identifier(Mooblooms.MOD_ID, "textures/entity/" + moobloom.getIdPath() + ".png");
-	}	
+		String namespace = moobloom.settings.getName().getNamespace();
+		String path = moobloom.settings.getName().getPath();
+		return new Identifier(namespace, "textures/entity/" + path + ".png");
+	}
 }

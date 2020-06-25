@@ -1,6 +1,5 @@
 package com.yanis48.mooblooms.client;
 
-import com.yanis48.mooblooms.Mooblooms;
 import com.yanis48.mooblooms.entity.CluckshroomEntity;
 
 import net.fabricmc.api.EnvType;
@@ -13,16 +12,17 @@ import net.minecraft.util.math.MathHelper;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEntity, CluckshroomEntityModel<CluckshroomEntity>> {
-	private static final Identifier SKIN = new Identifier(Mooblooms.MOD_ID, "textures/entity/cluckshroom.png");
 	
 	public CluckshroomEntityRenderer(EntityRenderDispatcher dispatcher) {
 		super(dispatcher, new CluckshroomEntityModel(), 0.3F);
-		this.addFeature(new CluckshroomMushroomFeatureRenderer(this));
+		this.addFeature(new CluckshroomBlockStateRenderer(this));
 	}
 
 	@Override
 	public Identifier getTexture(CluckshroomEntity cluckshroom) {
-		return SKIN;
+		String namespace = cluckshroom.settings.getName().getNamespace();
+		String path = cluckshroom.settings.getName().getPath();
+		return new Identifier(namespace, "textures/entity/" + path + ".png");
 	}
 	
 	@Override

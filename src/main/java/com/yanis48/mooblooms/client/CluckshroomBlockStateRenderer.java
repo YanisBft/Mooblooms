@@ -15,17 +15,17 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomMushroomFeatureRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, CluckshroomEntityModel<T>> {
+public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, CluckshroomEntityModel<T>> {
 
-	public CluckshroomMushroomFeatureRenderer(FeatureRendererContext<T, CluckshroomEntityModel<T>> context) {
+	public CluckshroomBlockStateRenderer(FeatureRendererContext<T, CluckshroomEntityModel<T>> context) {
 		super(context);
 	}
 	
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T cluckshroom, float f, float g, float h, float j, float k, float l) {
-		if (!cluckshroom.isBaby() && !cluckshroom.isInvisible()) {
+	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CluckshroomEntity entity, float f, float g, float h, float j, float k, float l) {
+		if (!entity.isBaby() && !entity.isInvisible()) {
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-			BlockState state = cluckshroom.getMushroomState();
-			int overlay = LivingEntityRenderer.getOverlay(cluckshroom, 0.0F);
+			BlockState state = entity.settings.getBlockState();
+			int overlay = LivingEntityRenderer.getOverlay(entity, 0.0F);
 			
 			matrixStack.push();
 			matrixStack.translate(0.0D, 0.36D, 0.15D);

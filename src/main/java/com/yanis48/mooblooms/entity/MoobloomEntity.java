@@ -1,14 +1,12 @@
 package com.yanis48.mooblooms.entity;
 
-import com.google.common.base.CaseFormat;
-import com.yanis48.mooblooms.MoobloomsConfig;
+import com.yanis48.mooblooms.api.Moobloom;
+import com.yanis48.mooblooms.config.MoobloomsConfig;
+import com.yanis48.mooblooms.init.MoobloomsEntities;
 
-import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.enums.BambooLeaves;
+import net.minecraft.block.TallPlantBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,26 +19,22 @@ import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class MoobloomEntity extends CowEntity {
-	private final Identifier id;
+	public Moobloom settings;
 	
 	public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
 		super(entityType, world);
-		this.id = Registry.ENTITY_TYPE.getId(entityType);
-	}
-	
-	public String getIdPath() {
-		return this.id.getPath();
+		this.settings = Moobloom.MOOBLOOM_BY_TYPE.get(entityType);
 	}
 	
 	@Override
-	public boolean interactMob(PlayerEntity player, Hand hand) {
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
 			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
@@ -54,23 +48,23 @@ public class MoobloomEntity extends CowEntity {
 					cow.setCustomName(this.getCustomName());
 				}
 				this.world.spawnEntity(cow);
-				for(int i = 0; i < 5; ++i) {
-					this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.getFlowerState().getBlock())));
+				for (int i = 0; i < 5; i++) {
+					this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
 				}
 				stack.damage(1, player, ((playerEntity) -> {
 					playerEntity.sendToolBreakStatus(hand);
 				}));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
-			return true;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && !this.isBambmoo() && !(this instanceof TallMoobloomEntity) && !(this instanceof MooshroomEntity)) {
+			return ActionResult.success(this.world.isClient);
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
-			FlowerBlock flowerBlock = (FlowerBlock) this.getFlowerState().getBlock();
+			FlowerBlock flowerBlock = (FlowerBlock) this.settings.getBlockState().getBlock();
 			SuspiciousStewItem.addEffectToStew(suspiciousStew, flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
-			return true;
+			return ActionResult.success(this.world.isClient);
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -78,14 +72,15 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public MoobloomEntity createChild(PassiveEntity entity) {
-		return (MoobloomEntity) Registry.ENTITY_TYPE.get(this.id).create(this.world);
+		return (MoobloomEntity) this.settings.getEntityType().create(this.world);
 	}
 	
 	@Override
 	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
-		if (statusEffectInstance.getEffectType() == StatusEffects.WITHER && this.isWitherRose()) {
+		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType())) {
 			return false;
 		}
+		
 		return super.canHaveStatusEffect(statusEffectInstance);
 	}
 	
@@ -100,10 +95,10 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks(this.getIdPath())) {
-			if (!this.world.isClient && !this.isBambmoo() && !this.isBaby()) {
+		if (this.canSpawnBlocks()) {
+			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
-				if (this.isUnderneathBlockValid(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
+				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
 						this.placeBlocks();
@@ -111,54 +106,45 @@ public class MoobloomEntity extends CowEntity {
 				}
 			}
 		}
-		if (this.world.isClient && this.isWitherRose()) {
-			for(int i = 0; i < 3; ++i) {
-				this.world.addParticle(ParticleTypes.SMOKE, this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+		
+		if (this.world.isClient && this.settings.getParticle() != null) {
+			for (int i = 0; i < 3; i++) {
+				this.world.addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
+		
 		super.tickMovement();
 	}
 	
-	protected boolean isUnderneathBlockValid(Block block) {
-		return block == Blocks.GRASS_BLOCK;
-	}
-	
-	protected void placeBlocks() {
-		this.world.setBlockState(this.getBlockPos(), this.getFlowerState());
+	private void placeBlocks() {
+		if (this.settings.getBlockState().getBlock() instanceof TallPlantBlock) {
+			this.world.setBlockState(this.getBlockPos(), this.settings.getBlockState().cycle(Properties.DOUBLE_BLOCK_HALF));
+			this.world.setBlockState(this.getBlockPos().up(), this.settings.getBlockState());
+		} else {
+			this.world.setBlockState(this.getBlockPos(), this.settings.getBlockState());
+		}
 	}
 	
 	public boolean isWitherRose() {
-		return this.getIdPath().equals("wither_rose_moobloom");
+		return this.settings.equals(MoobloomsEntities.WITHER_ROSE_MOOBLOOM);
 	}
 	
 	public boolean isSuncower() {
-		return this.getIdPath().equals("suncower");
+		return this.settings.equals(MoobloomsEntities.SUNCOWER);
 	}
 	
-	public boolean isBambmoo() {
-		return this.getIdPath().equals("bambmoo");
-	}
-	
-	public BlockState getFlowerState() {
-		BlockState state;
-		if (this.isBambmoo()) {
-			state = Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL);
-		} else {
-			String flowerName = this.getIdPath().replace("_moobloom", "");
-			state = Registry.BLOCK.get(new Identifier("minecraft", flowerName)).getDefaultState();
+	private boolean canSpawnBlocks() {
+		Class<?> configClass = this.settings.getConfigClass();
+		boolean enabled = true;
+		
+		if (configClass != null) {
+			try {
+				enabled = configClass.getDeclaredField("spawnBlocks").getBoolean(null);
+			} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
+				e.printStackTrace();
+			}
 		}
-		return state;
-	}
-	
-	private boolean canSpawnBlocks(String idPath) {
-		String className = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, idPath);
-		boolean enabled = false;
-		try {
-			Class<?> classType = Class.forName("com.yanis48.mooblooms.MoobloomsConfig$" + className);
-			enabled = classType.getDeclaredField("spawnBlocks").getBoolean(this);
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		
 		return enabled;
 	}
 }
