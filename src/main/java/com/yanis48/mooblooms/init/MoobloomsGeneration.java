@@ -39,14 +39,17 @@ public class MoobloomsGeneration {
 			
 			if (biome.equals(Biomes.CRIMSON_FOREST)) {
 				spawnList.add(new SpawnEntry(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), MoobloomsConfig.CrimsonMooshroom.weight, MoobloomsConfig.CrimsonMooshroom.minGroupSize, MoobloomsConfig.CrimsonMooshroom.maxGroupSize));
+				spawnList.add(new SpawnEntry(MoobloomsEntities.CRIMSON_CLUCKSHROOM.getEntityType(), MoobloomsConfig.CrimsonCluckshroom.weight, MoobloomsConfig.CrimsonCluckshroom.minGroupSize, MoobloomsConfig.CrimsonCluckshroom.maxGroupSize));
 			}
 			
 			if (biome.equals(Biomes.WARPED_FOREST)) {
 				spawnList.add(new SpawnEntry(MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), MoobloomsConfig.WarpedMooshroom.weight, MoobloomsConfig.WarpedMooshroom.minGroupSize, MoobloomsConfig.WarpedMooshroom.maxGroupSize));
+				spawnList.add(new SpawnEntry(MoobloomsEntities.WARPED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.WarpedCluckshroom.weight, MoobloomsConfig.WarpedCluckshroom.minGroupSize, MoobloomsConfig.WarpedCluckshroom.maxGroupSize));
 			}
 			
 			if (biome.getCategory().equals(Biome.Category.MUSHROOM)) {
 				spawnList.add(new Biome.SpawnEntry(MoobloomsEntities.RED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.RedCluckshroom.weight, MoobloomsConfig.RedCluckshroom.minGroupSize, MoobloomsConfig.RedCluckshroom.maxGroupSize));
+				spawnList.add(new Biome.SpawnEntry(MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), MoobloomsConfig.BrownCluckshroom.weight, MoobloomsConfig.BrownCluckshroom.minGroupSize, MoobloomsConfig.BrownCluckshroom.maxGroupSize));
 			}
 		}
 	}

@@ -34,4 +34,7 @@ public class MoobloomsEntities {
 	public static final Moobloom WARPED_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("warped_mooshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x167E86, 0xFF6500).configClass(MoobloomsConfig.WarpedMooshroom.class).build();
 	
 	public static final Cluckshroom RED_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("red_cluckshroom")).blockState(Blocks.RED_MUSHROOM.getDefaultState()).spawnEgg(0xA0181F, 0xFA292A).configClass(MoobloomsConfig.RedCluckshroom.class).build();
+	public static final Cluckshroom BROWN_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("brown_cluckshroom")).blockState(Blocks.BROWN_MUSHROOM.getDefaultState()).spawnEgg(0x977251, 0xCC9978).configClass(MoobloomsConfig.RedCluckshroom.class).build();
+	public static final Cluckshroom CRIMSON_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("crimson_cluckshroom")).fireImmune().blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x730408, 0xA42429).configClass(MoobloomsConfig.CrimsonCluckshroom.class).build();
+	public static final Cluckshroom WARPED_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("warped_cluckshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x167E86, 0x14B485).configClass(MoobloomsConfig.WarpedCluckshroom.class).build();
 }
