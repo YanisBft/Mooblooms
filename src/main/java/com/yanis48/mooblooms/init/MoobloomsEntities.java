@@ -1,56 +1,37 @@
 package com.yanis48.mooblooms.init;
 
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 import com.yanis48.mooblooms.Mooblooms;
-import com.yanis48.mooblooms.entity.CluckshroomEntity;
-import com.yanis48.mooblooms.entity.MoobloomEntity;
-import com.yanis48.mooblooms.entity.MooshroomEntity;
-import com.yanis48.mooblooms.entity.TallMoobloomEntity;
+import com.yanis48.mooblooms.api.Cluckshroom;
+import com.yanis48.mooblooms.api.Moobloom;
+import com.yanis48.mooblooms.config.MoobloomsConfig;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.block.BambooBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.enums.BambooLeaves;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.particle.ParticleTypes;
 
-@SuppressWarnings("deprecation")
 public class MoobloomsEntities {
+	private static final List<Block> NYLIUM = ImmutableList.of(Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM);
 	
-	public static final EntityType<MoobloomEntity> DANDELION_MOOBLOOM = register("dandelion_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> POPPY_MOOBLOOM = register("poppy_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> BLUE_ORCHID_MOOBLOOM = register("blue_orchid_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> ALLIUM_MOOBLOOM = register("allium_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> OXEYE_DAISY_MOOBLOOM = register("oxeye_daisy_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> CORNFLOWER_MOOBLOOM = register("cornflower_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> WITHER_ROSE_MOOBLOOM = register("wither_rose_moobloom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).fireImmune().build());
-	public static final EntityType<TallMoobloomEntity> SUNCOWER = register("suncower", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, TallMoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
-	public static final EntityType<MoobloomEntity> BAMBMOO = register("bambmoo", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
+	public static final Moobloom DANDELION_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("dandelion_moobloom")).blockState(Blocks.DANDELION.getDefaultState()).spawnEgg(0xFED639, 0xFBEBAE).configClass(MoobloomsConfig.DandelionMoobloom.class).build();
+	public static final Moobloom POPPY_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("poppy_moobloom")).blockState(Blocks.POPPY.getDefaultState()).spawnEgg(0xBF2529, 0xFAB8B7).configClass(MoobloomsConfig.PoppyMoobloom.class).build();
+	public static final Moobloom BLUE_ORCHID_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("blue_orchid_moobloom")).blockState(Blocks.BLUE_ORCHID.getDefaultState()).spawnEgg(0x27A9F4, 0xABE3FB).configClass(MoobloomsConfig.BlueOrchidMoobloom.class).build();
+	public static final Moobloom ALLIUM_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("allium_moobloom")).blockState(Blocks.ALLIUM.getDefaultState()).spawnEgg(0xA65EE1, 0xE8CFFE).configClass(MoobloomsConfig.AlliumMoobloom.class).build();
+	public static final Moobloom OXEYE_DAISY_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("oxeye_daisy_moobloom")).blockState(Blocks.OXEYE_DAISY.getDefaultState()).spawnEgg(0xD6E8E8, 0xFFEC4F).configClass(MoobloomsConfig.OxeyeDaisyMoobloom.class).build();
+	public static final Moobloom CORNFLOWER_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("cornflower_moobloom")).blockState(Blocks.CORNFLOWER.getDefaultState()).spawnEgg(0x466AEB, 0xBAC2DF).configClass(MoobloomsConfig.CornflowerMoobloom.class).build();
+	public static final Moobloom WITHER_ROSE_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("wither_rose_moobloom")).fireImmune().blockState(Blocks.WITHER_ROSE.getDefaultState()).ignoredEffects(ImmutableList.of(StatusEffects.WITHER)).particle(ParticleTypes.SMOKE).spawnEgg(0x2A1F19, 0x636363).configClass(MoobloomsConfig.WitherRoseMoobloom.class).build();
+	public static final Moobloom SUNCOWER = new Moobloom.Builder().name(Mooblooms.id("suncower")).blockState(Blocks.SUNFLOWER.getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER)).spawnEgg(0xF19D25, 0xFFEC4F).configClass(MoobloomsConfig.Suncower.class).build();
+	public static final Moobloom BAMBMOO = new Moobloom.Builder().name(Mooblooms.id("bambmoo")).blockState(Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL)).spawnEgg(0x538209, 0x97D155).cannotPlaceBlocks().configClass(MoobloomsConfig.Bambmoo.class).build();
 	
-	public static final EntityType<MooshroomEntity> CRIMSON_MOOSHROOM = register("crimson_mooshroom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).fireImmune().build());
-	public static final EntityType<MooshroomEntity> WARPED_MOOSHROOM = register("warped_mooshroom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).fireImmune().build());
+	public static final Moobloom CRIMSON_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("crimson_mooshroom")).fireImmune().blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x730408, 0xFF6500).configClass(MoobloomsConfig.CrimsonMooshroom.class).build();
+	public static final Moobloom WARPED_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("warped_mooshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x167E86, 0xFF6500).configClass(MoobloomsConfig.WarpedMooshroom.class).build();
 	
-	public static final EntityType<CluckshroomEntity> CLUCKSHROOM = register("cluckshroom", FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CluckshroomEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).build());
-	
-	private static <T extends Entity> EntityType<T> register(String name, EntityType<T> builder) {
-		return Registry.register(Registry.ENTITY_TYPE, new Identifier(Mooblooms.MOD_ID, name), builder);
-	}
-	
-	public static void registerEntityAttributes() {
-		FabricDefaultAttributeRegistry.register(DANDELION_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(POPPY_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(BLUE_ORCHID_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(ALLIUM_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(OXEYE_DAISY_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(CORNFLOWER_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(WITHER_ROSE_MOOBLOOM, MoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(SUNCOWER, TallMoobloomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(BAMBMOO, MoobloomEntity.createCowAttributes());
-		
-		FabricDefaultAttributeRegistry.register(CRIMSON_MOOSHROOM, MooshroomEntity.createCowAttributes());
-		FabricDefaultAttributeRegistry.register(WARPED_MOOSHROOM, MooshroomEntity.createCowAttributes());
-		
-		FabricDefaultAttributeRegistry.register(CLUCKSHROOM, CluckshroomEntity.createChickenAttributes());
-	}
+	public static final Cluckshroom RED_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("red_cluckshroom")).blockState(Blocks.RED_MUSHROOM.getDefaultState()).spawnEgg(0xA0181F, 0xFA292A).configClass(MoobloomsConfig.RedCluckshroom.class).build();
 }

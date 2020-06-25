@@ -40,6 +40,9 @@ public class MoobloomsConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public WarpedMooshroom warpedMooshroom = new WarpedMooshroom();
 	
+	@ConfigEntry.Gui.CollapsibleObject
+	public RedCluckshroom redCluckshroom = new RedCluckshroom();
+	
 	public static class DandelionMoobloom {
 		public static int weight = 10;
 		public static int minGroupSize = 2;
@@ -113,6 +116,13 @@ public class MoobloomsConfig implements ConfigData {
 	
 	public static class WarpedMooshroom {
 		public static int weight = 100;
+		public static int minGroupSize = 4;
+		public static int maxGroupSize = 8;
+		public static boolean spawnBlocks = true;
+	}
+	
+	public static class RedCluckshroom {
+		public static int weight = 10;
 		public static int minGroupSize = 4;
 		public static int maxGroupSize = 8;
 		public static boolean spawnBlocks = true;
