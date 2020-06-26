@@ -20,9 +20,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -35,6 +37,8 @@ public class Cluckshroom {
 	private BlockState blockState;
 	private List<Block> validBlocks;
 	private boolean canPlaceBlocks;
+	private List<StatusEffect> ignoredEffects;
+	private ParticleEffect particle;
 	private int primarySpawnEggColor;
 	private int secondarySpawnEggColor;
 	private ItemGroup spawnEggItemGroup;
@@ -48,6 +52,8 @@ public class Cluckshroom {
 		this.blockState = settings.blockState;
 		this.validBlocks = settings.validBlocks;
 		this.canPlaceBlocks = settings.canPlaceBlocks;
+		this.ignoredEffects = settings.ignoredEffects;
+		this.particle = settings.particle;
 		this.primarySpawnEggColor = settings.primarySpawnEggColor;
 		this.secondarySpawnEggColor = settings.secondarySpawnEggColor;
 		this.spawnEggItemGroup = settings.spawnEggItemGroup;
@@ -93,6 +99,14 @@ public class Cluckshroom {
 		return this.canPlaceBlocks;
 	}
 	
+	public List<StatusEffect> getIgnoredEffects() {
+		return this.ignoredEffects;
+	}
+	
+	public ParticleEffect getParticle() {
+		return this.particle;
+	}
+	
 	public int getPrimarySpawnEggColor() {
 		return this.primarySpawnEggColor;
 	}
@@ -123,6 +137,8 @@ public class Cluckshroom {
 		private BlockState blockState;
 		private List<Block> validBlocks;
 		private boolean canPlaceBlocks;
+		private List<StatusEffect> ignoredEffects;
+		private ParticleEffect particle;
 		private int primarySpawnEggColor;
 		private int secondarySpawnEggColor;
 		private ItemGroup spawnEggItemGroup;
@@ -191,6 +207,26 @@ public class Cluckshroom {
 		 */
 		public Cluckshroom.Builder cannotPlaceBlocks() {
 			this.canPlaceBlocks = false;
+			return this;
+		}
+		
+		/**
+		 * Sets the status effects that will not affect this cluckshroom.
+		 * @param effects a list of status effects
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder ignoredEffects(List<StatusEffect> effects) {
+			this.ignoredEffects = effects;
+			return this;
+		}
+		
+		/**
+		 * Sets the particle constantly displayed around this cluckshroom.
+		 * @param particle a particle effect
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder particle(ParticleEffect particle) {
+			this.particle = particle;
 			return this;
 		}
 		

@@ -5,6 +5,7 @@ import com.yanis48.mooblooms.api.Cluckshroom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,10 +18,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class CluckshroomEntity extends ChickenEntity {
+public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockState {
 	public Cluckshroom settings;
 	
-	public CluckshroomEntity(EntityType<? extends ChickenEntity> entityType, World world) {
+	public CluckshroomEntity(EntityType<? extends CluckshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.settings = Cluckshroom.CLUCKSHROOM_BY_TYPE.get(entityType);
 	}
@@ -60,34 +61,34 @@ public class CluckshroomEntity extends ChickenEntity {
 	}
 	
 	@Override
+	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
+		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType())) {
+			return false;
+		}
+		
+		return super.canHaveStatusEffect(statusEffectInstance);
+	}
+	
+	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks()) {
+		if (this.canSpawnBlocks(this.settings.getConfigClass())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.world.setBlockState(this.getBlockPos(), this.settings.getBlockState());
+						this.placeBlocks(this, this.settings.getBlockState());
 					}
 				}
 			}
 		}
 		
-		super.tickMovement();
-	}
-	
-	private boolean canSpawnBlocks() {
-		Class<?> configClass = this.settings.getConfigClass();
-		boolean enabled = true;
-		
-		if (configClass != null) {
-			try {
-				enabled = configClass.getDeclaredField("spawnBlocks").getBoolean(null);
-			} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
-				e.printStackTrace();
+		if (this.world.isClient && this.settings.getParticle() != null) {
+			for (int i = 0; i < 3; i++) {
+				this.world.addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		
-		return enabled;
+		super.tickMovement();
 	}
 }

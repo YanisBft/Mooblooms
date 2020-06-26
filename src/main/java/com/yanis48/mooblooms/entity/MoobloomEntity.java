@@ -6,7 +6,6 @@ import com.yanis48.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.TallPlantBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -19,13 +18,12 @@ import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MoobloomEntity extends CowEntity {
+public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	public Moobloom settings;
 	
 	public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
@@ -95,13 +93,13 @@ public class MoobloomEntity extends CowEntity {
 	
 	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks()) {
+		if (this.canSpawnBlocks(this.settings.getConfigClass())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.placeBlocks();
+						this.placeBlocks(this, this.settings.getBlockState());
 					}
 				}
 			}
@@ -116,35 +114,11 @@ public class MoobloomEntity extends CowEntity {
 		super.tickMovement();
 	}
 	
-	private void placeBlocks() {
-		if (this.settings.getBlockState().getBlock() instanceof TallPlantBlock) {
-			this.world.setBlockState(this.getBlockPos(), this.settings.getBlockState().cycle(Properties.DOUBLE_BLOCK_HALF));
-			this.world.setBlockState(this.getBlockPos().up(), this.settings.getBlockState());
-		} else {
-			this.world.setBlockState(this.getBlockPos(), this.settings.getBlockState());
-		}
-	}
-	
 	public boolean isWitherRose() {
 		return this.settings.equals(MoobloomsEntities.WITHER_ROSE_MOOBLOOM);
 	}
 	
 	public boolean isSuncower() {
 		return this.settings.equals(MoobloomsEntities.SUNCOWER);
-	}
-	
-	private boolean canSpawnBlocks() {
-		Class<?> configClass = this.settings.getConfigClass();
-		boolean enabled = true;
-		
-		if (configClass != null) {
-			try {
-				enabled = configClass.getDeclaredField("spawnBlocks").getBoolean(null);
-			} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return enabled;
 	}
 }
