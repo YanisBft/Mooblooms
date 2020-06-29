@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, CowEntityModel<MoobloomEntity>> {
-	
+
 	public MoobloomEntityRenderer(EntityRenderDispatcher dispatcher) {
 		super(dispatcher, new CowEntityModel(), 0.7F);
 		this.addFeature(new MoobloomBlockStateRenderer(this));

@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEntity, CluckshroomEntityModel<CluckshroomEntity>> {
-	
+
 	public CluckshroomEntityRenderer(EntityRenderDispatcher dispatcher) {
 		super(dispatcher, new CluckshroomEntityModel(), 0.3F);
 		this.addFeature(new CluckshroomBlockStateRenderer(this));

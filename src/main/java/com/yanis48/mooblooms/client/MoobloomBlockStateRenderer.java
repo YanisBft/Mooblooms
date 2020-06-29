@@ -17,7 +17,7 @@ import net.minecraft.client.util.math.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class MoobloomBlockStateRenderer<T extends MoobloomEntity> extends FeatureRenderer<T, CowEntityModel<T>> {
-	
+
 	public MoobloomBlockStateRenderer(FeatureRendererContext<T, CowEntityModel<T>> context) {
 		super(context);
 	}

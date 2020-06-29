@@ -7,50 +7,21 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 @Config(name = "mooblooms")
 public class MoobloomsConfig implements ConfigData {
 
-	@ConfigEntry.Gui.CollapsibleObject
-	public DandelionMoobloom dandelionMoobloom = new DandelionMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public PoppyMoobloom poppyMoobloom = new PoppyMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public BlueOrchidMoobloom blueOrchidMoobloom = new BlueOrchidMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public AlliumMoobloom alliumMoobloom = new AlliumMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public OxeyeDaisyMoobloom oxeyeDaisyMoobloom = new OxeyeDaisyMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public CornflowerMoobloom cornflowerMoobloom = new CornflowerMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public WitherRoseMoobloom witherRoseMoobloom = new WitherRoseMoobloom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public Suncower suncower = new Suncower();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public Bambmoo bambmoo = new Bambmoo();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public CrimsonMooshroom crimsonMooshroom = new CrimsonMooshroom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public WarpedMooshroom warpedMooshroom = new WarpedMooshroom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public RedCluckshroom redCluckshroom = new RedCluckshroom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public BrownCluckshroom brownCluckshroom = new BrownCluckshroom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public CrimsonCluckshroom crimsonCluckshroom = new CrimsonCluckshroom();
-	
-	@ConfigEntry.Gui.CollapsibleObject
-	public WarpedCluckshroom warpedCluckshroom = new WarpedCluckshroom();
+	@ConfigEntry.Gui.CollapsibleObject public DandelionMoobloom dandelionMoobloom = new DandelionMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public PoppyMoobloom poppyMoobloom = new PoppyMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public BlueOrchidMoobloom blueOrchidMoobloom = new BlueOrchidMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public AlliumMoobloom alliumMoobloom = new AlliumMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public OxeyeDaisyMoobloom oxeyeDaisyMoobloom = new OxeyeDaisyMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public CornflowerMoobloom cornflowerMoobloom = new CornflowerMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public WitherRoseMoobloom witherRoseMoobloom = new WitherRoseMoobloom();
+	@ConfigEntry.Gui.CollapsibleObject public Suncower suncower = new Suncower();
+	@ConfigEntry.Gui.CollapsibleObject public Bambmoo bambmoo = new Bambmoo();
+	@ConfigEntry.Gui.CollapsibleObject public CrimsonMooshroom crimsonMooshroom = new CrimsonMooshroom();
+	@ConfigEntry.Gui.CollapsibleObject public WarpedMooshroom warpedMooshroom = new WarpedMooshroom();
+	@ConfigEntry.Gui.CollapsibleObject public RedCluckshroom redCluckshroom = new RedCluckshroom();
+	@ConfigEntry.Gui.CollapsibleObject public BrownCluckshroom brownCluckshroom = new BrownCluckshroom();
+	@ConfigEntry.Gui.CollapsibleObject public CrimsonCluckshroom crimsonCluckshroom = new CrimsonCluckshroom();
+	@ConfigEntry.Gui.CollapsibleObject public WarpedCluckshroom warpedCluckshroom = new WarpedCluckshroom();
 	
 	public static class DandelionMoobloom {
 		public static int weight = 10;
