@@ -3,9 +3,13 @@ package com.yanis48.mooblooms.init;
 import java.util.List;
 
 import com.yanis48.mooblooms.config.MoobloomsConfig;
+import com.yanis48.mooblooms.entity.AnimalWithBlockState;
+import com.yanis48.mooblooms.mixin.SpawnRestrictionAccessor;
 
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.Biome.SpawnEntry;
@@ -13,6 +17,8 @@ import net.minecraft.world.biome.Biome.SpawnEntry;
 public class MoobloomsGeneration {
 
 	public static void init() {
+		registerSpawnRestrictions();
+		
 		for (Biome biome : Registry.BIOME) {
 			List<SpawnEntry> spawnList = biome.getEntitySpawnList(SpawnGroup.CREATURE);
 			
@@ -52,5 +58,28 @@ public class MoobloomsGeneration {
 				spawnList.add(new Biome.SpawnEntry(MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), MoobloomsConfig.BrownCluckshroom.weight, MoobloomsConfig.BrownCluckshroom.minGroupSize, MoobloomsConfig.BrownCluckshroom.maxGroupSize));
 			}
 		}
+	}
+	
+	private static void registerSpawnRestrictions() {
+		final SpawnRestriction.Location onGround = SpawnRestriction.Location.ON_GROUND;
+		final Heightmap.Type motionBlocking = Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
+		
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.DANDELION_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.POPPY_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.ALLIUM_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.CORNFLOWER_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.WITHER_ROSE_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.SUNCOWER.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.BAMBMOO.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
+		
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.RED_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnMycelium);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnMycelium);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.CRIMSON_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.WARPED_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
 	}
 }

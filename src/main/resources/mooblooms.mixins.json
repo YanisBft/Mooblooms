@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.yanis48.mooblooms.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "SpawnRestrictionAccessor"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
