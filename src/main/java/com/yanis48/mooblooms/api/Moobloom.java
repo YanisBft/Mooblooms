@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
-import com.yanis48.mooblooms.client.MoobloomEntityRenderer;
 import com.yanis48.mooblooms.entity.MoobloomEntity;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -59,7 +57,7 @@ public class Moobloom {
 		this.spawnEggItemGroup = settings.spawnEggItemGroup;
 		this.configClass = settings.configClass;
 		
-		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F));
+		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackable(160, 3);
 		if (this.fireImmune) {
 			builder.fireImmune();
 		}
@@ -68,7 +66,6 @@ public class Moobloom {
 		
 		Registry.register(Registry.ENTITY_TYPE, this.name, this.entityType);
 		FabricDefaultAttributeRegistry.register(this.entityType, MoobloomEntity.createCowAttributes());
-		EntityRendererRegistry.INSTANCE.register(this.entityType, (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
 		
 		if (this.primarySpawnEggColor != 0 && this.secondarySpawnEggColor != 0) {
 			this.spawnEgg = new SpawnEggItem(this.entityType, this.primarySpawnEggColor, this.secondarySpawnEggColor, new Item.Settings().maxCount(64).group(this.spawnEggItemGroup));
