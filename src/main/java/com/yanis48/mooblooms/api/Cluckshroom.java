@@ -3,6 +3,7 @@ package com.yanis48.mooblooms.api;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +145,7 @@ public class Cluckshroom {
 		public Builder() {
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
+			this.ignoredEffects = new ArrayList<>();
 		}
 		
 		/**
