@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -69,8 +70,8 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
-	public MoobloomEntity createChild(PassiveEntity entity) {
-		return (MoobloomEntity) this.settings.getEntityType().create(this.world);
+	public MoobloomEntity createChild(ServerWorld world, PassiveEntity entity) {
+		return (MoobloomEntity) this.settings.getEntityType().create(world);
 	}
 	
 	@Override

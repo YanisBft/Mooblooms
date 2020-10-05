@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -56,8 +57,8 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	}
 	
 	@Override
-	public CluckshroomEntity createChild(PassiveEntity entity) {
-		return (CluckshroomEntity) this.settings.getEntityType().create(this.world);
+	public CluckshroomEntity createChild(ServerWorld world, PassiveEntity entity) {
+		return (CluckshroomEntity) this.settings.getEntityType().create(world);
 	}
 	
 	@Override
