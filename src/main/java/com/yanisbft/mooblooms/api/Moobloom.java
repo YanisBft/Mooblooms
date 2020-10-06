@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.api;
+package com.yanisbft.mooblooms.api;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
-import com.yanis48.mooblooms.entity.MoobloomEntity;
+import com.yanisbft.mooblooms.entity.MoobloomEntity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;

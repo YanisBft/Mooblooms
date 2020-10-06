@@ -1,6 +1,6 @@
-package com.yanis48.mooblooms.config;
+package com.yanisbft.mooblooms.config;
 
-import com.yanis48.mooblooms.Mooblooms;
+import com.yanisbft.mooblooms.Mooblooms;
 
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;

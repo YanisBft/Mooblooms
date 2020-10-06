@@ -1,8 +1,8 @@
-package com.yanis48.mooblooms.entity;
+package com.yanisbft.mooblooms.entity;
 
-import com.yanis48.mooblooms.api.Moobloom;
-import com.yanis48.mooblooms.config.MoobloomsConfig;
-import com.yanis48.mooblooms.init.MoobloomsEntities;
+import com.yanisbft.mooblooms.api.Moobloom;
+import com.yanisbft.mooblooms.config.MoobloomsConfig;
+import com.yanisbft.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;

@@ -1,8 +1,8 @@
-package com.yanis48.mooblooms;
+package com.yanisbft.mooblooms;
 
-import com.yanis48.mooblooms.config.MoobloomsConfig;
-import com.yanis48.mooblooms.init.MoobloomsEntities;
-import com.yanis48.mooblooms.init.MoobloomsGeneration;
+import com.yanisbft.mooblooms.config.MoobloomsConfig;
+import com.yanisbft.mooblooms.init.MoobloomsEntities;
+import com.yanisbft.mooblooms.init.MoobloomsGeneration;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;

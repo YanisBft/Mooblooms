@@ -1,12 +1,12 @@
-package com.yanis48.mooblooms.init;
+package com.yanisbft.mooblooms.init;
 
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.yanis48.mooblooms.Mooblooms;
-import com.yanis48.mooblooms.api.Cluckshroom;
-import com.yanis48.mooblooms.api.Moobloom;
-import com.yanis48.mooblooms.config.MoobloomsConfig;
+import com.yanisbft.mooblooms.Mooblooms;
+import com.yanisbft.mooblooms.api.Cluckshroom;
+import com.yanisbft.mooblooms.api.Moobloom;
+import com.yanisbft.mooblooms.config.MoobloomsConfig;
 
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;

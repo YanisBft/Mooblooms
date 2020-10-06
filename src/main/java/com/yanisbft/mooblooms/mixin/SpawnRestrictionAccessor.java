@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.mixin;
+package com.yanisbft.mooblooms.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;

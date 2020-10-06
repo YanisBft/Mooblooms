@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.init;
+package com.yanisbft.mooblooms.init;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.collect.ImmutableMap;
-import com.yanis48.mooblooms.config.MoobloomsConfig;
-import com.yanis48.mooblooms.entity.AnimalWithBlockState;
-import com.yanis48.mooblooms.mixin.SpawnRestrictionAccessor;
-import com.yanis48.mooblooms.mixin.SpawnSettingsAccessor;
+import com.yanisbft.mooblooms.config.MoobloomsConfig;
+import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
+import com.yanisbft.mooblooms.mixin.SpawnRestrictionAccessor;
+import com.yanisbft.mooblooms.mixin.SpawnSettingsAccessor;
 
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;

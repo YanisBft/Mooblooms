@@ -1,9 +1,9 @@
-package com.yanis48.mooblooms;
+package com.yanisbft.mooblooms;
 
-import com.yanis48.mooblooms.api.Cluckshroom;
-import com.yanis48.mooblooms.api.Moobloom;
-import com.yanis48.mooblooms.client.CluckshroomEntityRenderer;
-import com.yanis48.mooblooms.client.MoobloomEntityRenderer;
+import com.yanisbft.mooblooms.api.Cluckshroom;
+import com.yanisbft.mooblooms.api.Moobloom;
+import com.yanisbft.mooblooms.client.CluckshroomEntityRenderer;
+import com.yanisbft.mooblooms.client.MoobloomEntityRenderer;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;

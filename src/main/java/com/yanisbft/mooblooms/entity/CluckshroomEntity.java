@@ -1,6 +1,6 @@
-package com.yanis48.mooblooms.entity;
+package com.yanisbft.mooblooms.entity;
 
-import com.yanis48.mooblooms.api.Cluckshroom;
+import com.yanisbft.mooblooms.api.Cluckshroom;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;

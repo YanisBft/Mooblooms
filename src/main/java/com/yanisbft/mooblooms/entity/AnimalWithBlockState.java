@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.entity;
+package com.yanisbft.mooblooms.entity;
 
 import java.util.Random;
 

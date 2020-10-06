@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.client;
+package com.yanisbft.mooblooms.client;
 
 import com.google.common.collect.ImmutableList;
 

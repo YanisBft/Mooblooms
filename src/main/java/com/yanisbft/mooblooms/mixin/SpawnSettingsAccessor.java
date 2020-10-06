@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.mixin;
+package com.yanisbft.mooblooms.mixin;
 
 import java.util.List;
 import java.util.Map;

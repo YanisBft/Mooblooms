@@ -1,4 +1,4 @@
-package com.yanis48.mooblooms.config;
+package com.yanisbft.mooblooms.config;
 
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
