@@ -4,7 +4,8 @@
     "package": "com.yanis48.mooblooms.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "SpawnRestrictionAccessor"
+        "SpawnRestrictionAccessor",
+        "SpawnSettingsAccessor"
     ],
     "injectors": {
         "defaultRequire": 1
