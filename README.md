@@ -16,12 +16,12 @@ repositories {
 }
 
 dependencies {
-    modImplementation "com.github.Yanis48:Mooblooms:${mooblooms_version}"
+    modCompile "com.github.YanisBft:Mooblooms:${mooblooms_version}"
 }
 ```
 Then, add the version in your ``gradle.properties``:
 ```properties
-mooblooms_version = 1.3.0
+mooblooms_version = 1.3.2
 ```
 
 #### Available settings
