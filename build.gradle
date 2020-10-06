@@ -3,10 +3,11 @@ plugins {
 	id 'maven-publish'
 }
 
+apply plugin: "maven"
+
 repositories {
-	maven {
-		url "http://server.bbkr.space:8081/artifactory/libs-release"
-	}
+	maven { url "https://jitpack.io" }
+	maven { url "http://server.bbkr.space:8081/artifactory/libs-release" }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
