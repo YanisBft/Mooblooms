@@ -58,7 +58,7 @@ public class Moobloom {
 		this.spawnEggItemGroup = settings.spawnEggItemGroup;
 		this.configClass = settings.configClass;
 		
-		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackable(160, 3);
+		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10);
 		if (this.fireImmune) {
 			builder.fireImmune();
 		}

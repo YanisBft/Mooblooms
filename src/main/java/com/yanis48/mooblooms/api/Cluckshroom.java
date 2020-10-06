@@ -58,7 +58,7 @@ public class Cluckshroom {
 		this.spawnEggItemGroup = settings.spawnEggItemGroup;
 		this.configClass = settings.configClass;
 		
-		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CluckshroomEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackable(160, 3);
+		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CluckshroomEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeChunks(10);
 		if (this.fireImmune) {
 			builder.fireImmune();
 		}
