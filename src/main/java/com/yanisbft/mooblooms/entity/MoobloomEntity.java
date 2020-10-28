@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.CowEntity;
@@ -84,12 +85,25 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
+	public boolean damage(DamageSource source, float amount) {
+		if (this.isCowctus() && source.equals(DamageSource.CACTUS)) {
+			return false;
+		}
+		
+		return super.damage(source, amount);
+	}
+	
+	@Override
 	public void onPlayerCollision(PlayerEntity player) {
-		if (this.isWitherRose() && !player.abilities.creativeMode) {
-			if (MoobloomsConfig.WitherRoseMoobloom.damagePlayers) {
+		if (!player.abilities.creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
+			if (this.isWitherRose() && MoobloomsConfig.WitherRoseMoobloom.damagePlayers) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
+			} else if (this.isCowctus()) {
+				player.damage(DamageSource.CACTUS, 1.0F);
 			}
 		}
+		
+		super.onPlayerCollision(player);
 	}
 	
 	@Override
@@ -121,5 +135,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	public boolean isSuncower() {
 		return this.settings.equals(MoobloomsEntities.SUNCOWER);
+	}
+	
+	public boolean isCowctus() {
+		return this.settings.equals(MoobloomsEntities.COWCTUS);
 	}
 }

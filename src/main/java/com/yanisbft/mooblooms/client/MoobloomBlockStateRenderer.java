@@ -29,32 +29,50 @@ public class MoobloomBlockStateRenderer<T extends MoobloomEntity> extends Featur
 			BlockState state = entity.settings.getBlockState();
 			int overlay = LivingEntityRenderer.getOverlay(entity, 0.0F);
 			
+			// Head block
 			matrices.push();
-			matrices.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
-			float degrees_1 = entity.isSuncower() ? -78.0F : -48.0F;
-			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(degrees_1));
-			matrices.scale(-1.0F, -1.0F, 1.0F);
-			matrices.translate(-0.5D, -0.5D, -0.5D);
+			this.getContextModel().getHead().rotate(matrices);
+			matrices.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
+			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
+			if (entity.isCowctus()) {
+				matrices.scale(-0.3F, -0.4F, 0.3F);
+				matrices.translate(-0.7D, -1.2D, -0.5D);
+			} else {
+				matrices.scale(-1.0F, -1.0F, 1.0F);
+				matrices.translate(-0.5D, -0.5D, -0.5D);
+			}
 			manager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 			
+			// Middle block
 			matrices.push();
 			matrices.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
 			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
 			matrices.translate(0.10000000149011612D, 0.0D, -0.6000000238418579D);
 			float degrees_2 = entity.isSuncower() ? -120.0F : -48.0F;
 			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(degrees_2));
-			matrices.scale(-1.0F, -1.0F, 1.0F);
-			matrices.translate(-0.5D, -0.5D, -0.5D);
+			if (entity.isCowctus()) {
+				matrices.scale(-0.3F, -0.4F, 0.3F);
+				matrices.translate(-0.5D, -1.2D, -0.7D);
+			} else {
+				matrices.scale(-1.0F, -1.0F, 1.0F);
+				matrices.translate(-0.5D, -0.5D, -0.5D);
+			}
 			manager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 			
+			// Tail block
 			matrices.push();
-			this.getContextModel().getHead().rotate(matrices);
-			matrices.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
-			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
-			matrices.scale(-1.0F, -1.0F, 1.0F);
-			matrices.translate(-0.5D, -0.5D, -0.5D);
+			matrices.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
+			float degrees_1 = entity.isSuncower() ? -78.0F : -48.0F;
+			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(degrees_1));
+			if (entity.isCowctus()) {
+				matrices.scale(-0.3F, -0.4F, 0.3F);
+				matrices.translate(-0.3D, -1.2D, -0.5D);
+			} else {
+				matrices.scale(-1.0F, -1.0F, 1.0F);
+				matrices.translate(-0.5D, -0.5D, -0.5D);
+			}
 			manager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 		}
