@@ -11,7 +11,6 @@ import java.util.Map;
 import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.entity.CluckshroomEntity;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,46 +30,31 @@ import net.minecraft.util.registry.Registry;
 @SuppressWarnings("unchecked")
 public class Cluckshroom {
 	public static final Map<EntityType<?>, Cluckshroom> CLUCKSHROOM_BY_TYPE = new HashMap<>();
-	private Identifier name;
-	private boolean fireImmune;
-	private BlockState blockState;
-	private List<Block> validBlocks;
-	private boolean canPlaceBlocks;
-	private List<StatusEffect> ignoredEffects;
-	private ParticleEffect particle;
-	private int primarySpawnEggColor;
-	private int secondarySpawnEggColor;
-	private ItemGroup spawnEggItemGroup;
-	private Class<?> configClass;
+	private Cluckshroom.Builder settings;
 	private EntityType<CluckshroomEntity> entityType;
 	private SpawnEggItem spawnEgg;
 	
 	private Cluckshroom(Cluckshroom.Builder settings) {
-		this.name = settings.name;
-		this.fireImmune = settings.fireImmune;
-		this.blockState = settings.blockState;
-		this.validBlocks = settings.validBlocks;
-		this.canPlaceBlocks = settings.canPlaceBlocks;
-		this.ignoredEffects = settings.ignoredEffects;
-		this.particle = settings.particle;
-		this.primarySpawnEggColor = settings.primarySpawnEggColor;
-		this.secondarySpawnEggColor = settings.secondarySpawnEggColor;
-		this.spawnEggItemGroup = settings.spawnEggItemGroup;
-		this.configClass = settings.configClass;
+		this.settings = settings;
 		
-		FabricEntityTypeBuilder<?> builder = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CluckshroomEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeChunks(10);
-		if (this.fireImmune) {
+		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
+				.entityFactory(CluckshroomEntity::new)
+				.spawnGroup(SpawnGroup.CREATURE)
+				.dimensions(EntityDimensions.fixed(0.4F, 0.7F))
+				.trackRangeChunks(10)
+				.defaultAttributes(CluckshroomEntity::createChickenAttributes);
+		
+		if (this.settings.fireImmune) {
 			builder.fireImmune();
 		}
 		
 		this.entityType = (EntityType<CluckshroomEntity>) builder.build();
 		
-		Registry.register(Registry.ENTITY_TYPE, this.name, this.entityType);
-		FabricDefaultAttributeRegistry.register(this.entityType, CluckshroomEntity.createChickenAttributes());
+		Registry.register(Registry.ENTITY_TYPE, this.settings.name, this.entityType);
 		
-		if (this.primarySpawnEggColor != 0 && this.secondarySpawnEggColor != 0) {
-			this.spawnEgg = new SpawnEggItem(this.entityType, this.primarySpawnEggColor, this.secondarySpawnEggColor, new Item.Settings().maxCount(64).group(this.spawnEggItemGroup));
-			Identifier itemName = new Identifier(this.name.getNamespace(), this.name.getPath() + "_spawn_egg");
+		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
+			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64).group(this.settings.spawnEggItemGroup));
+			Identifier itemName = new Identifier(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
 			Registry.register(Registry.ITEM, itemName, this.spawnEgg);
 		}
 		
@@ -78,47 +62,47 @@ public class Cluckshroom {
 	}
 	
 	public Identifier getName() {
-		return this.name;
+		return this.settings.name;
 	}
 	
 	public boolean isFireImmune() {
-		return this.fireImmune;
+		return this.settings.fireImmune;
 	}
 	
 	public BlockState getBlockState() {
-		return this.blockState;
+		return this.settings.blockState;
 	}
 	
 	public List<Block> getValidBlocks() {
-		return this.validBlocks;
+		return this.settings.validBlocks;
 	}
 	
 	public boolean canPlaceBlocks() {
-		return this.canPlaceBlocks;
+		return this.settings.canPlaceBlocks;
 	}
 	
 	public List<StatusEffect> getIgnoredEffects() {
-		return this.ignoredEffects;
+		return this.settings.ignoredEffects;
 	}
 	
 	public ParticleEffect getParticle() {
-		return this.particle;
+		return this.settings.particle;
 	}
 	
 	public int getPrimarySpawnEggColor() {
-		return this.primarySpawnEggColor;
+		return this.settings.primarySpawnEggColor;
 	}
 	
 	public int getSecondarySpawnEggColor() {
-		return this.secondarySpawnEggColor;
+		return this.settings.secondarySpawnEggColor;
 	}
 	
 	public ItemGroup getSpawnEggItemGroup() {
-		return this.spawnEggItemGroup;
+		return this.settings.spawnEggItemGroup;
 	}
 	
 	public Class<?> getConfigClass() {
-		return this.configClass;
+		return this.settings.configClass;
 	}
 	
 	public EntityType<CluckshroomEntity> getEntityType() {
