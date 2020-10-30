@@ -1,83 +1,49 @@
 package com.yanisbft.mooblooms.init;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableMap;
 import com.yanisbft.mooblooms.config.MoobloomsConfig;
 import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import com.yanisbft.mooblooms.mixin.SpawnRestrictionAccessor;
-import com.yanisbft.mooblooms.mixin.SpawnSettingsAccessor;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 
+@SuppressWarnings("deprecation")
 public class MoobloomsGeneration {
-	private static final Registry<Biome> REGISTRY = BuiltinRegistries.BIOME;
 
 	public static void init() {
 		registerSpawnRestrictions();
 		
-		for (Biome biome : BuiltinRegistries.BIOME) {
-			
-			if (biome.equals(REGISTRY.get(BiomeKeys.FLOWER_FOREST))) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.DANDELION_MOOBLOOM.getEntityType(), MoobloomsConfig.DandelionMoobloom.weight, MoobloomsConfig.DandelionMoobloom.minGroupSize, MoobloomsConfig.DandelionMoobloom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.POPPY_MOOBLOOM.getEntityType(), MoobloomsConfig.PoppyMoobloom.weight, MoobloomsConfig.PoppyMoobloom.minGroupSize, MoobloomsConfig.PoppyMoobloom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM.getEntityType(), MoobloomsConfig.BlueOrchidMoobloom.weight, MoobloomsConfig.BlueOrchidMoobloom.minGroupSize, MoobloomsConfig.BlueOrchidMoobloom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.ALLIUM_MOOBLOOM.getEntityType(), MoobloomsConfig.AlliumMoobloom.weight, MoobloomsConfig.AlliumMoobloom.minGroupSize, MoobloomsConfig.AlliumMoobloom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM.getEntityType(), MoobloomsConfig.OxeyeDaisyMoobloom.weight, MoobloomsConfig.OxeyeDaisyMoobloom.minGroupSize, MoobloomsConfig.OxeyeDaisyMoobloom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.CORNFLOWER_MOOBLOOM.getEntityType(), MoobloomsConfig.CornflowerMoobloom.weight, MoobloomsConfig.CornflowerMoobloom.minGroupSize, MoobloomsConfig.CornflowerMoobloom.maxGroupSize));
-			}
-			
-			if (biome.getCategory().equals(Biome.Category.NETHER)) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.WITHER_ROSE_MOOBLOOM.getEntityType(), MoobloomsConfig.WitherRoseMoobloom.weight, MoobloomsConfig.WitherRoseMoobloom.minGroupSize, MoobloomsConfig.WitherRoseMoobloom.maxGroupSize));
-			}
-			
-			if (biome.equals(REGISTRY.get(BiomeKeys.SUNFLOWER_PLAINS))) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.SUNCOWER.getEntityType(), MoobloomsConfig.Suncower.weight, MoobloomsConfig.Suncower.minGroupSize, MoobloomsConfig.Suncower.maxGroupSize));
-			}
-			
-			if (biome.equals(REGISTRY.get(BiomeKeys.BAMBOO_JUNGLE)) || biome.equals(REGISTRY.get(BiomeKeys.BAMBOO_JUNGLE_HILLS))) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.BAMBMOO.getEntityType(), MoobloomsConfig.Bambmoo.weight, MoobloomsConfig.Bambmoo.minGroupSize, MoobloomsConfig.Bambmoo.maxGroupSize));
-			}
-			
-			if (biome.equals(REGISTRY.get(BiomeKeys.CRIMSON_FOREST))) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), MoobloomsConfig.CrimsonMooshroom.weight, MoobloomsConfig.CrimsonMooshroom.minGroupSize, MoobloomsConfig.CrimsonMooshroom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.CRIMSON_CLUCKSHROOM.getEntityType(), MoobloomsConfig.CrimsonCluckshroom.weight, MoobloomsConfig.CrimsonCluckshroom.minGroupSize, MoobloomsConfig.CrimsonCluckshroom.maxGroupSize));
-			}
-			
-			if (biome.equals(REGISTRY.get(BiomeKeys.WARPED_FOREST))) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), MoobloomsConfig.WarpedMooshroom.weight, MoobloomsConfig.WarpedMooshroom.minGroupSize, MoobloomsConfig.WarpedMooshroom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.WARPED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.WarpedCluckshroom.weight, MoobloomsConfig.WarpedCluckshroom.minGroupSize, MoobloomsConfig.WarpedCluckshroom.maxGroupSize));
-			}
-			
-			if (biome.getCategory().equals(Biome.Category.MUSHROOM)) {
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.RED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.RedCluckshroom.weight, MoobloomsConfig.RedCluckshroom.minGroupSize, MoobloomsConfig.RedCluckshroom.maxGroupSize));
-				addSpawnToBiome(biome, new SpawnEntry(MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), MoobloomsConfig.BrownCluckshroom.weight, MoobloomsConfig.BrownCluckshroom.minGroupSize, MoobloomsConfig.BrownCluckshroom.maxGroupSize));
-			}
-		}
-	}
-	
-	private static void addSpawnToBiome(Biome biome, SpawnSettings.SpawnEntry... spawners) {
-		convertImmutableSpawners(biome);
-		List<SpawnSettings.SpawnEntry> spawnersList = new ArrayList<>(((SpawnSettingsAccessor) biome.getSpawnSettings()).getSpawners().get(SpawnGroup.CREATURE));
-		spawnersList.addAll(Arrays.asList(spawners));
-		((SpawnSettingsAccessor) biome.getSpawnSettings()).getSpawners().put(SpawnGroup.CREATURE, spawnersList);
-	}
-	
-	private static void convertImmutableSpawners(Biome biome) {
-		if (((SpawnSettingsAccessor) biome.getSpawnSettings()).getSpawners() instanceof ImmutableMap) {
-			((SpawnSettingsAccessor) biome.getSpawnSettings()).setSpawners(new HashMap<>(((SpawnSettingsAccessor) biome.getSpawnSettings()).getSpawners()));
-		}
+		Predicate<BiomeSelectionContext> flowerForest = BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST);
+		Predicate<BiomeSelectionContext> nether = BiomeSelectors.categories(Biome.Category.NETHER);
+		Predicate<BiomeSelectionContext> sunflowerPlains = BiomeSelectors.includeByKey(BiomeKeys.SUNFLOWER_PLAINS);
+		Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE_HILLS);
+		Predicate<BiomeSelectionContext> crimsonForest = BiomeSelectors.includeByKey(BiomeKeys.CRIMSON_FOREST);
+		Predicate<BiomeSelectionContext> warpedForest = BiomeSelectors.includeByKey(BiomeKeys.WARPED_FOREST);
+		Predicate<BiomeSelectionContext> mushroom = BiomeSelectors.categories(Biome.Category.MUSHROOM);
+		
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.DANDELION_MOOBLOOM.getEntityType(), MoobloomsConfig.DandelionMoobloom.weight, MoobloomsConfig.DandelionMoobloom.minGroupSize, MoobloomsConfig.DandelionMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.POPPY_MOOBLOOM.getEntityType(), MoobloomsConfig.PoppyMoobloom.weight, MoobloomsConfig.PoppyMoobloom.minGroupSize, MoobloomsConfig.PoppyMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.BLUE_ORCHID_MOOBLOOM.getEntityType(), MoobloomsConfig.BlueOrchidMoobloom.weight, MoobloomsConfig.BlueOrchidMoobloom.minGroupSize, MoobloomsConfig.BlueOrchidMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.ALLIUM_MOOBLOOM.getEntityType(), MoobloomsConfig.AlliumMoobloom.weight, MoobloomsConfig.AlliumMoobloom.minGroupSize, MoobloomsConfig.AlliumMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.OXEYE_DAISY_MOOBLOOM.getEntityType(), MoobloomsConfig.OxeyeDaisyMoobloom.weight, MoobloomsConfig.OxeyeDaisyMoobloom.minGroupSize, MoobloomsConfig.OxeyeDaisyMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(flowerForest, SpawnGroup.CREATURE, MoobloomsEntities.CORNFLOWER_MOOBLOOM.getEntityType(), MoobloomsConfig.CornflowerMoobloom.weight, MoobloomsConfig.CornflowerMoobloom.minGroupSize, MoobloomsConfig.CornflowerMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(nether, SpawnGroup.CREATURE, MoobloomsEntities.WITHER_ROSE_MOOBLOOM.getEntityType(), MoobloomsConfig.WitherRoseMoobloom.weight, MoobloomsConfig.WitherRoseMoobloom.minGroupSize, MoobloomsConfig.WitherRoseMoobloom.maxGroupSize);
+		BiomeModifications.addSpawn(sunflowerPlains, SpawnGroup.CREATURE, MoobloomsEntities.SUNCOWER.getEntityType(), MoobloomsConfig.Suncower.weight, MoobloomsConfig.Suncower.minGroupSize, MoobloomsConfig.Suncower.maxGroupSize);
+		BiomeModifications.addSpawn(bambooJungle, SpawnGroup.CREATURE, MoobloomsEntities.BAMBMOO.getEntityType(), MoobloomsConfig.Bambmoo.weight, MoobloomsConfig.Bambmoo.minGroupSize, MoobloomsConfig.Bambmoo.maxGroupSize);
+		BiomeModifications.addSpawn(crimsonForest, SpawnGroup.CREATURE, MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), MoobloomsConfig.CrimsonMooshroom.weight, MoobloomsConfig.CrimsonMooshroom.minGroupSize, MoobloomsConfig.CrimsonMooshroom.maxGroupSize);
+		BiomeModifications.addSpawn(crimsonForest, SpawnGroup.CREATURE, MoobloomsEntities.CRIMSON_CLUCKSHROOM.getEntityType(), MoobloomsConfig.CrimsonCluckshroom.weight, MoobloomsConfig.CrimsonCluckshroom.minGroupSize, MoobloomsConfig.CrimsonCluckshroom.maxGroupSize);
+		BiomeModifications.addSpawn(warpedForest, SpawnGroup.CREATURE, MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), MoobloomsConfig.WarpedMooshroom.weight, MoobloomsConfig.WarpedMooshroom.minGroupSize, MoobloomsConfig.WarpedMooshroom.maxGroupSize);
+		BiomeModifications.addSpawn(warpedForest, SpawnGroup.CREATURE, MoobloomsEntities.WARPED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.WarpedCluckshroom.weight, MoobloomsConfig.WarpedCluckshroom.minGroupSize, MoobloomsConfig.WarpedCluckshroom.maxGroupSize);
+		BiomeModifications.addSpawn(mushroom, SpawnGroup.CREATURE, MoobloomsEntities.RED_CLUCKSHROOM.getEntityType(), MoobloomsConfig.RedCluckshroom.weight, MoobloomsConfig.RedCluckshroom.minGroupSize, MoobloomsConfig.RedCluckshroom.maxGroupSize);
+		BiomeModifications.addSpawn(mushroom, SpawnGroup.CREATURE, MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), MoobloomsConfig.BrownCluckshroom.weight, MoobloomsConfig.BrownCluckshroom.minGroupSize, MoobloomsConfig.BrownCluckshroom.maxGroupSize);
 	}
 	
 	private static void registerSpawnRestrictions() {
