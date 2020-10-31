@@ -5,6 +5,7 @@ import com.yanisbft.mooblooms.api.Cluckshroom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -68,6 +69,15 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 		}
 		
 		return super.canHaveStatusEffect(statusEffectInstance);
+	}
+	
+	@Override
+	public boolean isInvulnerableTo(DamageSource source) {
+		if (this.settings.getIgnoredDamageSources().contains(source)) {
+			return true;
+		}
+		
+		return super.isInvulnerableTo(source);
 	}
 	
 	@Override

@@ -14,6 +14,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.enums.BambooLeaves;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
 
@@ -29,7 +30,7 @@ public class MoobloomsEntities {
 	public static final Moobloom WITHER_ROSE_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("wither_rose_moobloom")).fireImmune().blockState(Blocks.WITHER_ROSE.getDefaultState()).ignoredEffects(ImmutableList.of(StatusEffects.WITHER)).particle(ParticleTypes.SMOKE).spawnEgg(0x2A1F19, 0x636363).configClass(MoobloomsConfig.WitherRoseMoobloom.class).build();
 	public static final Moobloom SUNCOWER = new Moobloom.Builder().name(Mooblooms.id("suncower")).blockState(Blocks.SUNFLOWER.getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER)).spawnEgg(0xF19D25, 0xFFEC4F).configClass(MoobloomsConfig.Suncower.class).build();
 	public static final Moobloom BAMBMOO = new Moobloom.Builder().name(Mooblooms.id("bambmoo")).blockState(Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL)).spawnEgg(0x538209, 0x97D155).cannotPlaceBlocks().configClass(MoobloomsConfig.Bambmoo.class).build();
-	public static final Moobloom COWCTUS = new Moobloom.Builder().name(Mooblooms.id("cowctus")).blockState(Blocks.CACTUS.getDefaultState()).spawnEgg(0x39581A, 0x9FA76D).cannotPlaceBlocks().build();
+	public static final Moobloom COWCTUS = new Moobloom.Builder().name(Mooblooms.id("cowctus")).blockState(Blocks.CACTUS.getDefaultState()).ignoredDamageSources(ImmutableList.of(DamageSource.CACTUS)).spawnEgg(0x39581A, 0x9FA76D).cannotPlaceBlocks().build();
 	
 	public static final Moobloom CRIMSON_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("crimson_mooshroom")).fireImmune().blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x730408, 0xFF6500).configClass(MoobloomsConfig.CrimsonMooshroom.class).build();
 	public static final Moobloom WARPED_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("warped_mooshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEgg(0x167E86, 0xFF6500).configClass(MoobloomsConfig.WarpedMooshroom.class).build();

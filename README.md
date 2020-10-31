@@ -32,6 +32,7 @@ mooblooms_version = 1.3.2
 * ``validBlocks(List<Block> blocks)``
 * ``cannotPlaceBlocks()``
 * ``ignoredEffects(List<StatusEffect> effects)``
+* ``ignoredDamageSources(List<DamageSource> damageSources)``
 * ``particle(ParticleEffect particle)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
 * ``spawnEgg(int primaryColor, int secondaryColor, ItemGroup group)``

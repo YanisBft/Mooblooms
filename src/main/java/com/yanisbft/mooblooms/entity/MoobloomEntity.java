@@ -85,12 +85,12 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
-	public boolean damage(DamageSource source, float amount) {
-		if (this.isCowctus() && source.equals(DamageSource.CACTUS)) {
-			return false;
+	public boolean isInvulnerableTo(DamageSource source) {
+		if (this.settings.getIgnoredDamageSources().contains(source)) {
+			return true;
 		}
 		
-		return super.damage(source, amount);
+		return super.isInvulnerableTo(source);
 	}
 	
 	@Override

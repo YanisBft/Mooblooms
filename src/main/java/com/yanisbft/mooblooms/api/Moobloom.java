@@ -18,6 +18,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -85,6 +86,10 @@ public class Moobloom {
 		return this.settings.ignoredEffects;
 	}
 	
+	public List<DamageSource> getIgnoredDamageSources() {
+		return this.settings.ignoredDamageSources;
+	}
+	
 	public ParticleEffect getParticle() {
 		return this.settings.particle;
 	}
@@ -120,6 +125,7 @@ public class Moobloom {
 		private List<Block> validBlocks;
 		private boolean canPlaceBlocks;
 		private List<StatusEffect> ignoredEffects;
+		private List<DamageSource> ignoredDamageSources;
 		private ParticleEffect particle;
 		private int primarySpawnEggColor;
 		private int secondarySpawnEggColor;
@@ -130,6 +136,7 @@ public class Moobloom {
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
+			this.ignoredDamageSources = new ArrayList<>();
 		}
 		
 		/**
@@ -200,6 +207,16 @@ public class Moobloom {
 		 */
 		public Moobloom.Builder ignoredEffects(List<StatusEffect> effects) {
 			this.ignoredEffects = effects;
+			return this;
+		}
+		
+		/**
+		 * Sets the damage sources that will not affect this moobloom.
+		 * @param damageSources a list of damage sources
+		 * @return this builder for chaining
+		 */
+		public Moobloom.Builder ignoredDamageSources(List<DamageSource> damageSources) {
+			this.ignoredDamageSources = damageSources;
 			return this;
 		}
 		
