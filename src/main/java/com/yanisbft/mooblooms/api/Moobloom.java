@@ -29,14 +29,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 @SuppressWarnings("unchecked")
-public class Moobloom {
+public class Moobloom extends AbstractMoobloom {
 	public static final Map<EntityType<?>, Moobloom> MOOBLOOM_BY_TYPE = new HashMap<>();
-	private Moobloom.Builder settings;
 	private EntityType<MoobloomEntity> entityType;
 	private SpawnEggItem spawnEgg;
 	
 	private Moobloom(Moobloom.Builder settings) {
-		this.settings = settings;
+		super(settings);
 		
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
@@ -62,58 +61,6 @@ public class Moobloom {
 		MOOBLOOM_BY_TYPE.putIfAbsent(this.entityType, this);
 	}
 	
-	public Identifier getName() {
-		return this.settings.name;
-	}
-	
-	public boolean isFireImmune() {
-		return this.settings.fireImmune;
-	}
-	
-	public BlockState getBlockState() {
-		return this.settings.blockState;
-	}
-	
-	public List<Block> getValidBlocks() {
-		return this.settings.validBlocks;
-	}
-	
-	public boolean canPlaceBlocks() {
-		return this.settings.canPlaceBlocks;
-	}
-	
-	public List<StatusEffect> getIgnoredEffects() {
-		return this.settings.ignoredEffects;
-	}
-	
-	public List<DamageSource> getIgnoredDamageSources() {
-		return this.settings.ignoredDamageSources;
-	}
-	
-	public ParticleEffect getParticle() {
-		return this.settings.particle;
-	}
-	
-	public Identifier getLootTable() {
-		return this.settings.lootTable;
-	}
-	
-	public int getPrimarySpawnEggColor() {
-		return this.settings.primarySpawnEggColor;
-	}
-	
-	public int getSecondarySpawnEggColor() {
-		return this.settings.secondarySpawnEggColor;
-	}
-	
-	public ItemGroup getSpawnEggItemGroup() {
-		return this.settings.spawnEggItemGroup;
-	}
-	
-	public Class<?> getConfigClass() {
-		return this.settings.configClass;
-	}
-	
 	public EntityType<MoobloomEntity> getEntityType() {
 		return this.entityType;
 	}
@@ -122,20 +69,7 @@ public class Moobloom {
 		return this.spawnEgg;
 	}
 	
-	public static class Builder {
-		private Identifier name;
-		private boolean fireImmune;
-		private BlockState blockState;
-		private List<Block> validBlocks;
-		private boolean canPlaceBlocks;
-		private List<StatusEffect> ignoredEffects;
-		private List<DamageSource> ignoredDamageSources;
-		private ParticleEffect particle;
-		private Identifier lootTable;
-		private int primarySpawnEggColor;
-		private int secondarySpawnEggColor;
-		private ItemGroup spawnEggItemGroup;
-		private Class<?> configClass;
+	public static class Builder extends AbstractMoobloom.Builder {
 		
 		public Builder() {
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
