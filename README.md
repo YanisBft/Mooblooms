@@ -34,6 +34,7 @@ mooblooms_version = 1.3.2
 * ``ignoredEffects(List<StatusEffect> effects)``
 * ``ignoredDamageSources(List<DamageSource> damageSources)``
 * ``particle(ParticleEffect particle)``
+* ``lootTable(Identifier lootTable)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
 * ``spawnEgg(int primaryColor, int secondaryColor, ItemGroup group)``
 * ``configClass(Class<?> configClass)``

@@ -94,6 +94,10 @@ public class Cluckshroom {
 		return this.settings.particle;
 	}
 	
+	public Identifier getLootTable() {
+		return this.settings.lootTable;
+	}
+	
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
 	}
@@ -127,6 +131,7 @@ public class Cluckshroom {
 		private List<StatusEffect> ignoredEffects;
 		private List<DamageSource> ignoredDamageSources;
 		private ParticleEffect particle;
+		private Identifier lootTable;
 		private int primarySpawnEggColor;
 		private int secondarySpawnEggColor;
 		private ItemGroup spawnEggItemGroup;
@@ -137,6 +142,7 @@ public class Cluckshroom {
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
 			this.ignoredDamageSources = new ArrayList<>();
+			this.lootTable = EntityType.CHICKEN.getLootTableId();
 		}
 		
 		/**
@@ -227,6 +233,17 @@ public class Cluckshroom {
 		 */
 		public Cluckshroom.Builder particle(ParticleEffect particle) {
 			this.particle = particle;
+			return this;
+		}
+		
+		/**
+		 * Sets the loot table of this cluckshroom.
+		 * <p>Defaults to {@linkplain net.minecraft.entity.passive.ChickenEntity chicken's} loot table.</p>
+		 * @param lootTable a loot table {@linkplain net.minecraft.util.Identifier identifier}
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder lootTable(Identifier lootTable) {
+			this.lootTable = lootTable;
 			return this;
 		}
 		

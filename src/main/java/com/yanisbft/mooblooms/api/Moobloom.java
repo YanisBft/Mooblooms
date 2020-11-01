@@ -94,6 +94,10 @@ public class Moobloom {
 		return this.settings.particle;
 	}
 	
+	public Identifier getLootTable() {
+		return this.settings.lootTable;
+	}
+	
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
 	}
@@ -127,6 +131,7 @@ public class Moobloom {
 		private List<StatusEffect> ignoredEffects;
 		private List<DamageSource> ignoredDamageSources;
 		private ParticleEffect particle;
+		private Identifier lootTable;
 		private int primarySpawnEggColor;
 		private int secondarySpawnEggColor;
 		private ItemGroup spawnEggItemGroup;
@@ -137,6 +142,7 @@ public class Moobloom {
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
 			this.ignoredDamageSources = new ArrayList<>();
+			this.lootTable = EntityType.COW.getLootTableId();
 		}
 		
 		/**
@@ -227,6 +233,17 @@ public class Moobloom {
 		 */
 		public Moobloom.Builder particle(ParticleEffect particle) {
 			this.particle = particle;
+			return this;
+		}
+		
+		/**
+		 * Sets the loot table of this moobloom.
+		 * <p>Defaults to {@linkplain net.minecraft.entity.passive.CowEntity cow's} loot table.</p>
+		 * @param lootTable a loot table {@linkplain net.minecraft.util.Identifier identifier}
+		 * @return this builder for chaining
+		 */
+		public Moobloom.Builder lootTable(Identifier lootTable) {
+			this.lootTable = lootTable;
 			return this;
 		}
 		

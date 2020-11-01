@@ -17,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,6 +27,11 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	public CluckshroomEntity(EntityType<? extends CluckshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.settings = Cluckshroom.CLUCKSHROOM_BY_TYPE.get(entityType);
+	}
+	
+	@Override
+	public Identifier getLootTableId() {
+		return this.settings.getLootTable();
 	}
 	
 	@Override
