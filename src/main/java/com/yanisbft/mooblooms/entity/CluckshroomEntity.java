@@ -65,7 +65,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	
 	@Override
 	public CluckshroomEntity createChild(ServerWorld world, PassiveEntity entity) {
-		return (CluckshroomEntity) this.settings.getEntityType().create(world);
+		return this.settings.getEntityType().create(world);
 	}
 	
 	@Override
@@ -88,7 +88,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	
 	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks(this.settings.getConfigClass())) {
+		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {

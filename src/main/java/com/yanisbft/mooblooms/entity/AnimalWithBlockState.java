@@ -2,6 +2,7 @@ package com.yanisbft.mooblooms.entity;
 
 import java.util.Random;
 
+import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TallPlantBlock;
@@ -35,12 +36,12 @@ public interface AnimalWithBlockState {
 		}
 	}
 	
-	default boolean canSpawnBlocks(Class<?> configClass) {
+	default boolean canSpawnBlocks(MoobloomConfigCategory configCategory) {
 		boolean enabled = true;
 		
-		if (configClass != null) {
+		if (configCategory != null) {
 			try {
-				enabled = configClass.getDeclaredField("spawnBlocks").getBoolean(null);
+				enabled = configCategory.getClass().getDeclaredField("spawnBlocks").getBoolean(configCategory);
 			} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 				e.printStackTrace();
 			}

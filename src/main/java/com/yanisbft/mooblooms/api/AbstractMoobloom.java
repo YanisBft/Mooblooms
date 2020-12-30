@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
+import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import net.minecraft.block.Blocks;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -75,8 +76,8 @@ public abstract class AbstractMoobloom {
 		return this.settings.spawnEggItemGroup;
 	}
 	
-	public Class<?> getConfigClass() {
-		return this.settings.configClass;
+	public MoobloomConfigCategory getConfigCategory() {
+		return this.settings.configCategory;
 	}
 	
 	public static class Builder {
@@ -92,7 +93,7 @@ public abstract class AbstractMoobloom {
 		protected int primarySpawnEggColor;
 		protected int secondarySpawnEggColor;
 		protected ItemGroup spawnEggItemGroup;
-		protected Class<?> configClass;
+		protected MoobloomConfigCategory configCategory;
 
 		public Builder(Identifier defaultLootTable) {
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);

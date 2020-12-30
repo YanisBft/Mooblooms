@@ -2,11 +2,11 @@ package com.yanisbft.mooblooms.api;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -200,13 +200,13 @@ public class Moobloom extends AbstractMoobloom {
 		}
 		
 		/**
-		 * Sets this moobloom's config class.
+		 * Sets this moobloom's config category.
 		 * <p>Will be used to get the {@code spawnBlocks} config option.</p>
-		 * @param configClass a static class
+		 * @param configCategory an instance of a class implementing {@link MoobloomConfigCategory}
 		 * @return this builder for chaining
 		 */
-		public Moobloom.Builder configClass(Class<?> configClass) {
-			this.configClass = configClass;
+		public Moobloom.Builder configCategory(MoobloomConfigCategory configCategory) {
+			this.configCategory = configCategory;
 			return this;
 		}
 		
@@ -217,7 +217,6 @@ public class Moobloom extends AbstractMoobloom {
 		public Moobloom build() {
 			checkState(this.name != null, "A name is required to build a new moobloom.");
 			checkState(this.blockState != null, "A block state is required to build a new moobloom.");
-			checkState(this.configClass == null || Modifier.isStatic(this.configClass.getModifiers()), "The config class must be static to build a new moobloom.");
 			return new Moobloom(this);
 		}
 	}

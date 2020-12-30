@@ -1,7 +1,7 @@
 package com.yanisbft.mooblooms.entity;
 
+import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.api.Moobloom;
-import com.yanisbft.mooblooms.config.MoobloomsConfig;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
 
 import net.minecraft.block.Block;
@@ -78,7 +78,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public MoobloomEntity createChild(ServerWorld world, PassiveEntity entity) {
-		return (MoobloomEntity) this.settings.getEntityType().create(world);
+		return this.settings.getEntityType().create(world);
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
 		if (!player.abilities.creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
-			if (this.isWitherRose() && MoobloomsConfig.WitherRoseMoobloom.damagePlayers) {
+			if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
 			} else if (this.isCowctus()) {
 				player.damage(DamageSource.CACTUS, 1.0F);
@@ -114,7 +114,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks(this.settings.getConfigClass())) {
+		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
 				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
