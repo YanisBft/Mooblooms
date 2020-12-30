@@ -1,7 +1,10 @@
 package com.yanisbft.mooblooms.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Blocks;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,5 +93,14 @@ public abstract class AbstractMoobloom {
 		protected int secondarySpawnEggColor;
 		protected ItemGroup spawnEggItemGroup;
 		protected Class<?> configClass;
+
+		public Builder(Identifier defaultLootTable) {
+			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
+			this.canPlaceBlocks = true;
+			this.ignoredEffects = new ArrayList<>();
+			this.ignoredDamageSources = new ArrayList<>();
+			this.lootTable = defaultLootTable;
+		}
+	}
 	}
 }

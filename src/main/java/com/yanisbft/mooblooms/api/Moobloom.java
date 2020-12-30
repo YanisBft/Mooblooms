@@ -3,18 +3,15 @@ package com.yanisbft.mooblooms.api;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -72,11 +69,7 @@ public class Moobloom extends AbstractMoobloom {
 	public static class Builder extends AbstractMoobloom.Builder {
 		
 		public Builder() {
-			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
-			this.canPlaceBlocks = true;
-			this.ignoredEffects = new ArrayList<>();
-			this.ignoredDamageSources = new ArrayList<>();
-			this.lootTable = EntityType.COW.getLootTableId();
+			super(EntityType.COW.getLootTableId());
 		}
 		
 		/**
