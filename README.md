@@ -21,7 +21,7 @@ dependencies {
 ```
 Then, add the version in your ``gradle.properties``:
 ```properties
-mooblooms_version = 1.3.2
+mooblooms_version = 1.4.0
 ```
 
 #### Available settings
@@ -35,15 +35,15 @@ mooblooms_version = 1.3.2
 * ``ignoredDamageSources(List<DamageSource> damageSources)``
 * ``particle(ParticleEffect particle)``
 * ``lootTable(Identifier lootTable)``
+* ``spawnEntry(SpawnEntry spawnEntry)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
 * ``spawnEgg(int primaryColor, int secondaryColor, ItemGroup group)``
-* ``configClass(Class<?> configClass)``
+* ``configCategory(MoobloomConfigCategory configCategory)``
 
 #### What you need to do
-Some things still need to be done manually:
+Some things still need to be done outside the builders:
 * Make the texture file of your entity
 * Create the model file of your spawn egg
-* Add your entity to the spawn list of one or more biomes
 * Add spawn restriction settings
 * Add a config for your entity
 
