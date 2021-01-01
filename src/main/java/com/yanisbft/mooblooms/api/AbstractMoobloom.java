@@ -21,13 +21,13 @@ import net.minecraft.util.Identifier;
 public abstract class AbstractMoobloom {
 	private static final Logger LOGGER = LogManager.getLogger("Mooblooms API");
 	protected AbstractMoobloom.Builder settings;
-	
+
 	public AbstractMoobloom(AbstractMoobloom.Builder settings) {
 		this.settings = settings;
-		
+
 		LOGGER.log(Level.INFO, "Registered " + this.settings.name);
 	}
-	
+
 	public Identifier getName() {
 		return this.settings.name;
 	}
@@ -63,6 +63,10 @@ public abstract class AbstractMoobloom {
 	public Identifier getLootTable() {
 		return this.settings.lootTable;
 	}
+
+	public SpawnEntry getSpawnEntry() {
+		return this.settings.spawnEntry;
+	}
 	
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
@@ -90,6 +94,7 @@ public abstract class AbstractMoobloom {
 		protected List<DamageSource> ignoredDamageSources;
 		protected ParticleEffect particle;
 		protected Identifier lootTable;
+		protected SpawnEntry spawnEntry;
 		protected int primarySpawnEggColor;
 		protected int secondarySpawnEggColor;
 		protected ItemGroup spawnEggItemGroup;
@@ -102,6 +107,5 @@ public abstract class AbstractMoobloom {
 			this.ignoredDamageSources = new ArrayList<>();
 			this.lootTable = defaultLootTable;
 		}
-	}
 	}
 }

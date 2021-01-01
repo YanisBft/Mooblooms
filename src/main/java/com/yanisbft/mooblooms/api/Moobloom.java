@@ -9,6 +9,7 @@ import java.util.Map;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -44,17 +45,21 @@ public class Moobloom extends AbstractMoobloom {
 		if (this.settings.fireImmune) {
 			builder.fireImmune();
 		}
-		
+
 		this.entityType = (EntityType<MoobloomEntity>) builder.build();
-		
+
 		Registry.register(Registry.ENTITY_TYPE, this.settings.name, this.entityType);
-		
+
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
 			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64).group(this.settings.spawnEggItemGroup));
 			Identifier itemName = new Identifier(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
 			Registry.register(Registry.ITEM, itemName, this.spawnEgg);
 		}
-		
+
+		if (this.settings.spawnEntry != null) {
+			BiomeModifications.addSpawn(this.settings.spawnEntry.getBiomeSelector(), SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
+		}
+
 		MOOBLOOM_BY_TYPE.putIfAbsent(this.entityType, this);
 	}
 	
@@ -171,6 +176,16 @@ public class Moobloom extends AbstractMoobloom {
 		 */
 		public Moobloom.Builder lootTable(Identifier lootTable) {
 			this.lootTable = lootTable;
+			return this;
+		}
+
+		/**
+		 * Sets the spawn entry used to generate this moobloom.
+		 * @param spawnEntry a {@linkplain SpawnEntry spawn entry}
+		 * @return this builder for chaining
+		 */
+		public Moobloom.Builder spawnEntry(SpawnEntry spawnEntry) {
+			this.spawnEntry = spawnEntry;
 			return this;
 		}
 		

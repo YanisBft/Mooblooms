@@ -2,7 +2,7 @@ package com.yanisbft.mooblooms;
 
 import com.yanisbft.mooblooms.config.MoobloomsConfig;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
-import com.yanisbft.mooblooms.init.MoobloomsGeneration;
+import com.yanisbft.mooblooms.init.MoobloomsSpawnRestrictions;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
@@ -20,7 +20,7 @@ public class Mooblooms implements ModInitializer {
 		
 		new MoobloomsEntities();
 		
-		MoobloomsGeneration.init();
+		MoobloomsSpawnRestrictions.init();
 	}
 	
 	public static Identifier id(String name) {
