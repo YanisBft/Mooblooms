@@ -15,6 +15,7 @@ public class MoobloomsConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject public DamagingMoobloom witherRoseMoobloom = new DamagingMoobloom(80, 2, 4);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom suncower = new BaseMoobloom(10, 2, 4);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom bambmoo = new BaseMoobloom(60, 2, 4);
+	@ConfigEntry.Gui.CollapsibleObject public DamagingMoobloom cowctus = new DamagingMoobloom(10, 2, 4);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom crimsonMooshroom = new BaseMoobloom(100, 4, 8);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom warpedMooshroom = new BaseMoobloom(100, 4, 8);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom redCluckshroom = new BaseMoobloom(10, 4, 8);

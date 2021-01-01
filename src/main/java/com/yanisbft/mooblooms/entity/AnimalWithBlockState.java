@@ -18,6 +18,10 @@ public interface AnimalWithBlockState {
 	static boolean canSpawn(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
 	}
+
+	static boolean canSpawnBadlands(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.down()).isOf(Blocks.RED_SAND) && world.getBaseLightLevel(pos, 0) > 8;
+	}
 	
 	static boolean canSpawnMycelium(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return world.getBlockState(pos.down()).isOf(Blocks.MYCELIUM) && world.getBaseLightLevel(pos, 0) > 8;

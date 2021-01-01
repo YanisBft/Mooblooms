@@ -30,6 +30,7 @@ public class MoobloomsEntities {
 	private static Predicate<BiomeSelectionContext> nether = BiomeSelectors.categories(Biome.Category.NETHER);
 	private static Predicate<BiomeSelectionContext> sunflowerPlains = BiomeSelectors.includeByKey(BiomeKeys.SUNFLOWER_PLAINS);
 	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE_HILLS);
+	private static Predicate<BiomeSelectionContext> badlands = BiomeSelectors.categories(Biome.Category.MESA);
 	private static Predicate<BiomeSelectionContext> crimsonForest = BiomeSelectors.includeByKey(BiomeKeys.CRIMSON_FOREST);
 	private static Predicate<BiomeSelectionContext> warpedForest = BiomeSelectors.includeByKey(BiomeKeys.WARPED_FOREST);
 	private static Predicate<BiomeSelectionContext> mushroom = BiomeSelectors.categories(Biome.Category.MUSHROOM);
@@ -43,7 +44,7 @@ public class MoobloomsEntities {
 	public static final Moobloom WITHER_ROSE_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("wither_rose_moobloom")).fireImmune().blockState(Blocks.WITHER_ROSE.getDefaultState()).ignoredEffects(ImmutableList.of(StatusEffects.WITHER)).particle(ParticleTypes.SMOKE).spawnEntry(new SpawnEntry(nether, Mooblooms.config.witherRoseMoobloom)).spawnEgg(0x2A1F19, 0x636363).configCategory(Mooblooms.config.witherRoseMoobloom).build();
 	public static final Moobloom SUNCOWER = new Moobloom.Builder().name(Mooblooms.id("suncower")).blockState(Blocks.SUNFLOWER.getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER)).spawnEntry(new SpawnEntry(sunflowerPlains, Mooblooms.config.suncower)).spawnEgg(0xF19D25, 0xFFEC4F).configCategory(Mooblooms.config.suncower).build();
 	public static final Moobloom BAMBMOO = new Moobloom.Builder().name(Mooblooms.id("bambmoo")).blockState(Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL)).spawnEntry(new SpawnEntry(bambooJungle, Mooblooms.config.bambmoo)).spawnEgg(0x538209, 0x97D155).cannotPlaceBlocks().configCategory(Mooblooms.config.bambmoo).build();
-	public static final Moobloom COWCTUS = new Moobloom.Builder().name(Mooblooms.id("cowctus")).blockState(Blocks.CACTUS.getDefaultState()).ignoredDamageSources(ImmutableList.of(DamageSource.CACTUS)).spawnEgg(0x39581A, 0x9FA76D).cannotPlaceBlocks().build();
+	public static final Moobloom COWCTUS = new Moobloom.Builder().name(Mooblooms.id("cowctus")).blockState(Blocks.CACTUS.getDefaultState()).ignoredDamageSources(ImmutableList.of(DamageSource.CACTUS)).spawnEntry(new SpawnEntry(badlands, Mooblooms.config.cowctus)).spawnEgg(0x39581A, 0x9FA76D).cannotPlaceBlocks().build();
 	
 	public static final Moobloom CRIMSON_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("crimson_mooshroom")).fireImmune().blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEntry(new SpawnEntry(crimsonForest, Mooblooms.config.crimsonMooshroom)).spawnEgg(0x730408, 0xFF6500).configCategory(Mooblooms.config.crimsonMooshroom).build();
 	public static final Moobloom WARPED_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("warped_mooshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEntry(new SpawnEntry(warpedForest, Mooblooms.config.warpedMooshroom)).spawnEgg(0x167E86, 0xFF6500).configCategory(Mooblooms.config.warpedMooshroom).build();

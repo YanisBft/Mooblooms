@@ -21,6 +21,7 @@ public class MoobloomsSpawnRestrictions {
 		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.WITHER_ROSE_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
 		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.SUNCOWER.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
 		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.BAMBMOO.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.COWCTUS.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnBadlands);
 		
 		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
 		SpawnRestrictionAccessor.invokeRegister(MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);

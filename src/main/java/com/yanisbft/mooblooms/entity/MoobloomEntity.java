@@ -104,7 +104,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 		if (!player.abilities.creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
 			if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
-			} else if (this.isCowctus()) {
+			} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {
 				player.damage(DamageSource.CACTUS, 1.0F);
 			}
 		}
