@@ -15,7 +15,7 @@ public class ModMenuIntegration implements ModMenuApi {
 	public String getModId() {
 		return Mooblooms.MOD_ID;
 	}
-	
+
 	@Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return screen -> AutoConfig.getConfigScreen(MoobloomsConfig.class, screen).get();

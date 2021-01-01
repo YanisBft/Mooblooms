@@ -22,7 +22,12 @@ public class Mooblooms implements ModInitializer {
 		
 		MoobloomsSpawnRestrictions.init();
 	}
-	
+
+	/**
+	 * Creates an identifier from the {@linkplain Mooblooms#MOD_ID mod id} and the provided {@code name}.
+	 * @param name the path of the identifier
+	 * @return an {@linkplain Identifier}, consisting of a namespace and a path
+	 */
 	public static Identifier id(String name) {
 		return new Identifier(Mooblooms.MOD_ID, name);
 	}
