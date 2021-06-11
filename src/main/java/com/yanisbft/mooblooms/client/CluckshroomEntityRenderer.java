@@ -4,7 +4,7 @@ import com.yanisbft.mooblooms.entity.CluckshroomEntity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -13,8 +13,8 @@ import net.minecraft.util.math.MathHelper;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEntity, CluckshroomEntityModel<CluckshroomEntity>> {
 
-	public CluckshroomEntityRenderer(EntityRenderDispatcher dispatcher) {
-		super(dispatcher, new CluckshroomEntityModel(), 0.3F);
+	public CluckshroomEntityRenderer(EntityRendererFactory.Context context) {
+		super(context, new CluckshroomEntityModel(CluckshroomEntityModel.getTexturedModelData().createModel()), 0.3F);
 		this.addFeature(new CluckshroomBlockStateRenderer(this));
 	}
 

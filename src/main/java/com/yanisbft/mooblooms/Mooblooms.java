@@ -4,8 +4,8 @@ import com.yanisbft.mooblooms.config.MoobloomsConfig;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
 import com.yanisbft.mooblooms.init.MoobloomsSpawnRestrictions;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 

@@ -40,9 +40,9 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
 			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
 			if (!this.world.isClient) {
-				this.remove();
+				this.discard();
 				ChickenEntity chicken = EntityType.CHICKEN.create(this.world);
-				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				chicken.setHealth(this.getHealth());
 				chicken.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {

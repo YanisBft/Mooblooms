@@ -45,9 +45,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
 			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
 			if (!this.world.isClient) {
-				this.remove();
+				this.discard();
 				CowEntity cow = EntityType.COW.create(this.world);
-				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				cow.setHealth(this.getHealth());
 				cow.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
@@ -101,7 +101,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
-		if (!player.abilities.creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
+		if (!player.getAbilities().creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
 			if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
 			} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {

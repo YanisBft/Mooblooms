@@ -14,12 +14,12 @@ public class MoobloomsClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		// Register entity renderers for mooblooms
 		for (Moobloom moobloom : Moobloom.MOOBLOOM_BY_TYPE.values()) {
-			EntityRendererRegistry.INSTANCE.register(moobloom.getEntityType(), (dispatcher, context) -> new MoobloomEntityRenderer(dispatcher));
+			EntityRendererRegistry.INSTANCE.register(moobloom.getEntityType(), MoobloomEntityRenderer::new);
 		}
 		
 		// Register entity renderers for cluckshrooms
 		for (Cluckshroom cluckshroom : Cluckshroom.CLUCKSHROOM_BY_TYPE.values()) {
-			EntityRendererRegistry.INSTANCE.register(cluckshroom.getEntityType(), (dispatcher, context) -> new CluckshroomEntityRenderer(dispatcher));
+			EntityRendererRegistry.INSTANCE.register(cluckshroom.getEntityType(), CluckshroomEntityRenderer::new);
 		}
 	}
 }
