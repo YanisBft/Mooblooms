@@ -25,12 +25,14 @@ public class MoobloomsConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom warpedCluckshroom = new BaseMoobloom(100, 4, 8);
 
 	public static class BaseMoobloom implements MoobloomConfigCategory {
+		public boolean spawnEnabled;
 		public int weight;
 		public int minGroupSize;
 		public int maxGroupSize;
 		public boolean spawnBlocks;
 
 		public BaseMoobloom(int weight, int minGroupSize, int maxGroupSize) {
+			this.spawnEnabled = true;
 			this.weight = weight;
 			this.minGroupSize = minGroupSize;
 			this.maxGroupSize = maxGroupSize;
@@ -39,6 +41,7 @@ public class MoobloomsConfig implements ConfigData {
 	}
 
 	public static class DamagingMoobloom implements MoobloomConfigCategory {
+		public boolean spawnEnabled;
 		public int weight;
 		public int minGroupSize;
 		public int maxGroupSize;
@@ -46,6 +49,7 @@ public class MoobloomsConfig implements ConfigData {
 		public boolean damagePlayers;
 
 		public DamagingMoobloom(int weight, int minGroupSize, int maxGroupSize) {
+			this.spawnEnabled = true;
 			this.weight = weight;
 			this.minGroupSize = minGroupSize;
 			this.maxGroupSize = maxGroupSize;

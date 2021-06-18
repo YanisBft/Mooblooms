@@ -1,14 +1,7 @@
 package com.yanisbft.mooblooms.api;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.CluckshroomEntity;
-
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -25,6 +18,12 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkState;
 
 @SuppressWarnings("unchecked")
 public class Cluckshroom extends AbstractMoobloom {
@@ -56,7 +55,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			Registry.register(Registry.ITEM, itemName, this.spawnEgg);
 		}
 
-		if (this.settings.spawnEntry != null) {
+		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
 			BiomeModifications.addSpawn(this.settings.spawnEntry.getBiomeSelector(), SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
 		}
 

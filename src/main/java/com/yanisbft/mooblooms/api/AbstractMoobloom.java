@@ -1,22 +1,21 @@
 package com.yanisbft.mooblooms.api;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
-import net.minecraft.block.Blocks;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractMoobloom {
 	private static final Logger LOGGER = LogManager.getLogger("Mooblooms API");
@@ -26,6 +25,18 @@ public abstract class AbstractMoobloom {
 		this.settings = settings;
 
 		LOGGER.log(Level.INFO, "Registered " + this.settings.name);
+	}
+
+	protected boolean isSpawnEnabled() {
+		if (this.settings.configCategory != null) {
+			try {
+				return this.settings.configCategory.getClass().getDeclaredField("spawnEnabled").getBoolean(this.settings.configCategory);
+			} catch (NoSuchFieldException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return true;
 	}
 
 	public Identifier getName() {

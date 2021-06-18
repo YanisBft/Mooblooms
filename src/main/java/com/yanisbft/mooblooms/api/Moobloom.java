@@ -1,14 +1,7 @@
 package com.yanisbft.mooblooms.api;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
-
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -26,6 +19,12 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkState;
+
 @SuppressWarnings("unchecked")
 public class Moobloom extends AbstractMoobloom {
 	public static final Map<EntityType<?>, Moobloom> MOOBLOOM_BY_TYPE = new HashMap<>();
@@ -34,14 +33,14 @@ public class Moobloom extends AbstractMoobloom {
 	
 	private Moobloom(Moobloom.Builder settings) {
 		super(settings);
-		
+
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
 				.dimensions(EntityDimensions.fixed(0.9F, 1.4F))
 				.trackRangeChunks(10)
 				.defaultAttributes(MoobloomEntity::createCowAttributes);
-		
+
 		if (this.settings.fireImmune) {
 			builder.fireImmune();
 		}
@@ -56,7 +55,7 @@ public class Moobloom extends AbstractMoobloom {
 			Registry.register(Registry.ITEM, itemName, this.spawnEgg);
 		}
 
-		if (this.settings.spawnEntry != null) {
+		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
 			BiomeModifications.addSpawn(this.settings.spawnEntry.getBiomeSelector(), SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
 		}
 
