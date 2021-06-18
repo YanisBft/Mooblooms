@@ -1,20 +1,13 @@
 package com.yanisbft.mooblooms.init;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.api.Cluckshroom;
 import com.yanisbft.mooblooms.api.Moobloom;
-
 import com.yanisbft.mooblooms.api.SpawnEntry;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.block.BambooBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.BambooLeaves;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.damage.DamageSource;
@@ -22,6 +15,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 @SuppressWarnings("deprecation")
 public class MoobloomsEntities {
@@ -31,6 +27,7 @@ public class MoobloomsEntities {
 	private static Predicate<BiomeSelectionContext> sunflowerPlains = BiomeSelectors.includeByKey(BiomeKeys.SUNFLOWER_PLAINS);
 	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE_HILLS);
 	private static Predicate<BiomeSelectionContext> badlands = BiomeSelectors.categories(Biome.Category.MESA);
+	private static Predicate<BiomeSelectionContext> endIslands = BiomeSelectors.categories(Biome.Category.THEEND).and(BiomeSelectors.excludeByKey(BiomeKeys.THE_END));
 	private static Predicate<BiomeSelectionContext> crimsonForest = BiomeSelectors.includeByKey(BiomeKeys.CRIMSON_FOREST);
 	private static Predicate<BiomeSelectionContext> warpedForest = BiomeSelectors.includeByKey(BiomeKeys.WARPED_FOREST);
 	private static Predicate<BiomeSelectionContext> mushroom = BiomeSelectors.categories(Biome.Category.MUSHROOM);
@@ -45,6 +42,7 @@ public class MoobloomsEntities {
 	public static final Moobloom SUNCOWER = new Moobloom.Builder().name(Mooblooms.id("suncower")).blockState(Blocks.SUNFLOWER.getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER)).spawnEntry(new SpawnEntry(sunflowerPlains, Mooblooms.config.suncower)).spawnEgg(0xF19D25, 0xFFEC4F).configCategory(Mooblooms.config.suncower).build();
 	public static final Moobloom BAMBMOO = new Moobloom.Builder().name(Mooblooms.id("bambmoo")).blockState(Blocks.BAMBOO.getDefaultState().with(BambooBlock.LEAVES, BambooLeaves.SMALL)).spawnEntry(new SpawnEntry(bambooJungle, Mooblooms.config.bambmoo)).spawnEgg(0x538209, 0x97D155).cannotPlaceBlocks().configCategory(Mooblooms.config.bambmoo).build();
 	public static final Moobloom COWCTUS = new Moobloom.Builder().name(Mooblooms.id("cowctus")).blockState(Blocks.CACTUS.getDefaultState()).ignoredDamageSources(ImmutableList.of(DamageSource.CACTUS)).spawnEntry(new SpawnEntry(badlands, Mooblooms.config.cowctus)).spawnEgg(0x39581A, 0x9FA76D).cannotPlaceBlocks().build();
+	public static final Moobloom CHORUS_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("chorus_moobloom")).blockState(Blocks.CHORUS_PLANT.getDefaultState().with(ChorusPlantBlock.DOWN, true)).spawnEntry(new SpawnEntry(endIslands, Mooblooms.config.chorusMoobloom)).spawnEgg(0x562E56, 0xD6BBD6).cannotPlaceBlocks().configCategory(Mooblooms.config.chorusMoobloom).build();
 	
 	public static final Moobloom CRIMSON_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("crimson_mooshroom")).fireImmune().blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEntry(new SpawnEntry(crimsonForest, Mooblooms.config.crimsonMooshroom)).spawnEgg(0x730408, 0xFF6500).configCategory(Mooblooms.config.crimsonMooshroom).build();
 	public static final Moobloom WARPED_MOOSHROOM = new Moobloom.Builder().name(Mooblooms.id("warped_mooshroom")).fireImmune().blockState(Blocks.WARPED_FUNGUS.getDefaultState()).validBlocks(NYLIUM).spawnEntry(new SpawnEntry(warpedForest, Mooblooms.config.warpedMooshroom)).spawnEgg(0x167E86, 0xFF6500).configCategory(Mooblooms.config.warpedMooshroom).build();
