@@ -1,7 +1,5 @@
 package com.yanisbft.mooblooms.entity;
 
-import java.util.Random;
-
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,6 +10,8 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
+
+import java.util.Random;
 
 public interface AnimalWithBlockState {
 
@@ -29,6 +29,10 @@ public interface AnimalWithBlockState {
 	
 	static boolean canSpawnNether(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return !world.getBlockState(pos.down()).isOf(Blocks.NETHER_WART_BLOCK);
+	}
+
+	static boolean canSpawnEnd(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.down()).isOf(Blocks.END_STONE);
 	}
 	
 	default void placeBlocks(AnimalEntity entity, BlockState state) {
