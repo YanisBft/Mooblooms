@@ -21,13 +21,15 @@ dependencies {
 ```
 Then, add the version in your ``gradle.properties``:
 ```properties
-mooblooms_version = 1.4.0
+mooblooms_version = 1.5.0
 ```
 
 #### Available settings
 * ``name(Identifier name)`` (**required**)
-* ``fireImmune()``
 * ``blockState(BlockState state)`` (**required**)
+* ``blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ)``
+* ``blockStateRenderer(Vec3f scale, Vec3d translation)``
+* ``fireImmune()``
 * ``validBlocks(Tag<Block> blocks)``
 * ``validBlocks(List<Block> blocks)``
 * ``cannotPlaceBlocks()``
