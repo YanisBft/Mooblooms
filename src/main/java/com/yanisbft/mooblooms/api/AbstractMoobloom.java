@@ -10,6 +10,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,13 +44,21 @@ public abstract class AbstractMoobloom {
 	public Identifier getName() {
 		return this.settings.name;
 	}
+
+	public BlockState getBlockState() {
+		return this.settings.blockState;
+	}
+
+	public Vec3f getBlockStateRendererScale() {
+		return this.settings.blockStateRendererScale;
+	}
+
+	public Vec3d getBlockStateRendererTranslation() {
+		return this.settings.blockStateRendererTranslation;
+	}
 	
 	public boolean isFireImmune() {
 		return this.settings.fireImmune;
-	}
-	
-	public BlockState getBlockState() {
-		return this.settings.blockState;
 	}
 	
 	public List<Block> getValidBlocks() {
@@ -97,8 +107,10 @@ public abstract class AbstractMoobloom {
 	
 	public static class Builder {
 		protected Identifier name;
-		protected boolean fireImmune;
 		protected BlockState blockState;
+		protected Vec3f blockStateRendererScale;
+		protected Vec3d blockStateRendererTranslation;
+		protected boolean fireImmune;
 		protected List<Block> validBlocks;
 		protected boolean canPlaceBlocks;
 		protected List<StatusEffect> ignoredEffects;
@@ -112,6 +124,8 @@ public abstract class AbstractMoobloom {
 		protected MoobloomConfigCategory configCategory;
 
 		public Builder(Identifier defaultLootTable) {
+			this.blockStateRendererScale = new Vec3f(-1.0F, -1.0F, 1.0F);
+			this.blockStateRendererTranslation = new Vec3d(-0.5D, -0.5D, -0.5D);
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();

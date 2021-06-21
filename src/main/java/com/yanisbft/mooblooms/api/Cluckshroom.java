@@ -17,6 +17,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
@@ -87,15 +89,6 @@ public class Cluckshroom extends AbstractMoobloom {
 		}
 		
 		/**
-		 * Sets this cluckshroom to be fire immune.
-		 * @return this builder for chaining
-		 */
-		public Cluckshroom.Builder fireImmune() {
-			this.fireImmune = true;
-			return this;
-		}
-		
-		/**
 		 * Sets the block state related to this cluckshroom.
 		 * <p>Will appear on this cluckshroom's back and be randomly placed on valid blocks.</p>
 		 * <p>The item matching the block state will be dropped when shearing this cluckshroom.</p>
@@ -104,6 +97,41 @@ public class Cluckshroom extends AbstractMoobloom {
 		 */
 		public Cluckshroom.Builder blockState(BlockState state) {
 			this.blockState = state;
+			return this;
+		}
+
+		/**
+		 * Sets how the block state of this cluckshroom will be rendered on its back.
+		 * @param scaleX the scale on the X axis
+		 * @param scaleY the scale on the Y axis
+		 * @param scaleZ the scale on the Z axis
+		 * @param translationX the translation on the X axis
+		 * @param translationY the translation on the Y axis
+		 * @param translationZ the translation on the Z axis
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ) {
+			return this.blockStateRenderer(new Vec3f(scaleX, scaleY, scaleZ), new Vec3d(translationX, translationY, translationZ));
+		}
+
+		/**
+		 * Sets how the block state of this cluckshroom will be rendered on its back.
+		 * @param scale a vector representing the scale
+		 * @param translation a vector representing the translation
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder blockStateRenderer(Vec3f scale, Vec3d translation) {
+			this.blockStateRendererScale = scale;
+			this.blockStateRendererTranslation = translation;
+			return this;
+		}
+
+		/**
+		 * Sets this cluckshroom to be fire immune.
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder fireImmune() {
+			this.fireImmune = true;
 			return this;
 		}
 		

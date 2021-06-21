@@ -12,6 +12,7 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
@@ -25,13 +26,15 @@ public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends 
 		if (!entity.isBaby() && !entity.isInvisible()) {
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 			BlockState state = entity.settings.getBlockState();
+			Vec3f scale = entity.settings.getBlockStateRendererScale();
+			Vec3d translation = entity.settings.getBlockStateRendererTranslation();
 			int overlay = LivingEntityRenderer.getOverlay(entity, 0.0F);
 			
 			matrices.push();
 			matrices.translate(0.0D, 0.36D, 0.15D);
 			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-6.0F));
-			matrices.scale(-1.0F, -1.0F, 1.0F);
-			matrices.translate(-0.5D, -0.5D, -0.5D);
+			matrices.scale(scale.getX(), scale.getY(), scale.getZ());
+			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
 			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 			
@@ -39,8 +42,8 @@ public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends 
 			this.getContextModel().getHead().rotate(matrices);
 			matrices.translate(0.02D, -0.8D, -0.03D);
 			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
-			matrices.scale(-1.0F, -1.0F, 1.0F);
-			matrices.translate(-0.5D, -0.5D, -0.5D);
+			matrices.scale(scale.getX(), scale.getY(), scale.getZ());
+			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
 			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 		}
