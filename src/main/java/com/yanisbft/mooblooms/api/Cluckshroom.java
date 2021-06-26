@@ -39,7 +39,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(CluckshroomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
-				.dimensions(EntityDimensions.fixed(0.4F, 0.7F))
+				.dimensions(EntityDimensions.changing(0.4F, 0.7F))
 				.trackRangeChunks(10)
 				.defaultAttributes(CluckshroomEntity::createChickenAttributes);
 

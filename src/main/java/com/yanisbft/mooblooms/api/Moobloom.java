@@ -39,7 +39,7 @@ public class Moobloom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
-				.dimensions(EntityDimensions.fixed(0.9F, 1.4F))
+				.dimensions(EntityDimensions.changing(0.9F, 1.4F))
 				.trackRangeChunks(10)
 				.defaultAttributes(MoobloomEntity::createCowAttributes);
 
