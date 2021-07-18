@@ -3,6 +3,11 @@
 Mooblooms is a mod inspired by Minecraft Earth game, adding colorful and flowery cows.
 Made using Fabric API.
 
+[![](http://cf.way2muchnoise.eu/full_mooblooms_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
+[![](http://cf.way2muchnoise.eu/versions/minecraft_mooblooms_all.svg)](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
+[![](https://img.shields.io/github/v/tag/YanisBft/Mooblooms?label=version)](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
+[![](https://img.shields.io/github/license/YanisBft/Mooblooms.svg)](LICENSE)
+
 ---
 
 ## API
