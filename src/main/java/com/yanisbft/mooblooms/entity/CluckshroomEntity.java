@@ -5,6 +5,7 @@ import com.yanisbft.mooblooms.api.Cluckshroom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -20,6 +21,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 
 public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockState {
 	public Cluckshroom settings;
@@ -107,5 +110,15 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 		}
 		
 		super.tickMovement();
+	}
+
+	@Override
+	public boolean canSpawn(WorldView world) {
+		return true;
+	}
+
+	@Override
+	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+		return true;
 	}
 }

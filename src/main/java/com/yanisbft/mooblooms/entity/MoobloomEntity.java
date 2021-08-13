@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -25,6 +26,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 
 public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	public Moobloom settings;
@@ -134,7 +137,17 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 		
 		super.tickMovement();
 	}
-	
+
+	@Override
+	public boolean canSpawn(WorldView world) {
+		return true;
+	}
+
+	@Override
+	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+		return true;
+	}
+
 	public boolean isWitherRose() {
 		return this.settings.equals(MoobloomsEntities.WITHER_ROSE_MOOBLOOM);
 	}
