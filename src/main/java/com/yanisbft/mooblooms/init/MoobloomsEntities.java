@@ -51,4 +51,7 @@ public class MoobloomsEntities {
 	public static final Cluckshroom BROWN_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("brown_cluckshroom")).blockState(Blocks.BROWN_MUSHROOM.getDefaultState()).spawnEntry(new SpawnEntry(mushroom, Mooblooms.config.brownCluckshroom)).spawnEgg(0x977251, 0xCC9978).configCategory(Mooblooms.config.brownCluckshroom).build();
 	public static final Cluckshroom CRIMSON_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("crimson_cluckshroom")).blockState(Blocks.CRIMSON_FUNGUS.getDefaultState()).fireImmune().validBlocks(NYLIUM).spawnEntry(new SpawnEntry(crimsonForest, Mooblooms.config.crimsonCluckshroom)).spawnEgg(0x730408, 0xA42429).configCategory(Mooblooms.config.crimsonCluckshroom).build();
 	public static final Cluckshroom WARPED_CLUCKSHROOM = new Cluckshroom.Builder().name(Mooblooms.id("warped_cluckshroom")).blockState(Blocks.WARPED_FUNGUS.getDefaultState()).fireImmune().validBlocks(NYLIUM).spawnEntry(new SpawnEntry(warpedForest, Mooblooms.config.warpedCluckshroom)).spawnEgg(0x167E86, 0x14B485).configCategory(Mooblooms.config.warpedCluckshroom).build();
+
+	public static void init() {
+	}
 }
