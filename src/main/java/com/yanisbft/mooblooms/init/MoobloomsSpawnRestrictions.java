@@ -1,35 +1,33 @@
 package com.yanisbft.mooblooms.init;
 
+import static com.yanisbft.mooblooms.init.MoobloomsEntities.*;
 import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
-
-import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.world.Heightmap;
 
 public class MoobloomsSpawnRestrictions {
-
 	public static void init() {
 		final SpawnRestriction.Location onGround = SpawnRestriction.Location.ON_GROUND;
-		final Heightmap.Type motionBlocking = Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
-		
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.DANDELION_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.POPPY_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.BLUE_ORCHID_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.ALLIUM_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.OXEYE_DAISY_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.CORNFLOWER_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.WITHER_ROSE_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.SUNCOWER.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.BAMBMOO.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.COWCTUS.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnBadlands);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.CHORUS_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnEnd);
+		final Heightmap.Type hm = Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.WARPED_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
-		
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.RED_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.BROWN_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.CRIMSON_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
-		SpawnRestrictionAccessor.callRegister(MoobloomsEntities.WARPED_CLUCKSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
+		SpawnRestriction.register(DANDELION_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(POPPY_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(BLUE_ORCHID_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(ALLIUM_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(OXEYE_DAISY_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(CORNFLOWER_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(WITHER_ROSE_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnNether);
+		SpawnRestriction.register(SUNCOWER.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(BAMBMOO.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(COWCTUS.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnBadlands);
+		SpawnRestriction.register(CHORUS_MOOBLOOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnEnd);
+
+		SpawnRestriction.register(CRIMSON_MOOSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnNether);
+		SpawnRestriction.register(WARPED_MOOSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnNether);
+
+		SpawnRestriction.register(RED_CLUCKSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(BROWN_CLUCKSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(CRIMSON_CLUCKSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnNether);
+		SpawnRestriction.register(WARPED_CLUCKSHROOM.getEntityType(), onGround, hm, AnimalWithBlockState::canSpawnNether);
 	}
 }

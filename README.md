@@ -35,7 +35,7 @@ mooblooms_version = 1.5.0
 * ``blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ)``
 * ``blockStateRenderer(Vec3f scale, Vec3d translation)``
 * ``fireImmune()``
-* ``validBlocks(Tag<Block> blocks)``
+* ``validBlocks(BlockGags blocks)``
 * ``validBlocks(List<Block> blocks)``
 * ``cannotPlaceBlocks()``
 * ``ignoredEffects(List<StatusEffect> effects)``

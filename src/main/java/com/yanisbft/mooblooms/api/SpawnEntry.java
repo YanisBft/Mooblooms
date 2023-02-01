@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 
 import java.util.function.Predicate;
 
-@SuppressWarnings("deprecation")
 public class SpawnEntry {
     private Predicate<BiomeSelectionContext> biomeSelector;
     private int weight;
@@ -14,10 +13,17 @@ public class SpawnEntry {
 
     /**
      * Creates a new spawn entry from a biome selector and a config category.
-     * <p>This constructor expects a config category class containing "{@code weight}", "{@code minGroupSize}"
-     * and "{@code maxGroupSize}" fields, corresponding to config entries.</p>
-     * @param biomeSelector a biome selection predicate (see {@linkplain net.fabricmc.fabric.api.biome.v1.BiomeSelectors BiomeSelectors})
-     * @param configCategory an instance of a class implementing {@link MoobloomConfigCategory}
+     * <p>
+     * This constructor expects a config category class containing "{@code weight}",
+     * "{@code minGroupSize}"
+     * and "{@code maxGroupSize}" fields, corresponding to config entries.
+     * </p>
+     *
+     * @param biomeSelector  a biome selection predicate (see
+     *                       {@linkplain net.fabricmc.fabric.api.biome.v1.BiomeSelectors
+     *                       BiomeSelectors})
+     * @param configCategory an instance of a class implementing
+     *                       {@link MoobloomConfigCategory}
      */
     public SpawnEntry(Predicate<BiomeSelectionContext> biomeSelector, MoobloomConfigCategory configCategory) {
         this.biomeSelector = biomeSelector;
@@ -31,11 +37,15 @@ public class SpawnEntry {
     }
 
     /**
-     * Creates a new spawn entry from a biome selector, a weight and a minimum and maximum group sizes.
-     * @param biomeSelector a biome selection predicate (see {@linkplain net.fabricmc.fabric.api.biome.v1.BiomeSelectors BiomeSelectors})
-     * @param weight a weight
-     * @param minGroupSize a minimum group size
-     * @param maxGroupSize a maximum group size
+     * Creates a new spawn entry from a biome selector, a weight and a minimum and
+     * maximum group sizes.
+     *
+     * @param biomeSelector a biome selection predicate (see
+     *                      {@linkplain net.fabricmc.fabric.api.biome.v1.BiomeSelectors
+     *                      BiomeSelectors})
+     * @param weight        a weight
+     * @param minGroupSize  a minimum group size
+     * @param maxGroupSize  a maximum group size
      */
     public SpawnEntry(Predicate<BiomeSelectionContext> biomeSelector, int weight, int minGroupSize, int maxGroupSize) {
         this.biomeSelector = biomeSelector;

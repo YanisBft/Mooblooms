@@ -13,24 +13,23 @@ import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-@SuppressWarnings("deprecation")
 public class MoobloomsEntities {
 	private static final List<Block> NYLIUM = ImmutableList.of(Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM);
 	private static Predicate<BiomeSelectionContext> flowerForest = BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST);
-	private static Predicate<BiomeSelectionContext> nether = BiomeSelectors.categories(Biome.Category.NETHER);
+	private static Predicate<BiomeSelectionContext> nether = BiomeSelectors.foundInTheNether();
 	private static Predicate<BiomeSelectionContext> sunflowerPlains = BiomeSelectors.includeByKey(BiomeKeys.SUNFLOWER_PLAINS);
-	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE_HILLS);
-	private static Predicate<BiomeSelectionContext> badlands = BiomeSelectors.categories(Biome.Category.MESA);
-	private static Predicate<BiomeSelectionContext> endIslands = BiomeSelectors.categories(Biome.Category.THEEND).and(BiomeSelectors.excludeByKey(BiomeKeys.THE_END));
+	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE);
+	private static Predicate<BiomeSelectionContext> badlands = BiomeSelectors.tag(BiomeTags.IS_BADLANDS);
+	private static Predicate<BiomeSelectionContext> endIslands = BiomeSelectors.foundInTheEnd().and(BiomeSelectors.excludeByKey(BiomeKeys.THE_END));
 	private static Predicate<BiomeSelectionContext> crimsonForest = BiomeSelectors.includeByKey(BiomeKeys.CRIMSON_FOREST);
 	private static Predicate<BiomeSelectionContext> warpedForest = BiomeSelectors.includeByKey(BiomeKeys.WARPED_FOREST);
-	private static Predicate<BiomeSelectionContext> mushroom = BiomeSelectors.categories(Biome.Category.MUSHROOM);
+	private static Predicate<BiomeSelectionContext> mushroom = BiomeSelectors.includeByKey(BiomeKeys.MUSHROOM_FIELDS);
 	
 	public static final Moobloom DANDELION_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("dandelion_moobloom")).blockState(Blocks.DANDELION.getDefaultState()).spawnEntry(new SpawnEntry(flowerForest, Mooblooms.config.dandelionMoobloom)).spawnEgg(0xFED639, 0xFBEBAE).configCategory(Mooblooms.config.dandelionMoobloom).build();
 	public static final Moobloom POPPY_MOOBLOOM = new Moobloom.Builder().name(Mooblooms.id("poppy_moobloom")).blockState(Blocks.POPPY.getDefaultState()).spawnEntry(new SpawnEntry(flowerForest, Mooblooms.config.poppyMoobloom)).spawnEgg(0xBF2529, 0xFAB8B7).configCategory(Mooblooms.config.poppyMoobloom).build();

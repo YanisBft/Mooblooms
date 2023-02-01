@@ -11,10 +11,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,8 @@ public abstract class AbstractMoobloom {
 	protected boolean isSpawnEnabled() {
 		if (this.settings.configCategory != null) {
 			try {
-				return this.settings.configCategory.getClass().getDeclaredField("spawnEnabled").getBoolean(this.settings.configCategory);
+				return this.settings.configCategory.getClass().getDeclaredField("spawnEnabled")
+						.getBoolean(this.settings.configCategory);
 			} catch (NoSuchFieldException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
@@ -49,38 +50,38 @@ public abstract class AbstractMoobloom {
 		return this.settings.blockState;
 	}
 
-	public Vec3f getBlockStateRendererScale() {
+	public Vector3f getBlockStateRendererScale() {
 		return this.settings.blockStateRendererScale;
 	}
 
 	public Vec3d getBlockStateRendererTranslation() {
 		return this.settings.blockStateRendererTranslation;
 	}
-	
+
 	public boolean isFireImmune() {
 		return this.settings.fireImmune;
 	}
-	
+
 	public List<Block> getValidBlocks() {
 		return this.settings.validBlocks;
 	}
-	
+
 	public boolean canPlaceBlocks() {
 		return this.settings.canPlaceBlocks;
 	}
-	
+
 	public List<StatusEffect> getIgnoredEffects() {
 		return this.settings.ignoredEffects;
 	}
-	
+
 	public List<DamageSource> getIgnoredDamageSources() {
 		return this.settings.ignoredDamageSources;
 	}
-	
+
 	public ParticleEffect getParticle() {
 		return this.settings.particle;
 	}
-	
+
 	public Identifier getLootTable() {
 		return this.settings.lootTable;
 	}
@@ -88,27 +89,27 @@ public abstract class AbstractMoobloom {
 	public SpawnEntry getSpawnEntry() {
 		return this.settings.spawnEntry;
 	}
-	
+
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
 	}
-	
+
 	public int getSecondarySpawnEggColor() {
 		return this.settings.secondarySpawnEggColor;
 	}
-	
+
 	public ItemGroup getSpawnEggItemGroup() {
 		return this.settings.spawnEggItemGroup;
 	}
-	
+
 	public MoobloomConfigCategory getConfigCategory() {
 		return this.settings.configCategory;
 	}
-	
+
 	public static class Builder {
 		protected Identifier name;
 		protected BlockState blockState;
-		protected Vec3f blockStateRendererScale;
+		protected Vector3f blockStateRendererScale;
 		protected Vec3d blockStateRendererTranslation;
 		protected boolean fireImmune;
 		protected List<Block> validBlocks;
@@ -124,7 +125,7 @@ public abstract class AbstractMoobloom {
 		protected MoobloomConfigCategory configCategory;
 
 		public Builder(Identifier defaultLootTable) {
-			this.blockStateRendererScale = new Vec3f(-1.0F, -1.0F, 1.0F);
+			this.blockStateRendererScale = new Vector3f(-1.0F, -1.0F, 1.0F);
 			this.blockStateRendererTranslation = new Vec3d(-0.5D, -0.5D, -0.5D);
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
