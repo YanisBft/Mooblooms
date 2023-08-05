@@ -10,6 +10,11 @@ Made using Fabric API.
 
 ---
 
+## Downloads
+
+- [Modrinth](https://modrinth.com/mod/mooblooms)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
+
 ## API
 Since 1.3.0, Mooblooms provides builders to easily add mooblooms and cluckshrooms to your mod.
 
@@ -26,7 +31,7 @@ dependencies {
 ```
 Then, add the version in your ``gradle.properties``:
 ```properties
-mooblooms_version = 1.5.3
+mooblooms_version = 1.5.4
 ```
 
 #### Available settings
