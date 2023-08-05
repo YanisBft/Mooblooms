@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 
 import java.util.function.Predicate;
 
-@SuppressWarnings("deprecation")
 public class SpawnEntry {
     private Predicate<BiomeSelectionContext> biomeSelector;
     private int weight;

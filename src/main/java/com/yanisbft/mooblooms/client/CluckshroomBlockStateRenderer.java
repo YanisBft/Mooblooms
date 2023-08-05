@@ -1,7 +1,6 @@
 package com.yanisbft.mooblooms.client;
 
 import com.yanisbft.mooblooms.entity.CluckshroomEntity;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -12,8 +11,9 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, CluckshroomEntityModel<T>> {
@@ -26,14 +26,14 @@ public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends 
 		if (!entity.isBaby() && !entity.isInvisible()) {
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 			BlockState state = entity.settings.getBlockState();
-			Vec3f scale = entity.settings.getBlockStateRendererScale();
+			Vector3f scale = entity.settings.getBlockStateRendererScale();
 			Vec3d translation = entity.settings.getBlockStateRendererTranslation();
 			int overlay = LivingEntityRenderer.getOverlay(entity, 0.0F);
 			
 			matrices.push();
 			matrices.translate(0.0D, 0.36D, 0.15D);
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-6.0F));
-			matrices.scale(scale.getX(), scale.getY(), scale.getZ());
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-6.0F));
+			matrices.scale(scale.x, scale.y, scale.z);
 			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
 			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
@@ -41,8 +41,8 @@ public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends 
 			matrices.push();
 			this.getContextModel().getHead().rotate(matrices);
 			matrices.translate(0.02D, -0.8D, -0.03D);
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
-			matrices.scale(scale.getX(), scale.getY(), scale.getZ());
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
+			matrices.scale(scale.x, scale.y, scale.z);
 			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
 			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
 			matrices.pop();

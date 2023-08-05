@@ -3,23 +3,26 @@ package com.yanisbft.mooblooms.api;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.CluckshroomEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.tag.Tag;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
-import net.minecraft.util.registry.Registry;
+import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +33,7 @@ import static com.google.common.base.Preconditions.checkState;
 @SuppressWarnings("unchecked")
 public class Cluckshroom extends AbstractMoobloom {
 	public static final Map<EntityType<?>, Cluckshroom> CLUCKSHROOM_BY_TYPE = new HashMap<>();
-	private EntityType<CluckshroomEntity> entityType;
+	private final EntityType<CluckshroomEntity> entityType;
 	private SpawnEggItem spawnEgg;
 
 	private Cluckshroom(Cluckshroom.Builder settings) {
@@ -49,12 +52,13 @@ public class Cluckshroom extends AbstractMoobloom {
 
 		this.entityType = (EntityType<CluckshroomEntity>) builder.build();
 
-		Registry.register(Registry.ENTITY_TYPE, this.settings.name, this.entityType);
+		Registry.register(Registries.ENTITY_TYPE, this.settings.name, this.entityType);
 
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
-			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64).group(this.settings.spawnEggItemGroup));
+			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64));
+			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Identifier itemName = new Identifier(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
-			Registry.register(Registry.ITEM, itemName, this.spawnEgg);
+			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
 		}
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
@@ -111,7 +115,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @return this builder for chaining
 		 */
 		public Cluckshroom.Builder blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ) {
-			return this.blockStateRenderer(new Vec3f(scaleX, scaleY, scaleZ), new Vec3d(translationX, translationY, translationZ));
+			return this.blockStateRenderer(new Vector3f(scaleX, scaleY, scaleZ), new Vec3d(translationX, translationY, translationZ));
 		}
 
 		/**
@@ -120,7 +124,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @param translation a vector representing the translation
 		 * @return this builder for chaining
 		 */
-		public Cluckshroom.Builder blockStateRenderer(Vec3f scale, Vec3d translation) {
+		public Cluckshroom.Builder blockStateRenderer(Vector3f scale, Vec3d translation) {
 			this.blockStateRendererScale = scale;
 			this.blockStateRendererTranslation = translation;
 			return this;
@@ -137,17 +141,6 @@ public class Cluckshroom extends AbstractMoobloom {
 		
 		/**
 		 * Sets the blocks that are valid for placing the specified {@linkplain #blockState(BlockState)}.
-		 * <p><i>Note: Can't be combined with {@linkplain #validBlocks(List)}</i></p>
-		 * @param blocks a block tag
-		 * @return this builder for chaining
-		 */
-		public Cluckshroom.Builder validBlocks(Tag<Block> blocks) {
-			return this.validBlocks(blocks.values());
-		}
-		
-		/**
-		 * Sets the blocks that are valid for placing the specified {@linkplain #blockState(BlockState)}.
-		 * <p><i>Note: Can't be combined with {@linkplain #validBlocks(Tag)}</i></p>
 		 * @param blocks a list of blocks
 		 * @return this builder for chaining
 		 */
@@ -176,12 +169,12 @@ public class Cluckshroom extends AbstractMoobloom {
 		}
 		
 		/**
-		 * Sets the damage sources that will not affect this cluckshroom.
-		 * @param damageSources a list of damage sources
+		 * Sets the damage types that will not affect this cluckshroom.
+		 * @param damageTypes a list of damage sources
 		 * @return this builder for chaining
 		 */
-		public Cluckshroom.Builder ignoredDamageSources(List<DamageSource> damageSources) {
-			this.ignoredDamageSources = damageSources;
+		public Cluckshroom.Builder ignoredDamageTypes(List<RegistryKey<DamageType>> damageTypes) {
+			this.ignoredDamageTypes = damageTypes;
 			return this;
 		}
 		
@@ -218,13 +211,13 @@ public class Cluckshroom extends AbstractMoobloom {
 		
 		/**
 		 * Sets this cluckshroom's spawn egg colors.
-		 * <p>Will appear in {@linkplain ItemGroup#MISC}.</p>
+		 * <p>Will appear in {@linkplain ItemGroups#SPAWN_EGGS}.</p>
 		 * @param primaryColor an int representing the main color
 		 * @param secondaryColor an int representing the dots' color
 		 * @return this builder for chaining
 		 */
 		public Cluckshroom.Builder spawnEgg(int primaryColor, int secondaryColor) {
-			return this.spawnEgg(primaryColor, secondaryColor, ItemGroup.MISC);
+			return this.spawnEgg(primaryColor, secondaryColor, ItemGroups.SPAWN_EGGS);
 		}
 		
 		/**

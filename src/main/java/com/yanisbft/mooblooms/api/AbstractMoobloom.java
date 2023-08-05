@@ -5,16 +5,17 @@ import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public abstract class AbstractMoobloom {
 		return this.settings.blockState;
 	}
 
-	public Vec3f getBlockStateRendererScale() {
+	public Vector3f getBlockStateRendererScale() {
 		return this.settings.blockStateRendererScale;
 	}
 
@@ -73,8 +74,8 @@ public abstract class AbstractMoobloom {
 		return this.settings.ignoredEffects;
 	}
 	
-	public List<DamageSource> getIgnoredDamageSources() {
-		return this.settings.ignoredDamageSources;
+	public List<RegistryKey<DamageType>> getIgnoredDamageTypes() {
+		return this.settings.ignoredDamageTypes;
 	}
 	
 	public ParticleEffect getParticle() {
@@ -108,13 +109,13 @@ public abstract class AbstractMoobloom {
 	public static class Builder {
 		protected Identifier name;
 		protected BlockState blockState;
-		protected Vec3f blockStateRendererScale;
+		protected Vector3f blockStateRendererScale;
 		protected Vec3d blockStateRendererTranslation;
 		protected boolean fireImmune;
 		protected List<Block> validBlocks;
 		protected boolean canPlaceBlocks;
 		protected List<StatusEffect> ignoredEffects;
-		protected List<DamageSource> ignoredDamageSources;
+		protected List<RegistryKey<DamageType>> ignoredDamageTypes;
 		protected ParticleEffect particle;
 		protected Identifier lootTable;
 		protected SpawnEntry spawnEntry;
@@ -124,12 +125,12 @@ public abstract class AbstractMoobloom {
 		protected MoobloomConfigCategory configCategory;
 
 		public Builder(Identifier defaultLootTable) {
-			this.blockStateRendererScale = new Vec3f(-1.0F, -1.0F, 1.0F);
+			this.blockStateRendererScale = new Vector3f(-1.0F, -1.0F, 1.0F);
 			this.blockStateRendererTranslation = new Vec3d(-0.5D, -0.5D, -0.5D);
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
-			this.ignoredDamageSources = new ArrayList<>();
+			this.ignoredDamageTypes = new ArrayList<>();
 			this.lootTable = defaultLootTable;
 		}
 	}

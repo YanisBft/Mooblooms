@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -82,10 +84,12 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
-		if (this.settings.getIgnoredDamageSources().contains(source)) {
-			return true;
+		for (RegistryKey<DamageType> ignoredDamageType : this.settings.getIgnoredDamageTypes()) {
+			if (source.isOf(ignoredDamageType)) {
+				return true;
+			}
 		}
-		
+
 		return super.isInvulnerableTo(source);
 	}
 	
@@ -93,7 +97,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
-				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
+				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {

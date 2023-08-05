@@ -3,13 +3,13 @@ package com.yanisbft.mooblooms.entity;
 import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.api.Moobloom;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.CowEntity;
@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -66,10 +67,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return ActionResult.success(this.world.isClient);
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock)) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
-			FlowerBlock flowerBlock = (FlowerBlock) this.settings.getBlockState().getBlock();
 			SuspiciousStewItem.addEffectToStew(suspiciousStew, flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
@@ -95,10 +95,12 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
-		if (this.settings.getIgnoredDamageSources().contains(source)) {
-			return true;
+		for (RegistryKey<DamageType> ignoredDamageType : this.settings.getIgnoredDamageTypes()) {
+			if (source.isOf(ignoredDamageType)) {
+				return true;
+			}
 		}
-		
+
 		return super.isInvulnerableTo(source);
 	}
 	
@@ -108,7 +110,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 			if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
 			} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {
-				player.damage(DamageSource.CACTUS, 1.0F);
+				player.damage(player.getDamageSources().cactus(), 1.0F);
 			}
 		}
 		
@@ -119,7 +121,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
 			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
-				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ())).getBlock();
+				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
