@@ -19,13 +19,12 @@ import net.minecraft.world.biome.BiomeKeys;
 import java.util.List;
 import java.util.function.Predicate;
 
-@SuppressWarnings("deprecation")
 public class MoobloomsEntities {
 	private static final List<Block> NYLIUM = ImmutableList.of(Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM);
 	private static Predicate<BiomeSelectionContext> flowerForest = BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST);
 	private static Predicate<BiomeSelectionContext> nether = BiomeSelectors.categories(Biome.Category.NETHER);
 	private static Predicate<BiomeSelectionContext> sunflowerPlains = BiomeSelectors.includeByKey(BiomeKeys.SUNFLOWER_PLAINS);
-	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.BAMBOO_JUNGLE_HILLS);
+	private static Predicate<BiomeSelectionContext> bambooJungle = BiomeSelectors.includeByKey(BiomeKeys.BAMBOO_JUNGLE);
 	private static Predicate<BiomeSelectionContext> badlands = BiomeSelectors.categories(Biome.Category.MESA);
 	private static Predicate<BiomeSelectionContext> endIslands = BiomeSelectors.categories(Biome.Category.THEEND).and(BiomeSelectors.excludeByKey(BiomeKeys.THE_END));
 	private static Predicate<BiomeSelectionContext> crimsonForest = BiomeSelectors.includeByKey(BiomeKeys.CRIMSON_FOREST);

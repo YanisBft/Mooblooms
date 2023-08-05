@@ -6,7 +6,7 @@ import com.yanisbft.mooblooms.client.CluckshroomEntityRenderer;
 import com.yanisbft.mooblooms.client.MoobloomEntityRenderer;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 
 public class MoobloomsClient implements ClientModInitializer {
 
@@ -14,12 +14,12 @@ public class MoobloomsClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		// Register entity renderers for mooblooms
 		for (Moobloom moobloom : Moobloom.MOOBLOOM_BY_TYPE.values()) {
-			EntityRendererRegistry.INSTANCE.register(moobloom.getEntityType(), MoobloomEntityRenderer::new);
+			EntityRendererRegistry.register(moobloom.getEntityType(), MoobloomEntityRenderer::new);
 		}
 		
 		// Register entity renderers for cluckshrooms
 		for (Cluckshroom cluckshroom : Cluckshroom.CLUCKSHROOM_BY_TYPE.values()) {
-			EntityRendererRegistry.INSTANCE.register(cluckshroom.getEntityType(), CluckshroomEntityRenderer::new);
+			EntityRendererRegistry.register(cluckshroom.getEntityType(), CluckshroomEntityRenderer::new);
 		}
 	}
 }
