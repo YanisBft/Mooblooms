@@ -98,7 +98,7 @@ public abstract class AbstractMoobloom {
 		return this.settings.secondarySpawnEggColor;
 	}
 	
-	public ItemGroup getSpawnEggItemGroup() {
+	public RegistryKey<ItemGroup> getSpawnEggItemGroup() {
 		return this.settings.spawnEggItemGroup;
 	}
 	
@@ -121,7 +121,7 @@ public abstract class AbstractMoobloom {
 		protected SpawnEntry spawnEntry;
 		protected int primarySpawnEggColor;
 		protected int secondarySpawnEggColor;
-		protected ItemGroup spawnEggItemGroup;
+		protected RegistryKey<ItemGroup> spawnEggItemGroup;
 		protected MoobloomConfigCategory configCategory;
 
 		public Builder(Identifier defaultLootTable) {

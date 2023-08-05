@@ -227,7 +227,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @param group an item group
 		 * @return this builder for chaining
 		 */
-		public Cluckshroom.Builder spawnEgg(int primaryColor, int secondaryColor, ItemGroup group) {
+		public Cluckshroom.Builder spawnEgg(int primaryColor, int secondaryColor, RegistryKey<ItemGroup> group) {
 			this.primarySpawnEggColor = primaryColor;
 			this.secondarySpawnEggColor = secondaryColor;
 			this.spawnEggItemGroup = group;

@@ -35,10 +35,10 @@ public interface AnimalWithBlockState {
 
 	default void placeBlocks(AnimalEntity entity, BlockState state) {
 		if (state.getBlock() instanceof TallPlantBlock) {
-			entity.world.setBlockState(entity.getBlockPos(), state.cycle(Properties.DOUBLE_BLOCK_HALF));
-			entity.world.setBlockState(entity.getBlockPos().up(), state);
+			entity.getWorld().setBlockState(entity.getBlockPos(), state.cycle(Properties.DOUBLE_BLOCK_HALF));
+			entity.getWorld().setBlockState(entity.getBlockPos().up(), state);
 		} else {
-			entity.world.setBlockState(entity.getBlockPos(), state);
+			entity.getWorld().setBlockState(entity.getBlockPos(), state);
 		}
 	}
 

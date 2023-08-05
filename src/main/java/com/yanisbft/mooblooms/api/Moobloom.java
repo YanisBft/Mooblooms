@@ -227,7 +227,7 @@ public class Moobloom extends AbstractMoobloom {
 		 * @param group an item group
 		 * @return this builder for chaining
 		 */
-		public Moobloom.Builder spawnEgg(int primaryColor, int secondaryColor, ItemGroup group) {
+		public Moobloom.Builder spawnEgg(int primaryColor, int secondaryColor, RegistryKey<ItemGroup> group) {
 			this.primarySpawnEggColor = primaryColor;
 			this.secondarySpawnEggColor = secondaryColor;
 			this.spawnEggItemGroup = group;

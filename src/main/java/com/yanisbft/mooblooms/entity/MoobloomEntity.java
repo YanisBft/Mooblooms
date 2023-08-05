@@ -47,33 +47,33 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
-			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
-			if (!this.world.isClient) {
+			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
+			if (!this.getWorld().isClient) {
 				this.discard();
-				CowEntity cow = EntityType.COW.create(this.world);
+				CowEntity cow = EntityType.COW.create(this.getWorld());
 				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				cow.setHealth(this.getHealth());
 				cow.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
 					cow.setCustomName(this.getCustomName());
 				}
-				this.world.spawnEntity(cow);
+				this.getWorld().spawnEntity(cow);
 				for (int i = 0; i < 5; i++) {
-					this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
+					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
 				}
 				stack.damage(1, player, ((playerEntity) -> {
 					playerEntity.sendToolBreakStatus(hand);
 				}));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
-			return ActionResult.success(this.world.isClient);
+			return ActionResult.success(this.getWorld().isClient);
 		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			SuspiciousStewItem.addEffectToStew(suspiciousStew, flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
-			return ActionResult.success(this.world.isClient);
+			return ActionResult.success(this.getWorld().isClient);
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -120,9 +120,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	@Override
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
-			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
-				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
-				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
+			if (!this.getWorld().isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
+				Block blockUnderneath = this.getWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
+				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
 						this.placeBlocks(this, this.settings.getBlockState());
@@ -131,9 +131,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 			}
 		}
 		
-		if (this.world.isClient && this.settings.getParticle() != null) {
+		if (this.getWorld().isClient && this.settings.getParticle() != null) {
 			for (int i = 0; i < 3; i++) {
-				this.world.addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.getWorld().addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		

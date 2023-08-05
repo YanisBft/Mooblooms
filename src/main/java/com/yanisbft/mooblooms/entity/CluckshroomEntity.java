@@ -43,26 +43,26 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
-			this.world.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
-			if (!this.world.isClient) {
+			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
+			if (!this.getWorld().isClient) {
 				this.discard();
-				ChickenEntity chicken = EntityType.CHICKEN.create(this.world);
+				ChickenEntity chicken = EntityType.CHICKEN.create(this.getWorld());
 				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				chicken.setHealth(this.getHealth());
 				chicken.bodyYaw = this.bodyYaw;
 				if (this.hasCustomName()) {
 					chicken.setCustomName(this.getCustomName());
 				}
-				this.world.spawnEntity(chicken);
+				this.getWorld().spawnEntity(chicken);
 				for(int i = 0; i < 3; ++i) {
-					this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
+					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
 				}
 				stack.damage(1, player, ((playerEntity) -> {
 					playerEntity.sendToolBreakStatus(hand);
 				}));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
-			return ActionResult.success(this.world.isClient);
+			return ActionResult.success(this.getWorld().isClient);
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -96,9 +96,9 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	@Override
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
-			if (!this.world.isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
-				Block blockUnderneath = this.world.getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
-				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.world.isAir(this.getBlockPos())) {
+			if (!this.getWorld().isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
+				Block blockUnderneath = this.getWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
+				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
 						this.placeBlocks(this, this.settings.getBlockState());
@@ -107,9 +107,9 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 			}
 		}
 		
-		if (this.world.isClient && this.settings.getParticle() != null) {
+		if (this.getWorld().isClient && this.settings.getParticle() != null) {
 			for (int i = 0; i < 3; i++) {
-				this.world.addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.getWorld().addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		
