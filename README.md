@@ -43,7 +43,7 @@ mooblooms_version = 1.5.3
 * ``lootTable(Identifier lootTable)``
 * ``spawnEntry(SpawnEntry spawnEntry)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
-* ``spawnEgg(int primaryColor, int secondaryColor, ItemGroup group)``
+* ``spawnEgg(int primaryColor, int secondaryColor, RegistryKey<ItemGroup> group)``
 * ``configCategory(MoobloomConfigCategory configCategory)``
 
 #### What you need to do
