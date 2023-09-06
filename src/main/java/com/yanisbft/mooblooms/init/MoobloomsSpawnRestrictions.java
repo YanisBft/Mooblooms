@@ -20,6 +20,8 @@ public class MoobloomsSpawnRestrictions {
 		SpawnRestriction.register(MoobloomsEntities.SUNCOWER.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
 		SpawnRestriction.register(MoobloomsEntities.BAMBMOO.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
 		SpawnRestriction.register(MoobloomsEntities.COWCTUS.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnBadlands);
+		SpawnRestriction.register(MoobloomsEntities.AZALEA_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
+		SpawnRestriction.register(MoobloomsEntities.DRIPLEAF_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawn);
 		SpawnRestriction.register(MoobloomsEntities.CHORUS_MOOBLOOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnEnd);
 
 		SpawnRestriction.register(MoobloomsEntities.CRIMSON_MOOSHROOM.getEntityType(), onGround, motionBlocking, AnimalWithBlockState::canSpawnNether);
