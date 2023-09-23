@@ -9,6 +9,10 @@ public class MoobloomsDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
         FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
+        // assets
+        pack.addProvider(MoobloomsModelProvider::new);
+
+        // data
         pack.addProvider(MoobloomsEntityTypeTagProvider::new);
         pack.addProvider(MoobloomsBiomeTagProvider::new);
     }
