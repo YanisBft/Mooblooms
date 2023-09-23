@@ -1,6 +1,7 @@
 package com.yanisbft.mooblooms;
 
 import com.yanisbft.mooblooms.config.MoobloomsConfig;
+import com.yanisbft.mooblooms.data.MoobloomsDataGenerator;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
 import com.yanisbft.mooblooms.init.MoobloomsSpawnRestrictions;
 import me.shedaniel.autoconfig.AutoConfig;

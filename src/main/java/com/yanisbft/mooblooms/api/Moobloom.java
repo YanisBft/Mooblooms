@@ -3,6 +3,8 @@ package com.yanisbft.mooblooms.api;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -20,6 +22,8 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
@@ -27,6 +31,7 @@ import org.joml.Vector3f;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -62,7 +67,8 @@ public class Moobloom extends AbstractMoobloom {
 		}
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
-			BiomeModifications.addSpawn(this.settings.spawnEntry.getBiomeSelector(), SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
+			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, Identifier.of(settings.name.getNamespace(), "spawns_" + settings.name.getPath())));
+			BiomeModifications.addSpawn(biomeSelector, SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
 		}
 
 		MOOBLOOM_BY_TYPE.putIfAbsent(this.entityType, this);
