@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "mooblooms:crimson_cluckshroom",
     "mooblooms:brown_cluckshroom",
+    "mooblooms:crimson_cluckshroom",
     "mooblooms:red_cluckshroom",
     "mooblooms:warped_cluckshroom"
   ]

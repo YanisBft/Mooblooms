@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -45,7 +44,6 @@ public class MoobloomsBiomeTagProvider extends FabricTagProvider<Biome> {
     }
 
     private TagKey<Biome> getTag(AbstractMoobloom moobloom) {
-        String tagName = "spawns_" + moobloom.getName().getPath();
-        return TagKey.of(RegistryKeys.BIOME, Identifier.of(moobloom.getName().getNamespace(), tagName));
+        return TagKey.of(RegistryKeys.BIOME, moobloom.getName().withPrefixedPath("spawns_"));
     }
 }

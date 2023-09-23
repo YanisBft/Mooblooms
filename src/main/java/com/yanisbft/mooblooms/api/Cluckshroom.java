@@ -67,7 +67,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		}
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
-			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, Identifier.of(settings.name.getNamespace(), "spawns_" + settings.name.getPath())));
+			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, settings.name.withPrefixedPath("spawns_")));
 			BiomeModifications.addSpawn(biomeSelector, SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
 		}
 
