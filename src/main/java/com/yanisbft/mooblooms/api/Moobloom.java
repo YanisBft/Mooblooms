@@ -1,6 +1,7 @@
 package com.yanisbft.mooblooms.api;
 
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
+import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import com.yanisbft.mooblooms.entity.MoobloomEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
@@ -12,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
@@ -26,6 +28,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Heightmap;
 import org.joml.Vector3f;
 
 import java.util.HashMap;
@@ -47,6 +50,7 @@ public class Moobloom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
+				.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate)
 				.dimensions(EntityDimensions.changing(0.9F, 1.4F))
 				.trackRangeChunks(10)
 				.defaultAttributes(MoobloomEntity::createCowAttributes);
@@ -214,7 +218,17 @@ public class Moobloom extends AbstractMoobloom {
 			this.spawnEntry = spawnEntry;
 			return this;
 		}
-		
+
+		/**
+		 * Sets the spawn predicate used to restrict where this moobloom can spawn.
+		 * @param spawnPredicate a {@linkplain SpawnRestriction.SpawnPredicate spawn predicate}
+		 * @return this builder for chaining
+		 */
+		public Moobloom.Builder spawnPredicate(SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> spawnPredicate) {
+			this.spawnPredicate = spawnPredicate;
+			return this;
+		}
+
 		/**
 		 * Sets this moobloom's spawn egg colors.
 		 * <p>Will appear in {@linkplain ItemGroups#SPAWN_EGGS}.</p>
@@ -225,7 +239,7 @@ public class Moobloom extends AbstractMoobloom {
 		public Moobloom.Builder spawnEgg(int primaryColor, int secondaryColor) {
 			return this.spawnEgg(primaryColor, secondaryColor, ItemGroups.SPAWN_EGGS);
 		}
-		
+
 		/**
 		 * Sets this moobloom's spawn egg colors and item group.
 		 * @param primaryColor an int representing the main color

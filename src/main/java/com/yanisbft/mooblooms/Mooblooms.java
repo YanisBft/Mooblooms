@@ -1,9 +1,7 @@
 package com.yanisbft.mooblooms;
 
 import com.yanisbft.mooblooms.config.MoobloomsConfig;
-import com.yanisbft.mooblooms.data.MoobloomsDataGenerator;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
-import com.yanisbft.mooblooms.init.MoobloomsSpawnRestrictions;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -19,7 +17,6 @@ public class Mooblooms implements ModInitializer {
 		config = AutoConfig.getConfigHolder(MoobloomsConfig.class).getConfig();
 
 		MoobloomsEntities.init();
-		MoobloomsSpawnRestrictions.init();
 	}
 
 	/**

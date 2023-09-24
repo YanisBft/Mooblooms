@@ -1,6 +1,7 @@
 package com.yanisbft.mooblooms.api;
 
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
+import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import com.yanisbft.mooblooms.entity.CluckshroomEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
@@ -12,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
@@ -26,6 +28,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Heightmap;
 import org.joml.Vector3f;
 
 import java.util.HashMap;
@@ -47,6 +50,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(CluckshroomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
+				.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<CluckshroomEntity>) settings.spawnPredicate)
 				.dimensions(EntityDimensions.changing(0.4F, 0.7F))
 				.trackRangeChunks(10)
 				.defaultAttributes(CluckshroomEntity::createChickenAttributes);
@@ -144,7 +148,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.fireImmune = true;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the blocks that are valid for placing the specified {@linkplain #blockState(BlockState)}.
 		 * @param blocks a list of blocks
@@ -154,7 +158,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.validBlocks = blocks;
 			return this;
 		}
-		
+
 		/**
 		 * Sets this cluckshroom to be unable to place blocks.
 		 * @return this builder for chaining
@@ -163,7 +167,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.canPlaceBlocks = false;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the status effects that will not affect this cluckshroom.
 		 * @param effects a list of status effects
@@ -173,7 +177,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.ignoredEffects = effects;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the damage types that will not affect this cluckshroom.
 		 * @param damageTypes a list of damage sources
@@ -183,7 +187,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.ignoredDamageTypes = damageTypes;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the particle constantly displayed around this cluckshroom.
 		 * @param particle a particle effect
@@ -193,7 +197,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.particle = particle;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the loot table of this cluckshroom.
 		 * <p>Defaults to {@linkplain net.minecraft.entity.passive.ChickenEntity chicken's} loot table.</p>
@@ -214,7 +218,17 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.spawnEntry = spawnEntry;
 			return this;
 		}
-		
+
+		/**
+		 * Sets the spawn predicate used to restrict where this cluckshroom can spawn.
+		 * @param spawnPredicate a {@linkplain SpawnRestriction.SpawnPredicate spawn predicate}
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder spawnPredicate(SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> spawnPredicate) {
+			this.spawnPredicate = spawnPredicate;
+			return this;
+		}
+
 		/**
 		 * Sets this cluckshroom's spawn egg colors.
 		 * <p>Will appear in {@linkplain ItemGroups#SPAWN_EGGS}.</p>
@@ -225,7 +239,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		public Cluckshroom.Builder spawnEgg(int primaryColor, int secondaryColor) {
 			return this.spawnEgg(primaryColor, secondaryColor, ItemGroups.SPAWN_EGGS);
 		}
-		
+
 		/**
 		 * Sets this cluckshroom's spawn egg colors and item group.
 		 * @param primaryColor an int representing the main color

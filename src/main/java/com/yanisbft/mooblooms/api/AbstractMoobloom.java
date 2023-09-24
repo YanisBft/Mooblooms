@@ -2,9 +2,11 @@ package com.yanisbft.mooblooms.api;
 
 import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
+import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
@@ -89,7 +91,11 @@ public abstract class AbstractMoobloom {
 	public SpawnEntry getSpawnEntry() {
 		return this.settings.spawnEntry;
 	}
-	
+
+	public SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> getSpawnPredicate() {
+		return this.settings.spawnPredicate;
+	}
+
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
 	}
@@ -119,6 +125,7 @@ public abstract class AbstractMoobloom {
 		protected ParticleEffect particle;
 		protected Identifier lootTable;
 		protected SpawnEntry spawnEntry;
+		protected SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> spawnPredicate;
 		protected int primarySpawnEggColor;
 		protected int secondarySpawnEggColor;
 		protected RegistryKey<ItemGroup> spawnEggItemGroup;
