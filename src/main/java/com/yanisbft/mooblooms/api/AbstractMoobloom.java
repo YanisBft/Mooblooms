@@ -1,6 +1,7 @@
 package com.yanisbft.mooblooms.api;
 
 import com.google.common.collect.ImmutableList;
+import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import net.minecraft.block.Block;
@@ -29,7 +30,9 @@ public abstract class AbstractMoobloom {
 	public AbstractMoobloom(AbstractMoobloom.Builder settings) {
 		this.settings = settings;
 
-		LOGGER.log(Level.INFO, "Registered " + this.settings.name);
+		if (Mooblooms.config.showApiLogs) {
+			LOGGER.log(Level.INFO, "Registered " + this.settings.name);
+		}
 	}
 
 	protected boolean isSpawnEnabled() {

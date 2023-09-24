@@ -6,6 +6,8 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = "mooblooms")
 public class MoobloomsConfig implements ConfigData {
+	public boolean showApiLogs = true;
+
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom dandelionMoobloom = new BaseMoobloom(10, 2, 4);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom poppyMoobloom = new BaseMoobloom(10, 2, 4);
 	@ConfigEntry.Gui.CollapsibleObject public BaseMoobloom blueOrchidMoobloom = new BaseMoobloom(10, 2, 4);

@@ -18,7 +18,7 @@
 	"entity.mooblooms.brown_cluckshroom": "Brown Cluckshroom",
 	"entity.mooblooms.crimson_cluckshroom": "Crimson Cluckshroom",
 	"entity.mooblooms.warped_cluckshroom": "Warped Cluckshroom",
-	
+
 	"item.mooblooms.dandelion_moobloom_spawn_egg": "Dandelion Moobloom Spawn Egg",
 	"item.mooblooms.poppy_moobloom_spawn_egg": "Poppy Moobloom Spawn Egg",
 	"item.mooblooms.blue_orchid_moobloom_spawn_egg": "Blue Orchid Moobloom Spawn Egg",
@@ -38,8 +38,9 @@
 	"item.mooblooms.brown_cluckshroom_spawn_egg": "Brown Cluckshroom Spawn Egg",
 	"item.mooblooms.crimson_cluckshroom_spawn_egg": "Crimson Cluckshroom Spawn Egg",
 	"item.mooblooms.warped_cluckshroom_spawn_egg": "Warped Cluckshroom Spawn Egg",
-	
+
 	"text.autoconfig.mooblooms.title": "Mooblooms Config",
+	"text.autoconfig.mooblooms.option.showApiLogs": "Show Mooblooms API logs",
 	"text.autoconfig.mooblooms.option.dandelionMoobloom": "Dandelion Moobloom",
 	"text.autoconfig.mooblooms.option.dandelionMoobloom.spawnEnabled": "Can spawn",
 	"text.autoconfig.mooblooms.option.dandelionMoobloom.weight": "Weight",
