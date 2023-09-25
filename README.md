@@ -1,3 +1,5 @@
+<img src="icon.png" align="right" width="128px" alt="Mooblooms logo"/>
+
 # Mooblooms
 
 Mooblooms is a mod inspired by Minecraft Earth game, adding colorful and flowery cows.
@@ -14,6 +16,19 @@ Made using Fabric API.
 
 - [Modrinth](https://modrinth.com/mod/mooblooms)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
+
+## Configuration
+Mooblooms features can be configured in two different locations.
+
+### JSON config
+Under your `config` folder, you will find a `mooblooms.json` file.
+For each moobloom or cluckshroom, it allows you to configure their spawning and behavior.
+
+This config can also be accessed through the mod menu in-game.
+
+### Datapack
+The spawning biomes of each moobloom or cluckshroom can be customized with biome tags.
+An example path is `data/mooblooms/tags/worldgen/biome/spawns_cherry_moobloom`.
 
 ## API
 Since 1.3.0, Mooblooms provides builders to easily add mooblooms and cluckshrooms to your mod.
@@ -37,6 +52,7 @@ mooblooms_version = 1.5.4
 #### Available settings
 * ``name(Identifier name)`` (**required**)
 * ``blockState(BlockState state)`` (**required**)
+* ``blockState(Block block)``
 * ``blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ)``
 * ``blockStateRenderer(Vector3f scale, Vec3d translation)``
 * ``fireImmune()``
@@ -47,15 +63,13 @@ mooblooms_version = 1.5.4
 * ``particle(ParticleEffect particle)``
 * ``lootTable(Identifier lootTable)``
 * ``spawnEntry(SpawnEntry spawnEntry)``
+* ``spawnPredicate(SpawnRestriction.SpawnPredicate spawnPredicate)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
 * ``spawnEgg(int primaryColor, int secondaryColor, RegistryKey<ItemGroup> group)``
 * ``configCategory(MoobloomConfigCategory configCategory)``
 
 #### What you need to do
-Some things still need to be done outside the builders:
+You still need to do additional things outside the builders:
 * Make the texture file of your entity
 * Create the model file of your spawn egg
-* Add spawn restriction settings
-* Add a config for your entity
-
-*Note that some of these are planned to be added to the builders in the future.*
+* Add a config for your entity if you wish
