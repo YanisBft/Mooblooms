@@ -24,12 +24,16 @@ public interface AnimalWithBlockState {
 		return world.getBlockState(pos.down()).isOf(Blocks.RED_SAND) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 
+	static boolean canSpawnLushCaves(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.down()).isOf(Blocks.MOSS_BLOCK) || world.getBlockState(pos.down()).isOf(Blocks.CLAY);
+	}
+
 	static boolean canSpawnNether(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return !world.getBlockState(pos.down()).isOf(Blocks.NETHER_WART_BLOCK);
 	}
 
 	static boolean canSpawnEnd(EntityType<? extends AnimalWithBlockState> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-		int height = world.getChunk(pos).sampleHeightmap(Heightmap.Type.WORLD_SURFACE, pos.getX() & 15, pos.getY() & 15);
+		int height = world.getChunk(pos).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, pos.getX() & 15, pos.getY() & 15);
 		return height > 0 && pos.getY() >= height;
 	}
 

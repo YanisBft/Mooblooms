@@ -29,7 +29,7 @@ public class MoobloomsBiomeTagProvider extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.WITHER_ROSE_MOOBLOOM)).add(BiomeKeys.NETHER_WASTES, BiomeKeys.SOUL_SAND_VALLEY, BiomeKeys.BASALT_DELTAS);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.SUNCOWER)).add(BiomeKeys.SUNFLOWER_PLAINS);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.BAMBMOO)).add(BiomeKeys.BAMBOO_JUNGLE);
-        this.getOrCreateTagBuilder(getTag(MoobloomsEntities.COWCTUS)).add(BiomeKeys.BADLANDS);
+        this.getOrCreateTagBuilder(getTag(MoobloomsEntities.COWCTUS)).add(BiomeKeys.BADLANDS, BiomeKeys.WOODED_BADLANDS);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.CHERRY_MOOBLOOM)).add(BiomeKeys.CHERRY_GROVE);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.AZALEA_MOOBLOOM)).add(BiomeKeys.LUSH_CAVES);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.DRIPLEAF_MOOBLOOM)).add(BiomeKeys.LUSH_CAVES);
