@@ -115,6 +115,17 @@ public class Moobloom extends AbstractMoobloom {
 		}
 
 		/**
+		 * Sets the block state related to this moobloom, from the default state of a block.
+		 * <p>Will appear on this moobloom's back and be randomly placed on valid blocks.</p>
+		 * <p>The item matching the block state will be dropped when shearing this moobloom.</p>
+		 * @param block a block
+		 * @return this builder for chaining
+		 */
+		public Moobloom.Builder blockState(Block block) {
+			return blockState(block.getDefaultState());
+		}
+
+		/**
 		 * Sets how the block state of this moobloom will be rendered on its back.
 		 * @param scaleX the scale on the X axis
 		 * @param scaleY the scale on the Y axis
