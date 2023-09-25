@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.3-SNAPSHOT'
 	id 'maven-publish'
+	id 'me.modmuss50.mod-publish-plugin' version '0.3.5'
 }
 
 repositories {
@@ -99,5 +100,34 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
+	}
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	changelog = file("CHANGELOG.md").text
+	type = STABLE
+	modLoaders.add("fabric")
+
+	curseforge {
+		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+		projectId = "333946"
+		displayName = "Mooblooms - ${mod_version}"
+		minecraftVersions.add("${minecraft_version}")
+		minecraftVersions.add("1.20")
+		requires {
+			slug = "fabric-api"
+		}
+	}
+
+	modrinth {
+		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+		projectId = "OatOIyrk"
+		displayName = "Mooblooms - ${mod_version}"
+		minecraftVersions.add("${minecraft_version}")
+		minecraftVersions.add("1.20")
+		requires {
+			slug = "fabric-api"
+		}
 	}
 }
