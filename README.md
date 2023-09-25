@@ -63,6 +63,7 @@ mooblooms_version = 1.5.4
 * ``particle(ParticleEffect particle)``
 * ``lootTable(Identifier lootTable)``
 * ``spawnEntry(SpawnEntry spawnEntry)``
+* ``spawnGroup(SpawnGroup spawnGroup)``
 * ``spawnPredicate(SpawnRestriction.SpawnPredicate spawnPredicate)``
 * ``spawnEgg(int primaryColor, int secondaryColor)``
 * ``spawnEgg(int primaryColor, int secondaryColor, RegistryKey<ItemGroup> group)``

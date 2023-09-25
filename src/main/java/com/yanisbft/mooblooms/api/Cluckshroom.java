@@ -72,7 +72,7 @@ public class Cluckshroom extends AbstractMoobloom {
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
 			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, settings.name.withPrefixedPath("spawns_")));
-			BiomeModifications.addSpawn(biomeSelector, SpawnGroup.CREATURE, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
+			BiomeModifications.addSpawn(biomeSelector, this.settings.spawnGroup, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
 		}
 
 		CLUCKSHROOM_BY_TYPE.putIfAbsent(this.entityType, this);
@@ -227,6 +227,17 @@ public class Cluckshroom extends AbstractMoobloom {
 		 */
 		public Cluckshroom.Builder spawnEntry(SpawnEntry spawnEntry) {
 			this.spawnEntry = spawnEntry;
+			return this;
+		}
+
+		/**
+		 * Sets the spawn group of this cluckshroom.
+		 * <p>Defaults to {@link SpawnGroup#CREATURE}.</p>
+		 * @param spawnGroup a {@linkplain SpawnGroup spawn group}
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder spawnGroup(SpawnGroup spawnGroup) {
+			this.spawnGroup = spawnGroup;
 			return this;
 		}
 

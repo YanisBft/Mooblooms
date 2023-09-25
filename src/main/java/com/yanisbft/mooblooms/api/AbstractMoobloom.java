@@ -7,6 +7,7 @@ import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
@@ -62,37 +63,41 @@ public abstract class AbstractMoobloom {
 	public Vec3d getBlockStateRendererTranslation() {
 		return this.settings.blockStateRendererTranslation;
 	}
-	
+
 	public boolean isFireImmune() {
 		return this.settings.fireImmune;
 	}
-	
+
 	public List<Block> getValidBlocks() {
 		return this.settings.validBlocks;
 	}
-	
+
 	public boolean canPlaceBlocks() {
 		return this.settings.canPlaceBlocks;
 	}
-	
+
 	public List<StatusEffect> getIgnoredEffects() {
 		return this.settings.ignoredEffects;
 	}
-	
+
 	public List<RegistryKey<DamageType>> getIgnoredDamageTypes() {
 		return this.settings.ignoredDamageTypes;
 	}
-	
+
 	public ParticleEffect getParticle() {
 		return this.settings.particle;
 	}
-	
+
 	public Identifier getLootTable() {
 		return this.settings.lootTable;
 	}
 
 	public SpawnEntry getSpawnEntry() {
 		return this.settings.spawnEntry;
+	}
+
+	public SpawnGroup getSpawnGroup() {
+		return this.settings.spawnGroup;
 	}
 
 	public SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> getSpawnPredicate() {
@@ -102,19 +107,19 @@ public abstract class AbstractMoobloom {
 	public int getPrimarySpawnEggColor() {
 		return this.settings.primarySpawnEggColor;
 	}
-	
+
 	public int getSecondarySpawnEggColor() {
 		return this.settings.secondarySpawnEggColor;
 	}
-	
+
 	public RegistryKey<ItemGroup> getSpawnEggItemGroup() {
 		return this.settings.spawnEggItemGroup;
 	}
-	
+
 	public MoobloomConfigCategory getConfigCategory() {
 		return this.settings.configCategory;
 	}
-	
+
 	public static class Builder {
 		protected Identifier name;
 		protected BlockState blockState;
@@ -128,6 +133,7 @@ public abstract class AbstractMoobloom {
 		protected ParticleEffect particle;
 		protected Identifier lootTable;
 		protected SpawnEntry spawnEntry;
+		protected SpawnGroup spawnGroup;
 		protected SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> spawnPredicate;
 		protected int primarySpawnEggColor;
 		protected int secondarySpawnEggColor;
@@ -142,6 +148,7 @@ public abstract class AbstractMoobloom {
 			this.ignoredEffects = new ArrayList<>();
 			this.ignoredDamageTypes = new ArrayList<>();
 			this.lootTable = defaultLootTable;
+			this.spawnGroup = SpawnGroup.CREATURE;
 		}
 	}
 }
