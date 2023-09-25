@@ -1,0 +1,13 @@
+- Added the **Cherry Moobloom**, which spawns in cherry blossoms
+- Added the **Azalea Moobloom**, which spawns in lush caves
+- Added the **Dripleaf Moobloom**, which spawns in lush caves
+- Blue Orchid Mooblooms now spawn in swamps
+- Wither Rose Mooblooms no longer spawn in crimson and warped forests
+- Spawn biomes are now configurable with biome tags
+- Increased the default spawn rate of some mooblooms
+- Added a config option to hide Mooblooms API logs
+- Fixed and completed the French translation
+- [API] Added **blockState(Block)** to builders
+- [API] Added **spawnGroup(SpawnGroup)** to builders
+- [API] Added **spawnPredicate(SpawnPredicate)** to builders
+- [API] SpawnEntry constructors no longer take a biome selector as a parameter
