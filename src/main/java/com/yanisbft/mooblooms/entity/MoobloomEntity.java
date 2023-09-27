@@ -70,7 +70,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
-			SuspiciousStewItem.addEffectToStew(suspiciousStew, flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration());
+			SuspiciousStewItem.addEffectsToStew(suspiciousStew, flowerBlock.getStewEffects());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
 			return ActionResult.success(this.getWorld().isClient);
