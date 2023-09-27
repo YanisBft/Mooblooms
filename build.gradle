@@ -114,7 +114,6 @@ publishMods {
 		projectId = "333946"
 		displayName = "Mooblooms - ${mod_version}"
 		minecraftVersions.add("${minecraft_version}")
-		minecraftVersions.add("1.20")
 		requires {
 			slug = "fabric-api"
 		}
@@ -125,7 +124,6 @@ publishMods {
 		projectId = "OatOIyrk"
 		displayName = "Mooblooms - ${mod_version}"
 		minecraftVersions.add("${minecraft_version}")
-		minecraftVersions.add("1.20")
 		requires {
 			slug = "fabric-api"
 		}
