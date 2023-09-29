@@ -1,4 +1,4 @@
-<img src="icon.png" align="right" width="128px" alt="Mooblooms logo"/>
+<img src="icon.png" align="left" width="128px" alt="Mooblooms logo"/>
 
 # Mooblooms
 
@@ -9,7 +9,6 @@ Made using Fabric API.
 [![](http://cf.way2muchnoise.eu/versions/minecraft_mooblooms_all.svg)](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
 [![](https://img.shields.io/github/v/tag/YanisBft/Mooblooms?label=version)](https://www.curseforge.com/minecraft/mc-mods/mooblooms)
 [![](https://img.shields.io/github/license/YanisBft/Mooblooms.svg)](LICENSE)
-
 ---
 
 ## Downloads
