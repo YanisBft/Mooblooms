@@ -112,7 +112,7 @@ publishMods {
 	curseforge {
 		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 		projectId = "333946"
-		displayName = "Mooblooms - ${mod_version}"
+		displayName = "[${minecraft_version}] Mooblooms - ${mod_version}"
 		minecraftVersions.add("${minecraft_version}")
 		minecraftVersions.add("1.20")
 		requires {
@@ -123,7 +123,7 @@ publishMods {
 	modrinth {
 		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
 		projectId = "OatOIyrk"
-		displayName = "Mooblooms - ${mod_version}"
+		displayName = "[${minecraft_version}] Mooblooms - ${mod_version}"
 		minecraftVersions.add("${minecraft_version}")
 		minecraftVersions.add("1.20")
 		requires {

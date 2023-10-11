@@ -45,7 +45,7 @@ dependencies {
 ```
 Then, add the version in your ``gradle.properties``:
 ```properties
-mooblooms_version = 1.6.0
+mooblooms_version = 1.6.2
 ```
 
 #### Available settings
