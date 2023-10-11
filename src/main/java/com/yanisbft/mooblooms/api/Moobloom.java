@@ -49,7 +49,7 @@ public class Moobloom extends AbstractMoobloom {
 
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
-				.spawnGroup(SpawnGroup.CREATURE)
+				.spawnGroup(settings.spawnGroup)
 				.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate)
 				.dimensions(EntityDimensions.changing(0.9F, 1.4F))
 				.trackRangeChunks(10)
