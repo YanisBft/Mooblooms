@@ -1,1 +1,2 @@
-- Fixed Azalea and Dripleaf Mooblooms not respecting mob caps
+- Updated to Minecraft 1.20.4
+- Added German translation by [Dev0Louis](https://github.com/Dev0Louis)
