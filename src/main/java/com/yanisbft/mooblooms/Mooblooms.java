@@ -25,6 +25,6 @@ public class Mooblooms implements ModInitializer {
 	 * @return an {@linkplain Identifier}, consisting of a namespace and a path
 	 */
 	public static Identifier id(String name) {
-		return new Identifier(Mooblooms.MOD_ID, name);
+		return Identifier.of(Mooblooms.MOD_ID, name);
 	}
 }

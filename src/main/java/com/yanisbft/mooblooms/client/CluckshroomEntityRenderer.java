@@ -22,7 +22,7 @@ public class CluckshroomEntityRenderer extends MobEntityRenderer<CluckshroomEnti
 	public Identifier getTexture(CluckshroomEntity cluckshroom) {
 		String namespace = cluckshroom.settings.getName().getNamespace();
 		String path = cluckshroom.settings.getName().getPath();
-		return new Identifier(namespace, "textures/entity/" + path + ".png");
+		return Identifier.of(namespace, "textures/entity/" + path + ".png");
 	}
 	
 	@Override

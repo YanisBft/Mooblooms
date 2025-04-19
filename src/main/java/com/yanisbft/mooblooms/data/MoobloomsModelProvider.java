@@ -24,7 +24,7 @@ public class MoobloomsModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        Identifier parent = new Identifier("minecraft", "item/template_spawn_egg");
+        Identifier parent = Identifier.of("minecraft", "item/template_spawn_egg");
 
         for (Moobloom moobloom : Moobloom.MOOBLOOM_BY_TYPE.values()) {
             itemModelGenerator.register(moobloom.getSpawnEgg(), new Model(Optional.of(parent), Optional.empty()));

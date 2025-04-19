@@ -64,7 +64,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
 			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64));
 			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
-			Identifier itemName = new Identifier(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
+			Identifier itemName = Identifier.of(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
 			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
 		}
 

@@ -22,6 +22,6 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Co
 	public Identifier getTexture(MoobloomEntity moobloom) {
 		String namespace = moobloom.settings.getName().getNamespace();
 		String path = moobloom.settings.getName().getPath();
-		return new Identifier(namespace, "textures/entity/" + path + ".png");
+		return Identifier.of(namespace, "textures/entity/" + path + ".png");
 	}
 }

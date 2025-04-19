@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
-	id 'me.modmuss50.mod-publish-plugin' version '0.4.5'
+	id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
 }
 
 repositories {
@@ -9,9 +9,6 @@ repositories {
 	maven { url "https://maven.shedaniel.me" }
 	maven { url "https://maven.terraformersmc.com" }
 }
-
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
 
 archivesBaseName = project.archives_base_name
 version = "${project.mod_version}+${project.minecraft_version}"
@@ -73,8 +70,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
