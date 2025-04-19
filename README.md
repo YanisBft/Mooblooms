@@ -60,7 +60,7 @@ mooblooms_version = 1.6.4
 * ``ignoredEffects(List<StatusEffect> effects)``
 * ``ignoredDamageTypes(List<RegistryKey<DamageType>> damageTypes)``
 * ``particle(ParticleEffect particle)``
-* ``lootTable(Identifier lootTable)``
+* ``lootTable(RegistryKey<LootTable> lootTable)``
 * ``spawnEntry(SpawnEntry spawnEntry)``
 * ``spawnGroup(SpawnGroup spawnGroup)``
 * ``spawnPredicate(SpawnRestriction.SpawnPredicate spawnPredicate)``

@@ -13,13 +13,13 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -34,7 +34,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	}
 	
 	@Override
-	public Identifier getLootTableId() {
+	public RegistryKey<LootTable> getLootTableId() {
 		return this.settings.getLootTable();
 	}
 	
@@ -56,9 +56,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 				for(int i = 0; i < 3; ++i) {
 					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
 				}
-				stack.damage(1, player, ((playerEntity) -> {
-					playerEntity.sendToolBreakStatus(hand);
-				}));
+				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return ActionResult.success(this.getWorld().isClient);

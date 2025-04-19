@@ -10,16 +10,14 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -50,7 +48,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(CluckshroomEntity::new)
 				.spawnGroup(SpawnGroup.CREATURE)
-				.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<CluckshroomEntity>) settings.spawnPredicate)
+				.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<CluckshroomEntity>) settings.spawnPredicate)
 				.dimensions(EntityDimensions.changing(0.4F, 0.7F))
 				.trackRangeChunks(10)
 				.defaultAttributes(CluckshroomEntity::createChickenAttributes);
@@ -215,7 +213,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @param lootTable a loot table {@linkplain net.minecraft.util.Identifier identifier}
 		 * @return this builder for chaining
 		 */
-		public Cluckshroom.Builder lootTable(Identifier lootTable) {
+		public Cluckshroom.Builder lootTable(RegistryKey<LootTable> lootTable) {
 			this.lootTable = lootTable;
 			return this;
 		}

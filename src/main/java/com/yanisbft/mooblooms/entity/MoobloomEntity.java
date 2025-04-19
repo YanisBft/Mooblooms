@@ -5,6 +5,7 @@ import com.yanisbft.mooblooms.api.Moobloom;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnReason;
@@ -17,14 +18,13 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SuspiciousStewItem;
+import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -39,7 +39,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
-	public Identifier getLootTableId() {
+	public RegistryKey<LootTable> getLootTableId() {
 		return this.settings.getLootTable();
 	}
 	
@@ -61,16 +61,14 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				for (int i = 0; i < 5; i++) {
 					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
 				}
-				stack.damage(1, player, ((playerEntity) -> {
-					playerEntity.sendToolBreakStatus(hand);
-				}));
+				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return ActionResult.success(this.getWorld().isClient);
 		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
-			SuspiciousStewItem.addEffectsToStew(suspiciousStew, flowerBlock.getStewEffects());
+			suspiciousStew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, flowerBlock.getStewEffects());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
 			return ActionResult.success(this.getWorld().isClient);

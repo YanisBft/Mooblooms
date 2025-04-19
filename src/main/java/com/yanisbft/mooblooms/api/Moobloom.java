@@ -10,16 +10,14 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -50,7 +48,7 @@ public class Moobloom extends AbstractMoobloom {
 		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
 				.entityFactory(MoobloomEntity::new)
 				.spawnGroup(settings.spawnGroup)
-				.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate)
+				.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate)
 				.dimensions(EntityDimensions.changing(0.9F, 1.4F))
 				.trackRangeChunks(10)
 				.defaultAttributes(MoobloomEntity::createCowAttributes);
@@ -215,7 +213,7 @@ public class Moobloom extends AbstractMoobloom {
 		 * @param lootTable a loot table {@linkplain net.minecraft.util.Identifier identifier}
 		 * @return this builder for chaining
 		 */
-		public Moobloom.Builder lootTable(Identifier lootTable) {
+		public Moobloom.Builder lootTable(RegistryKey<LootTable> lootTable) {
 			this.lootTable = lootTable;
 			return this;
 		}
