@@ -7,10 +7,13 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
@@ -45,16 +48,14 @@ public class Moobloom extends AbstractMoobloom {
 	private Moobloom(Moobloom.Builder settings) {
 		super(settings);
 
-		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
-				.entityFactory(MoobloomEntity::new)
-				.spawnGroup(settings.spawnGroup)
-				.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate)
-				.dimensions(EntityDimensions.changing(0.9F, 1.4F))
-				.trackRangeChunks(10)
-				.defaultAttributes(MoobloomEntity::createCowAttributes);
+		EntityType.Builder<?> builder = EntityType.Builder.create(MoobloomEntity::new, settings.spawnGroup)
+				.dimensions(0.9F, 1.4F)
+				.eyeHeight(1.3F)
+				.passengerAttachments(1.36875F)
+				.maxTrackingRange(10);
 
 		if (this.settings.fireImmune) {
-			builder.fireImmune();
+			builder.makeFireImmune();
 		}
 
 		RegistryKey<EntityType<?>> key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, settings.name);
@@ -75,6 +76,9 @@ public class Moobloom extends AbstractMoobloom {
 		}
 
 		MOOBLOOM_BY_TYPE.putIfAbsent(this.entityType, this);
+
+		SpawnRestriction.register(this.entityType, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<MoobloomEntity>) settings.spawnPredicate);
+		FabricDefaultAttributeRegistry.register(this.entityType, MoobloomEntity.createCowAttributes());
 	}
 	
 	public EntityType<MoobloomEntity> getEntityType() {

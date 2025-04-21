@@ -7,10 +7,13 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
@@ -45,16 +48,14 @@ public class Cluckshroom extends AbstractMoobloom {
 	private Cluckshroom(Cluckshroom.Builder settings) {
 		super(settings);
 
-		FabricEntityTypeBuilder.Mob<?> builder = FabricEntityTypeBuilder.createMob()
-				.entityFactory(CluckshroomEntity::new)
-				.spawnGroup(SpawnGroup.CREATURE)
-				.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<CluckshroomEntity>) settings.spawnPredicate)
-				.dimensions(EntityDimensions.changing(0.4F, 0.7F))
-				.trackRangeChunks(10)
-				.defaultAttributes(CluckshroomEntity::createChickenAttributes);
+		EntityType.Builder<?> builder = EntityType.Builder.create(CluckshroomEntity::new, SpawnGroup.CREATURE)
+				.dimensions(0.4F, 0.7F)
+				.eyeHeight(0.644F)
+				.passengerAttachments(new Vec3d(0.0, 0.7, -0.1))
+				.maxTrackingRange(10);
 
 		if (this.settings.fireImmune) {
-			builder.fireImmune();
+			builder.makeFireImmune();
 		}
 
 		RegistryKey<EntityType<?>> key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, settings.name);
@@ -75,6 +76,9 @@ public class Cluckshroom extends AbstractMoobloom {
 		}
 
 		CLUCKSHROOM_BY_TYPE.putIfAbsent(this.entityType, this);
+
+		SpawnRestriction.register(this.entityType, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (SpawnRestriction.SpawnPredicate<CluckshroomEntity>) settings.spawnPredicate);
+		FabricDefaultAttributeRegistry.register(this.entityType, CluckshroomEntity.createChickenAttributes());
 	}
 
 	public EntityType<CluckshroomEntity> getEntityType() {
