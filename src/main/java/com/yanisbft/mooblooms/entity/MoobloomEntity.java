@@ -98,7 +98,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
-		if (this.getWorld() instanceof ServerWorld serverWorld) {
+		if (this.getWorld() instanceof ServerWorld serverWorld && !this.isBaby()) {
 			if (!player.getAbilities().creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
 				if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 					player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
