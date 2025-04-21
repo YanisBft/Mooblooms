@@ -12,7 +12,6 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
@@ -89,10 +88,6 @@ public abstract class AbstractMoobloom {
 		return this.settings.particle;
 	}
 
-	public RegistryKey<LootTable> getLootTable() {
-		return this.settings.lootTable;
-	}
-
 	public SpawnEntry getSpawnEntry() {
 		return this.settings.spawnEntry;
 	}
@@ -132,7 +127,6 @@ public abstract class AbstractMoobloom {
 		protected List<StatusEffect> ignoredEffects;
 		protected List<RegistryKey<DamageType>> ignoredDamageTypes;
 		protected ParticleEffect particle;
-		protected RegistryKey<LootTable> lootTable;
 		protected SpawnEntry spawnEntry;
 		protected SpawnGroup spawnGroup;
 		protected SpawnRestriction.SpawnPredicate<? extends AnimalWithBlockState> spawnPredicate;
@@ -141,14 +135,13 @@ public abstract class AbstractMoobloom {
 		protected RegistryKey<ItemGroup> spawnEggItemGroup;
 		protected MoobloomConfigCategory configCategory;
 
-		public Builder(RegistryKey<LootTable> defaultLootTable) {
+		public Builder() {
 			this.blockStateRendererScale = new Vector3f(-1.0F, -1.0F, 1.0F);
 			this.blockStateRendererTranslation = new Vec3d(-0.5D, -0.5D, -0.5D);
 			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
 			this.ignoredDamageTypes = new ArrayList<>();
-			this.lootTable = defaultLootTable;
 			this.spawnGroup = SpawnGroup.CREATURE;
 		}
 	}

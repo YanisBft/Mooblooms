@@ -29,6 +29,8 @@ This config can also be accessed through the mod menu in-game.
 The spawning biomes of each moobloom or cluckshroom can be customized with biome tags.
 An example path is `data/mooblooms/tags/worldgen/biome/spawns_cherry_moobloom`.
 
+In the same way, the loot table of each moobloom or cluckshroom can be changed, exactly like vanilla entities.
+
 ## API
 Since 1.3.0, Mooblooms provides builders to easily add mooblooms and cluckshrooms to your mod.
 
@@ -60,7 +62,6 @@ mooblooms_version = 1.6.5+1.21.1
 * ``ignoredEffects(List<StatusEffect> effects)``
 * ``ignoredDamageTypes(List<RegistryKey<DamageType>> damageTypes)``
 * ``particle(ParticleEffect particle)``
-* ``lootTable(RegistryKey<LootTable> lootTable)``
 * ``spawnEntry(SpawnEntry spawnEntry)``
 * ``spawnGroup(SpawnGroup spawnGroup)``
 * ``spawnPredicate(SpawnRestriction.SpawnPredicate spawnPredicate)``

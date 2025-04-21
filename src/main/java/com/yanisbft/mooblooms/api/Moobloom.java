@@ -20,7 +20,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -90,11 +89,7 @@ public class Moobloom extends AbstractMoobloom {
 	}
 	
 	public static class Builder extends AbstractMoobloom.Builder {
-		
-		public Builder() {
-			super(EntityType.COW.getLootTableKey().get());
-		}
-		
+
 		/**
 		 * Sets the name of this moobloom.
 		 * @param name an {@linkplain Identifier}, consisting of a namespace and a path
@@ -209,17 +204,6 @@ public class Moobloom extends AbstractMoobloom {
 		 */
 		public Moobloom.Builder particle(ParticleEffect particle) {
 			this.particle = particle;
-			return this;
-		}
-		
-		/**
-		 * Sets the loot table of this moobloom.
-		 * <p>Defaults to {@linkplain net.minecraft.entity.passive.CowEntity cow's} loot table.</p>
-		 * @param lootTable a loot table {@linkplain net.minecraft.util.Identifier identifier}
-		 * @return this builder for chaining
-		 */
-		public Moobloom.Builder lootTable(RegistryKey<LootTable> lootTable) {
-			this.lootTable = lootTable;
 			return this;
 		}
 

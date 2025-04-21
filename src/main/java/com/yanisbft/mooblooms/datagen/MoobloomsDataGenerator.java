@@ -13,6 +13,7 @@ public class MoobloomsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(MoobloomsModelProvider::new);
 
         // data
+        pack.addProvider(MoobloomsLootTableGenerator::new);
         pack.addProvider(MoobloomsEntityTypeTagProvider::new);
         pack.addProvider(MoobloomsBiomeTagProvider::new);
     }
