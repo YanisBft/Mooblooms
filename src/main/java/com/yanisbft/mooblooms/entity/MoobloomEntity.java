@@ -4,11 +4,14 @@ import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.api.Moobloom;
 import com.yanisbft.mooblooms.init.MoobloomsEntities;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.Shearable;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.conversion.EntityConversionContext;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,6 +24,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -28,8 +32,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.event.GameEvent;
 
-public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
+public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, Shearable {
 	public Moobloom settings;
 	
 	public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
@@ -40,35 +45,44 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
-		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
-			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
-			if (!this.getWorld().isClient) {
-				this.discard();
-				CowEntity cow = EntityType.COW.create(this.getWorld(), SpawnReason.CONVERSION);
-				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				cow.setHealth(this.getHealth());
-				cow.bodyYaw = this.bodyYaw;
-				if (this.hasCustomName()) {
-					cow.setCustomName(this.getCustomName());
-				}
-				this.getWorld().spawnEntity(cow);
-				for (int i = 0; i < 5; i++) {
-					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock())));
-				}
+		Block block = this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock();
+
+		if (stack.getItem() == Items.SHEARS && this.isShearable()) {
+			if (this.getWorld() instanceof ServerWorld serverWorld) {
+				this.sheared(serverWorld, SoundCategory.PLAYERS, stack);
+				this.emitGameEvent(GameEvent.SHEAR, player);
 				stack.damage(1, player, getSlotForHand(hand));
-				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
+
 			return ActionResult.SUCCESS;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock() instanceof FlowerBlock flowerBlock)) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (block instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			suspiciousStew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, flowerBlock.getStewEffects());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
+
 			return ActionResult.SUCCESS;
-		} else {
-			return super.interactMob(player, hand);
 		}
+
+		return super.interactMob(player, hand);
+	}
+
+	@Override
+	public void sheared(ServerWorld world, SoundCategory shearedSoundCategory, ItemStack shears) {
+		world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+		this.convertTo(EntityType.COW, EntityConversionContext.create(this, false, false), cow -> {
+			world.spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5), this.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
+			Block block = this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock();
+			for (int i = 0; i < 5; i++) {
+				this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(block)));
+			}
+		});
+	}
+
+	@Override
+	public boolean isShearable() {
+		return this.isAlive() && !this.isBaby();
 	}
 	
 	@Override
@@ -119,7 +133,8 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.placeBlocks(this, this.settings.getBlockStateProvider().apply(this.getWorld()));
+						BlockState state = this.settings.getBlockStateProvider().apply(this.getWorld());
+						this.placeBlocks(this, state);
 					}
 				}
 			}

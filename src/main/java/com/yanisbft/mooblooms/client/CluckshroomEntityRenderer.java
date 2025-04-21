@@ -11,6 +11,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+@SuppressWarnings({"deprecation"})
 @Environment(EnvType.CLIENT)
 public class CluckshroomEntityRenderer extends AgeableMobEntityRenderer<CluckshroomEntity, CluckshroomEntityRenderState, ChickenEntityModel> {
 

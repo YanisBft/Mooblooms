@@ -66,14 +66,24 @@ public class Moobloom extends AbstractMoobloom {
 
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
 			Identifier itemName = Identifier.of(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
-			this.spawnEgg = new SpawnEggItem(this.entityType, new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName)));
+			this.spawnEgg = new SpawnEggItem(
+					this.entityType,
+					new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName))
+			);
 			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
 		}
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
 			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, settings.name.withPrefixedPath("spawns_")));
-			BiomeModifications.addSpawn(biomeSelector, this.settings.spawnGroup, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
+			BiomeModifications.addSpawn(
+					biomeSelector,
+					this.settings.spawnGroup,
+					this.entityType,
+					this.settings.spawnEntry.getWeight(),
+					this.settings.spawnEntry.getMinGroupSize(),
+					this.settings.spawnEntry.getMaxGroupSize()
+			);
 		}
 
 		MOOBLOOM_BY_TYPE.putIfAbsent(this.entityType, this);

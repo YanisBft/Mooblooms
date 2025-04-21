@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.model.CowEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
 
+@SuppressWarnings({"deprecation"})
 @Environment(EnvType.CLIENT)
 public class MoobloomEntityRenderer extends AgeableMobEntityRenderer<MoobloomEntity, MoobloomEntityRenderState, CowEntityModel> {
 

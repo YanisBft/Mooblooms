@@ -2,9 +2,12 @@ package com.yanisbft.mooblooms.entity;
 
 import com.yanisbft.mooblooms.api.Cluckshroom;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.Shearable;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.conversion.EntityConversionContext;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -16,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -23,56 +27,64 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.event.GameEvent;
 
-public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockState {
+public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockState, Shearable {
 	public Cluckshroom settings;
-	
+
 	public CluckshroomEntity(EntityType<? extends CluckshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.settings = Cluckshroom.CLUCKSHROOM_BY_TYPE.get(entityType);
 	}
-	
+
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
-		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
-			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
-			if (!this.getWorld().isClient) {
-				this.discard();
-				ChickenEntity chicken = EntityType.CHICKEN.create(this.getWorld(), SpawnReason.CONVERSION);
-				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				chicken.setHealth(this.getHealth());
-				chicken.bodyYaw = this.bodyYaw;
-				if (this.hasCustomName()) {
-					chicken.setCustomName(this.getCustomName());
-				}
-				this.getWorld().spawnEntity(chicken);
-				for(int i = 0; i < 3; ++i) {
-					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock())));
-				}
+
+        if (stack.getItem() == Items.SHEARS && this.isShearable()) {
+			if (this.getWorld() instanceof ServerWorld serverWorld) {
+				this.sheared(serverWorld, SoundCategory.PLAYERS, stack);
+				this.emitGameEvent(GameEvent.SHEAR, player);
 				stack.damage(1, player, getSlotForHand(hand));
-				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
+
 			return ActionResult.SUCCESS;
-		} else {
-			return super.interactMob(player, hand);
 		}
+
+		return super.interactMob(player, hand);
 	}
-	
+
+	@Override
+	public void sheared(ServerWorld world, SoundCategory shearedSoundCategory, ItemStack shears) {
+		world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+		this.convertTo(EntityType.CHICKEN, EntityConversionContext.create(this, false, false), chicken -> {
+			world.spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5), this.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
+			Block block = this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock();
+			for (int i = 0; i < 5; i++) {
+				this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(block)));
+			}
+		});
+	}
+
+	@Override
+	public boolean isShearable() {
+		return this.isAlive() && !this.isBaby();
+	}
+
 	@Override
 	public CluckshroomEntity createChild(ServerWorld world, PassiveEntity entity) {
 		return this.settings.getEntityType().create(world, SpawnReason.BREEDING);
 	}
-	
+
 	@Override
 	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
 		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType().value())) {
 			return false;
 		}
-		
+
 		return super.canHaveStatusEffect(statusEffectInstance);
 	}
-	
+
 	@Override
 	public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
 		for (RegistryKey<DamageType> ignoredDamageType : this.settings.getIgnoredDamageTypes()) {
@@ -83,7 +95,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 
 		return super.isInvulnerableTo(world, source);
 	}
-	
+
 	@Override
 	public void tickMovement() {
 		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
@@ -92,18 +104,19 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.placeBlocks(this, this.settings.getBlockStateProvider().apply(this.getWorld()));
+						BlockState state = this.settings.getBlockStateProvider().apply(this.getWorld());
+						this.placeBlocks(this, state);
 					}
 				}
 			}
 		}
-		
+
 		if (this.getWorld().isClient && this.settings.getParticle() != null) {
 			for (int i = 0; i < 3; i++) {
 				this.getWorld().addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
-		
+
 		super.tickMovement();
 	}
 

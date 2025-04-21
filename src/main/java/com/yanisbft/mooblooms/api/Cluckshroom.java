@@ -66,14 +66,24 @@ public class Cluckshroom extends AbstractMoobloom {
 
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
 			Identifier itemName = Identifier.of(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
-			this.spawnEgg = new SpawnEggItem(this.entityType, new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName)));
+			this.spawnEgg = new SpawnEggItem(
+					this.entityType,
+					new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName))
+            );
 			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
 		}
 
 		if (this.settings.spawnEntry != null && this.isSpawnEnabled()) {
 			Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.tag(TagKey.of(RegistryKeys.BIOME, settings.name.withPrefixedPath("spawns_")));
-			BiomeModifications.addSpawn(biomeSelector, this.settings.spawnGroup, this.entityType, this.settings.spawnEntry.getWeight(), this.settings.spawnEntry.getMinGroupSize(), this.settings.spawnEntry.getMaxGroupSize());
+			BiomeModifications.addSpawn(
+					biomeSelector,
+					this.settings.spawnGroup,
+					this.entityType,
+					this.settings.spawnEntry.getWeight(),
+					this.settings.spawnEntry.getMinGroupSize(),
+					this.settings.spawnEntry.getMaxGroupSize()
+            );
 		}
 
 		CLUCKSHROOM_BY_TYPE.putIfAbsent(this.entityType, this);
@@ -85,11 +95,11 @@ public class Cluckshroom extends AbstractMoobloom {
 	public EntityType<CluckshroomEntity> getEntityType() {
 		return this.entityType;
 	}
-	
+
 	public SpawnEggItem getSpawnEgg() {
 		return this.spawnEgg;
 	}
-	
+
 	public static class Builder extends AbstractMoobloom.Builder {
 
 		/**
@@ -101,7 +111,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.name = name;
 			return this;
 		}
-		
+
 		/**
 		 * Sets the block state related to this cluckshroom.
 		 * <p>Will appear on this cluckshroom's back and be randomly placed on valid blocks.</p>
@@ -277,7 +287,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.spawnEggItemGroup = group;
 			return this;
 		}
-		
+
 		/**
 		 * Sets this cluckshroom's config category.
 		 * <p>Will be used to get the {@code spawnBlocks} config option.</p>
@@ -288,7 +298,7 @@ public class Cluckshroom extends AbstractMoobloom {
 			this.configCategory = configCategory;
 			return this;
 		}
-		
+
 		/**
 		 * Creates the cluckshroom.
 		 * @return a new {@linkplain Cluckshroom}
