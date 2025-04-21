@@ -57,14 +57,15 @@ public class Cluckshroom extends AbstractMoobloom {
 			builder.fireImmune();
 		}
 
-		this.entityType = (EntityType<CluckshroomEntity>) builder.build();
+		RegistryKey<EntityType<?>> key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, settings.name);
+		this.entityType = (EntityType<CluckshroomEntity>) builder.build(key);
 
 		Registry.register(Registries.ENTITY_TYPE, this.settings.name, this.entityType);
 
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
-			this.spawnEgg = new SpawnEggItem(this.entityType, this.settings.primarySpawnEggColor, this.settings.secondarySpawnEggColor, new Item.Settings().maxCount(64));
-			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Identifier itemName = Identifier.of(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
+			this.spawnEgg = new SpawnEggItem(this.entityType, new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName)));
+			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
 		}
 
@@ -87,7 +88,7 @@ public class Cluckshroom extends AbstractMoobloom {
 	public static class Builder extends AbstractMoobloom.Builder {
 		
 		public Builder() {
-			super(EntityType.CHICKEN.getLootTableId());
+			super(EntityType.CHICKEN.getLootTableKey().get());
 		}
 		
 		/**

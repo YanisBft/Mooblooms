@@ -1,10 +1,9 @@
 package com.yanisbft.mooblooms.client;
 
-import com.yanisbft.mooblooms.entity.CluckshroomEntity;
+import com.yanisbft.mooblooms.client.renderstate.CluckshroomEntityRenderState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -16,26 +15,28 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends FeatureRenderer<T, CluckshroomEntityModel<T>> {
+public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEntityRenderState, CluckshroomEntityModel> {
+	private final BlockRenderManager blockRenderManager;
 
-	public CluckshroomBlockStateRenderer(FeatureRendererContext<T, CluckshroomEntityModel<T>> context) {
+	public CluckshroomBlockStateRenderer(FeatureRendererContext<CluckshroomEntityRenderState, CluckshroomEntityModel> context, BlockRenderManager blockRenderManager) {
 		super(context);
+		this.blockRenderManager = blockRenderManager;
 	}
-	
-	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CluckshroomEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if (!entity.isBaby() && !entity.isInvisible()) {
-			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-			BlockState state = entity.settings.getBlockState();
-			Vector3f scale = entity.settings.getBlockStateRendererScale();
-			Vec3d translation = entity.settings.getBlockStateRendererTranslation();
-			int overlay = LivingEntityRenderer.getOverlay(entity, 0.0F);
+
+	@Override
+	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CluckshroomEntityRenderState state, float limbAngle, float limbDistance) {
+		if (!state.baby && !state.invisible) {
+			BlockState blockState = state.blockState;
+			Vector3f scale = state.blockStateRendererScale;
+			Vec3d translation = state.blockStateRendererTranslation;
+			int overlay = LivingEntityRenderer.getOverlay(state, 0.0F);
 			
 			matrices.push();
 			matrices.translate(0.0D, 0.36D, 0.15D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-6.0F));
 			matrices.scale(scale.x, scale.y, scale.z);
 			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
-			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
+			blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 			
 			matrices.push();
@@ -44,7 +45,7 @@ public class CluckshroomBlockStateRenderer<T extends CluckshroomEntity> extends 
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
 			matrices.scale(scale.x, scale.y, scale.z);
 			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
-			blockRenderManager.renderBlockAsEntity(state, matrices, vertexConsumers, light, overlay);
+			blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
 		}
 	}

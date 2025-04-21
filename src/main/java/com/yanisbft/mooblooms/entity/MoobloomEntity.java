@@ -18,7 +18,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -39,18 +38,13 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
-	public RegistryKey<LootTable> getLootTableId() {
-		return this.settings.getLootTable();
-	}
-	
-	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
 			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
 			if (!this.getWorld().isClient) {
 				this.discard();
-				CowEntity cow = EntityType.COW.create(this.getWorld());
+				CowEntity cow = EntityType.COW.create(this.getWorld(), SpawnReason.CONVERSION);
 				cow.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				cow.setHealth(this.getHealth());
 				cow.bodyYaw = this.bodyYaw;
@@ -64,14 +58,14 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
-			return ActionResult.success(this.getWorld().isClient);
+			return ActionResult.SUCCESS;
 		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			suspiciousStew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, flowerBlock.getStewEffects());
 			player.setStackInHand(hand, suspiciousStew);
 			this.playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
-			return ActionResult.success(this.getWorld().isClient);
+			return ActionResult.SUCCESS;
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -79,12 +73,12 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	
 	@Override
 	public MoobloomEntity createChild(ServerWorld world, PassiveEntity entity) {
-		return this.settings.getEntityType().create(world);
+		return this.settings.getEntityType().create(world, SpawnReason.BREEDING);
 	}
 	
 	@Override
 	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
-		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType())) {
+		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType().value())) {
 			return false;
 		}
 		
@@ -92,26 +86,28 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	}
 	
 	@Override
-	public boolean isInvulnerableTo(DamageSource source) {
+	public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
 		for (RegistryKey<DamageType> ignoredDamageType : this.settings.getIgnoredDamageTypes()) {
 			if (source.isOf(ignoredDamageType)) {
 				return true;
 			}
 		}
 
-		return super.isInvulnerableTo(source);
+		return super.isInvulnerableTo(world, source);
 	}
 	
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
-		if (!player.getAbilities().creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
-			if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
-			} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {
-				player.damage(player.getDamageSources().cactus(), 1.0F);
+		if (this.getWorld() instanceof ServerWorld serverWorld) {
+			if (!player.getAbilities().creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
+				if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
+				} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {
+					player.damage(serverWorld, player.getDamageSources().cactus(), 1.0F);
+				}
 			}
 		}
-		
+
 		super.onPlayerCollision(player);
 	}
 	

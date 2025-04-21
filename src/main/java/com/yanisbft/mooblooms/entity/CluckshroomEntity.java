@@ -13,7 +13,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTable;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -34,18 +33,13 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	}
 	
 	@Override
-	public RegistryKey<LootTable> getLootTableId() {
-		return this.settings.getLootTable();
-	}
-	
-	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() == Items.SHEARS && this.getBreedingAge() >= 0) {
 			this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY() + this.getHeight() / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D);
 			if (!this.getWorld().isClient) {
 				this.discard();
-				ChickenEntity chicken = EntityType.CHICKEN.create(this.getWorld());
+				ChickenEntity chicken = EntityType.CHICKEN.create(this.getWorld(), SpawnReason.CONVERSION);
 				chicken.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				chicken.setHealth(this.getHealth());
 				chicken.bodyYaw = this.bodyYaw;
@@ -59,7 +53,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
-			return ActionResult.success(this.getWorld().isClient);
+			return ActionResult.SUCCESS;
 		} else {
 			return super.interactMob(player, hand);
 		}
@@ -67,12 +61,12 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	
 	@Override
 	public CluckshroomEntity createChild(ServerWorld world, PassiveEntity entity) {
-		return this.settings.getEntityType().create(world);
+		return this.settings.getEntityType().create(world, SpawnReason.BREEDING);
 	}
 	
 	@Override
 	public boolean canHaveStatusEffect(StatusEffectInstance statusEffectInstance) {
-		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType())) {
+		if (this.settings.getIgnoredEffects().contains(statusEffectInstance.getEffectType().value())) {
 			return false;
 		}
 		
@@ -80,14 +74,14 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 	}
 	
 	@Override
-	public boolean isInvulnerableTo(DamageSource source) {
+	public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
 		for (RegistryKey<DamageType> ignoredDamageType : this.settings.getIgnoredDamageTypes()) {
 			if (source.isOf(ignoredDamageType)) {
 				return true;
 			}
 		}
 
-		return super.isInvulnerableTo(source);
+		return super.isInvulnerableTo(world, source);
 	}
 	
 	@Override

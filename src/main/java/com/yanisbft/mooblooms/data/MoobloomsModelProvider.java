@@ -2,11 +2,11 @@ package com.yanisbft.mooblooms.data;
 
 import com.yanisbft.mooblooms.api.Cluckshroom;
 import com.yanisbft.mooblooms.api.Moobloom;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.BlockStateModelGenerator;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Model;
+import net.minecraft.client.data.BlockStateModelGenerator;
+import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.client.data.Model;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;

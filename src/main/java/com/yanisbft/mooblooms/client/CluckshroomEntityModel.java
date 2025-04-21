@@ -1,19 +1,16 @@
 package com.yanisbft.mooblooms.client;
 
-import com.google.common.collect.ImmutableList;
-
+import com.yanisbft.mooblooms.client.renderstate.CluckshroomEntityRenderState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomEntityModel<T extends Entity> extends AnimalModel<T> {
+public class CluckshroomEntityModel extends EntityModel<CluckshroomEntityRenderState> {
 	private final ModelPart head;
-	private final ModelPart body;
-	private final ModelPart rightLeg;
+    private final ModelPart rightLeg;
 	private final ModelPart leftLeg;
 	private final ModelPart rightWing;
 	private final ModelPart leftWing;
@@ -21,11 +18,11 @@ public class CluckshroomEntityModel<T extends Entity> extends AnimalModel<T> {
 	private final ModelPart wattle;
 	
 	public CluckshroomEntityModel(ModelPart root) {
+		super(root);
 		this.head = root.getChild("head");
 		this.beak = root.getChild("beak");
 		this.wattle = root.getChild("wattle");
-		this.body = root.getChild("body");
-		this.rightLeg = root.getChild("right_leg");
+        this.rightLeg = root.getChild("right_leg");
 		this.leftLeg = root.getChild("left_leg");
 		this.rightWing = root.getChild("right_wing");
 		this.leftWing = root.getChild("left_wing");
@@ -50,25 +47,17 @@ public class CluckshroomEntityModel<T extends Entity> extends AnimalModel<T> {
 	}
 
 	@Override
-	protected Iterable<ModelPart> getHeadParts() {
-		return ImmutableList.of(this.head, this.beak, this.wattle);
-	}
-
-	@Override
-	protected Iterable<ModelPart> getBodyParts() {
-		return ImmutableList.of(this.body, this.rightLeg, this.leftLeg, this.rightWing, this.leftWing);
-	}
-
-	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.head.pitch = headPitch * 0.017453292F;
-		this.head.yaw = headYaw * 0.017453292F;
+	public void setAngles(CluckshroomEntityRenderState state) {
+		super.setAngles(state);
+		float animationProgress = (MathHelper.sin(state.flapProgress) + 1.0F) * state.maxWingDeviation;
+		this.head.pitch = state.pitch * (float) (Math.PI / 180.0);
+		this.head.yaw = state.yawDegrees * (float) (Math.PI / 180.0);
 		this.beak.pitch = this.head.pitch;
 		this.beak.yaw = this.head.yaw;
 		this.wattle.pitch = this.head.pitch;
 		this.wattle.yaw = this.head.yaw;
-		this.rightLeg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
-		this.leftLeg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+		this.rightLeg.pitch = MathHelper.cos(state.limbFrequency * 0.6662F) * 1.4F * state.limbAmplitudeMultiplier;
+		this.leftLeg.pitch = MathHelper.cos(state.limbFrequency * 0.6662F + 3.1415927F) * 1.4F * state.limbAmplitudeMultiplier;
 		this.rightWing.roll = animationProgress;
 		this.leftWing.roll = -animationProgress;
 	}
