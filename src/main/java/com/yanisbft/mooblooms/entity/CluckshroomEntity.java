@@ -24,6 +24,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -98,15 +99,13 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 
 	@Override
 	public void tickMovement() {
-		if (this.canSpawnBlocks(this.settings.getConfigCategory())) {
-			if (!this.getWorld().isClient && !this.isBaby() && this.settings.canPlaceBlocks()) {
-				Block blockUnderneath = this.getWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
-				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
-					int i = this.random.nextInt(1000);
-					if (i == 0) {
-						BlockState state = this.settings.getBlockStateProvider().apply(this.getWorld());
-						this.placeBlocks(this, state);
-					}
+		if (this.canPlaceBlocks()) {
+			Block blockUnderneath = this.getWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
+			if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
+				int i = this.random.nextInt(1000);
+				if (i == 0) {
+					BlockState state = this.settings.getBlockStateProvider().apply(this.getWorld());
+					this.placeBlocks(this, state);
 				}
 			}
 		}
@@ -118,6 +117,14 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 		}
 
 		super.tickMovement();
+	}
+
+	private boolean canPlaceBlocks() {
+		return this.getWorld() instanceof ServerWorld serverWorld
+				&& serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)
+				&& this.settings.canPlaceBlocks()
+				&& !this.isBaby()
+				&& this.canSpawnBlocks(this.settings.getConfigCategory());
 	}
 
 	@Override
