@@ -6,14 +6,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.model.ChickenEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomEntityRenderer extends AgeableMobEntityRenderer<CluckshroomEntity, CluckshroomEntityRenderState, CluckshroomEntityModel> {
+public class CluckshroomEntityRenderer extends AgeableMobEntityRenderer<CluckshroomEntity, CluckshroomEntityRenderState, ChickenEntityModel> {
 
 	public CluckshroomEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new CluckshroomEntityModel(CluckshroomEntityModel.getTexturedModelData().createModel()), new CluckshroomEntityModel(CluckshroomEntityModel.getTexturedModelData().createModel()), 0.3F);
+		super(context, new ChickenEntityModel(context.getPart(EntityModelLayers.CHICKEN)), new ChickenEntityModel(context.getPart(EntityModelLayers.CHICKEN_BABY)), 0.3F);
 		this.addFeature(new CluckshroomBlockStateRenderer(this, context.getBlockRenderManager()));
 	}
 

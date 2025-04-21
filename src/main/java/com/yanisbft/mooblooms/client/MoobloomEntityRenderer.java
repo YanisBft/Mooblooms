@@ -7,13 +7,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.CowEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class MoobloomEntityRenderer extends AgeableMobEntityRenderer<MoobloomEntity, MoobloomEntityRenderState, CowEntityModel> {
 
 	public MoobloomEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new CowEntityModel(CowEntityModel.getTexturedModelData().createModel()), new CowEntityModel(CowEntityModel.getTexturedModelData().createModel()), 0.7F);
+		super(context, new CowEntityModel(context.getPart(EntityModelLayers.COW)), new CowEntityModel(context.getPart(EntityModelLayers.COW_BABY)), 0.7F);
 		this.addFeature(new MoobloomBlockStateRenderer(this, context.getBlockRenderManager()));
 	}
 

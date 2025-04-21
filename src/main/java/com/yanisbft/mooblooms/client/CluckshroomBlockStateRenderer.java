@@ -9,16 +9,18 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.ChickenEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEntityRenderState, CluckshroomEntityModel> {
+public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEntityRenderState, ChickenEntityModel> {
 	private final BlockRenderManager blockRenderManager;
 
-	public CluckshroomBlockStateRenderer(FeatureRendererContext<CluckshroomEntityRenderState, CluckshroomEntityModel> context, BlockRenderManager blockRenderManager) {
+	public CluckshroomBlockStateRenderer(FeatureRendererContext<CluckshroomEntityRenderState, ChickenEntityModel> context, BlockRenderManager blockRenderManager) {
 		super(context);
 		this.blockRenderManager = blockRenderManager;
 	}
@@ -40,7 +42,7 @@ public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEn
 			matrices.pop();
 			
 			matrices.push();
-			this.getContextModel().getHead().rotate(matrices);
+			this.getContextModel().getPart(EntityModelPartNames.HEAD).ifPresentOrElse(part -> part.rotate(matrices), () -> {});
 			matrices.translate(0.02D, -0.8D, -0.03D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
 			matrices.scale(scale.x, scale.y, scale.z);
