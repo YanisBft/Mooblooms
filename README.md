@@ -54,6 +54,7 @@ mooblooms_version = 1.6.5+1.21.1
 * ``name(Identifier name)`` (**required**)
 * ``blockState(BlockState state)`` (**required**)
 * ``blockState(Block block)``
+* ``blockState(Function<World, BlockState> blockStateProvider)``
 * ``blockStateRenderer(float scaleX, float scaleY, float scaleZ, double translationX, double translationY, double translationZ)``
 * ``blockStateRenderer(Vector3f scale, Vec3d translation)``
 * ``fireImmune()``

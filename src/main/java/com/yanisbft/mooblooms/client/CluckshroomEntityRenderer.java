@@ -37,7 +37,7 @@ public class CluckshroomEntityRenderer extends AgeableMobEntityRenderer<Cluckshr
 		state.flapProgress = MathHelper.lerp(f, cluckshroom.prevFlapProgress, cluckshroom.flapProgress);
 		state.maxWingDeviation = MathHelper.lerp(f, cluckshroom.prevMaxWingDeviation, cluckshroom.maxWingDeviation);
 		state.name = cluckshroom.settings.getName();
-		state.blockState = cluckshroom.settings.getBlockState();
+		state.blockState = cluckshroom.settings.getBlockStateProvider().apply(cluckshroom.getWorld());
 		state.blockStateRendererScale = cluckshroom.settings.getBlockStateRendererScale();
 		state.blockStateRendererTranslation = cluckshroom.settings.getBlockStateRendererTranslation();
 	}

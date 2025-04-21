@@ -1,6 +1,5 @@
 package com.yanisbft.mooblooms.api;
 
-import com.google.common.collect.ImmutableList;
 import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.config.MoobloomConfigCategory;
 import com.yanisbft.mooblooms.entity.AnimalWithBlockState;
@@ -16,6 +15,7 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +23,7 @@ import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class AbstractMoobloom {
 	private static final Logger LOGGER = LogManager.getLogger("Mooblooms API");
@@ -52,8 +53,8 @@ public abstract class AbstractMoobloom {
 		return this.settings.name;
 	}
 
-	public BlockState getBlockState() {
-		return this.settings.blockState;
+	public Function<World, BlockState> getBlockStateProvider() {
+		return this.settings.blockStateProvider;
 	}
 
 	public Vector3f getBlockStateRendererScale() {
@@ -118,7 +119,7 @@ public abstract class AbstractMoobloom {
 
 	public static class Builder {
 		protected Identifier name;
-		protected BlockState blockState;
+		protected Function<World, BlockState> blockStateProvider;
 		protected Vector3f blockStateRendererScale;
 		protected Vec3d blockStateRendererTranslation;
 		protected boolean fireImmune;
@@ -138,7 +139,7 @@ public abstract class AbstractMoobloom {
 		public Builder() {
 			this.blockStateRendererScale = new Vector3f(-1.0F, -1.0F, 1.0F);
 			this.blockStateRendererTranslation = new Vec3d(-0.5D, -0.5D, -0.5D);
-			this.validBlocks = ImmutableList.of(Blocks.GRASS_BLOCK);
+			this.validBlocks = List.of(Blocks.GRASS_BLOCK);
 			this.canPlaceBlocks = true;
 			this.ignoredEffects = new ArrayList<>();
 			this.ignoredDamageTypes = new ArrayList<>();

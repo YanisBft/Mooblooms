@@ -53,13 +53,13 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				}
 				this.getWorld().spawnEntity(cow);
 				for (int i = 0; i < 5; i++) {
-					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
+					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock())));
 				}
 				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 			return ActionResult.SUCCESS;
-		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockState().getBlock() instanceof FlowerBlock flowerBlock)) {
+		} else if (stack.getItem() == Items.MUSHROOM_STEW && this.getBreedingAge() >= 0 && (this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock() instanceof FlowerBlock flowerBlock)) {
 			stack.decrement(1);
 			ItemStack suspiciousStew = new ItemStack(Items.SUSPICIOUS_STEW);
 			suspiciousStew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, flowerBlock.getStewEffects());
@@ -119,7 +119,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.placeBlocks(this, this.settings.getBlockState());
+						this.placeBlocks(this, this.settings.getBlockStateProvider().apply(this.getWorld()));
 					}
 				}
 			}
@@ -151,7 +151,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState {
 	public boolean isSuncower() {
 		return this.settings.equals(MoobloomsEntities.SUNCOWER);
 	}
-	
+
 	public boolean isCowctus() {
 		return this.settings.equals(MoobloomsEntities.COWCTUS);
 	}

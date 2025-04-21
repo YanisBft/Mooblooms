@@ -48,7 +48,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 				}
 				this.getWorld().spawnEntity(chicken);
 				for(int i = 0; i < 3; ++i) {
-					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockState().getBlock())));
+					this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock())));
 				}
 				stack.damage(1, player, getSlotForHand(hand));
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
@@ -92,7 +92,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 				if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
 					int i = this.random.nextInt(1000);
 					if (i == 0) {
-						this.placeBlocks(this, this.settings.getBlockState());
+						this.placeBlocks(this, this.settings.getBlockStateProvider().apply(this.getWorld()));
 					}
 				}
 			}

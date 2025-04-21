@@ -29,11 +29,13 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkState;
@@ -108,7 +110,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @return this builder for chaining
 		 */
 		public Cluckshroom.Builder blockState(BlockState state) {
-			this.blockState = state;
+			this.blockStateProvider = world -> state;
 			return this;
 		}
 
@@ -120,7 +122,20 @@ public class Cluckshroom extends AbstractMoobloom {
 		 * @return this builder for chaining
 		 */
 		public Cluckshroom.Builder blockState(Block block) {
-			return blockState(block.getDefaultState());
+			this.blockStateProvider = world -> block.getDefaultState();
+			return this;
+		}
+
+		/**
+		 * Sets the block state related to this cluckshroom, from the world context.
+		 * <p>Will appear on this cluckshroom's back and be randomly placed on valid blocks.</p>
+		 * <p>The item matching the block state will be dropped when shearing this cluckshroom.</p>
+		 * @param blockStateProvider a block state provider
+		 * @return this builder for chaining
+		 */
+		public Cluckshroom.Builder blockState(Function<World, BlockState> blockStateProvider) {
+			this.blockStateProvider = blockStateProvider;
+			return this;
 		}
 
 		/**
@@ -280,7 +295,7 @@ public class Cluckshroom extends AbstractMoobloom {
 		 */
 		public Cluckshroom build() {
 			checkState(this.name != null, "A name is required to build a new cluckshroom.");
-			checkState(this.blockState != null, "A block state is required to build a new cluckshroom.");
+			checkState(this.blockStateProvider != null, "A block state is required to build a new cluckshroom.");
 			return new Cluckshroom(this);
 		}
 	}
