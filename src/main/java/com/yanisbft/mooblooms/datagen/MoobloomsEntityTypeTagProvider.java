@@ -1,4 +1,4 @@
-package com.yanisbft.mooblooms.data;
+package com.yanisbft.mooblooms.datagen;
 
 import com.yanisbft.mooblooms.Mooblooms;
 import com.yanisbft.mooblooms.api.AbstractMoobloom;

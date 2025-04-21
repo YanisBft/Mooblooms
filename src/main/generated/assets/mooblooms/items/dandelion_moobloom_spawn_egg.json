@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "mooblooms:item/dandelion_moobloom_spawn_egg"
+    "model": "minecraft:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -76231
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -267346
+      }
+    ]
   }
 }

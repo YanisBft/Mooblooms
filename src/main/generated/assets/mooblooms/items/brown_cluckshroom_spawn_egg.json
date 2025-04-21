@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "mooblooms:item/brown_cluckshroom_spawn_egg"
+    "model": "minecraft:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -6852015
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -3368584
+      }
+    ]
   }
 }

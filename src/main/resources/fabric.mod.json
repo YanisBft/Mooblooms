@@ -26,7 +26,7 @@
             "com.yanisbft.mooblooms.MoobloomsClient"
         ],
         "fabric-datagen": [
-            "com.yanisbft.mooblooms.data.MoobloomsDataGenerator"
+            "com.yanisbft.mooblooms.datagen.MoobloomsDataGenerator"
         ],
         "modmenu": [
             "com.yanisbft.mooblooms.config.ModMenuIntegration"

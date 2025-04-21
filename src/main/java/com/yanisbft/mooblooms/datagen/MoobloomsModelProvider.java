@@ -1,4 +1,4 @@
-package com.yanisbft.mooblooms.data;
+package com.yanisbft.mooblooms.datagen;
 
 import com.yanisbft.mooblooms.api.Cluckshroom;
 import com.yanisbft.mooblooms.api.Moobloom;
@@ -6,10 +6,6 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.Model;
-import net.minecraft.util.Identifier;
-
-import java.util.Optional;
 
 public class MoobloomsModelProvider extends FabricModelProvider {
 
@@ -24,14 +20,12 @@ public class MoobloomsModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        Identifier parent = Identifier.of("minecraft", "item/template_spawn_egg");
-
         for (Moobloom moobloom : Moobloom.MOOBLOOM_BY_TYPE.values()) {
-            itemModelGenerator.register(moobloom.getSpawnEgg(), new Model(Optional.of(parent), Optional.empty()));
+            itemModelGenerator.registerSpawnEgg(moobloom.getSpawnEgg(), moobloom.getPrimarySpawnEggColor(), moobloom.getSecondarySpawnEggColor());
         }
 
         for (Cluckshroom cluckshroom : Cluckshroom.CLUCKSHROOM_BY_TYPE.values()) {
-            itemModelGenerator.register(cluckshroom.getSpawnEgg(), new Model(Optional.of(parent), Optional.empty()));
+            itemModelGenerator.registerSpawnEgg(cluckshroom.getSpawnEgg(), cluckshroom.getPrimarySpawnEggColor(), cluckshroom.getSecondarySpawnEggColor());
         }
     }
 }
