@@ -31,6 +31,7 @@ public class MoobloomsBiomeTagProvider extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.BAMBMOO)).add(BiomeKeys.BAMBOO_JUNGLE);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.COWCTUS)).add(BiomeKeys.BADLANDS, BiomeKeys.WOODED_BADLANDS);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.CHERRY_MOOBLOOM)).add(BiomeKeys.CHERRY_GROVE);
+        this.getOrCreateTagBuilder(getTag(MoobloomsEntities.EYEBLOSSOM_MOOBLOOM)).add(BiomeKeys.PALE_GARDEN);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.AZALEA_MOOBLOOM)).add(BiomeKeys.LUSH_CAVES);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.DRIPLEAF_MOOBLOOM)).add(BiomeKeys.LUSH_CAVES);
         this.getOrCreateTagBuilder(getTag(MoobloomsEntities.CHORUS_MOOBLOOM)).add(BiomeKeys.END_HIGHLANDS, BiomeKeys.END_MIDLANDS, BiomeKeys.SMALL_END_ISLANDS, BiomeKeys.END_BARRENS);
