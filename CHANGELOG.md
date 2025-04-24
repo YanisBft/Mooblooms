@@ -1,4 +1,5 @@
-- Updated to Minecraft 1.21.4
+- Updated to Minecraft 1.21.5
+  - Moobloom models were updated to match new cow and mooshroom ones
 - Added the **Eyeblossom Moobloom**
 - Mooblooms and cluckshrooms now have their own loot table instead of using cow or chicken ones
 - Mooblooms and cluckshrooms now respect `mobGriefing` game rule when placing blocks
