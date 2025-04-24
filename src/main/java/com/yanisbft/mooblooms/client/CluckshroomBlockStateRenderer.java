@@ -42,7 +42,7 @@ public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEn
 			matrices.pop();
 			
 			matrices.push();
-			this.getContextModel().getPart(EntityModelPartNames.HEAD).ifPresentOrElse(part -> part.rotate(matrices), () -> {});
+			this.getContextModel().getPart(EntityModelPartNames.HEAD).ifPresentOrElse(part -> part.applyTransform(matrices), () -> {});
 			matrices.translate(0.02D, -0.8D, -0.03D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
 			matrices.scale(scale.x, scale.y, scale.z);

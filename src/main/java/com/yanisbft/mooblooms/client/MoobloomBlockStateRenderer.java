@@ -34,7 +34,7 @@ public class MoobloomBlockStateRenderer extends FeatureRenderer<MoobloomEntityRe
 			
 			// Head block
 			matrices.push();
-			this.getContextModel().getHead().rotate(matrices);
+			this.getContextModel().getHead().applyTransform(matrices);
 			matrices.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-78.0F));
 			matrices.scale(scale.x, scale.y, scale.z);

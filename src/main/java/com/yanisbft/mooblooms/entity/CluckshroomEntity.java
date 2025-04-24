@@ -112,7 +112,7 @@ public class CluckshroomEntity extends ChickenEntity implements AnimalWithBlockS
 
 		if (this.getWorld().isClient && this.settings.getParticle() != null) {
 			for (int i = 0; i < 3; i++) {
-				this.getWorld().addParticle(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.getWorld().addParticleClient(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 

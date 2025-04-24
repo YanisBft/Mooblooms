@@ -35,8 +35,8 @@ public class CluckshroomEntityRenderer extends AgeableMobEntityRenderer<Cluckshr
 	@Override
 	public void updateRenderState(CluckshroomEntity cluckshroom, CluckshroomEntityRenderState state, float f) {
 		super.updateRenderState(cluckshroom, state, f);
-		state.flapProgress = MathHelper.lerp(f, cluckshroom.prevFlapProgress, cluckshroom.flapProgress);
-		state.maxWingDeviation = MathHelper.lerp(f, cluckshroom.prevMaxWingDeviation, cluckshroom.maxWingDeviation);
+		state.flapProgress = MathHelper.lerp(f, cluckshroom.lastFlapProgress, cluckshroom.flapProgress);
+		state.maxWingDeviation = MathHelper.lerp(f, cluckshroom.lastMaxWingDeviation, cluckshroom.maxWingDeviation);
 		state.name = cluckshroom.settings.getName();
 		state.blockState = cluckshroom.settings.getBlockStateProvider().apply(cluckshroom.getWorld());
 		state.blockStateRendererScale = cluckshroom.settings.getBlockStateRendererScale();
