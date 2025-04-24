@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
+    "model": "mooblooms:item/suncower_spawn_egg",
     "tints": [
       {
         "type": "minecraft:constant",
