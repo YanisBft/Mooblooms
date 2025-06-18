@@ -1,8 +1,1 @@
-- Updated to Minecraft 1.21.5
-  - Moobloom models were updated to match new cow and mooshroom ones
-- Added the **Eyeblossom Moobloom**
-- Mooblooms and cluckshrooms now have their own loot table instead of using cow or chicken ones
-- Mooblooms and cluckshrooms now respect `mobGriefing` game rule when placing blocks
-- Fixed baby mooblooms being able to deal damage
-- Fixed issues related to eye height and passenger attachments of entities
-- Fixed issues related to shearing behavior (like not triggering sculk vibrations)
+- Updated to Minecraft 1.21.6
