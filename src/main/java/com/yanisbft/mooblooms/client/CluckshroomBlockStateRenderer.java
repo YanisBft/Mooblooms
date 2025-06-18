@@ -32,7 +32,8 @@ public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEn
 			Vector3f scale = state.blockStateRendererScale;
 			Vec3d translation = state.blockStateRendererTranslation;
 			int overlay = LivingEntityRenderer.getOverlay(state, 0.0F);
-			
+
+			// Body block
 			matrices.push();
 			matrices.translate(0.0D, 0.36D, 0.15D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-6.0F));
@@ -40,9 +41,10 @@ public class CluckshroomBlockStateRenderer extends FeatureRenderer<CluckshroomEn
 			matrices.translate(translation.getX(), translation.getY(), translation.getZ());
 			blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, overlay);
 			matrices.pop();
-			
+
+			// Head block
 			matrices.push();
-			this.getContextModel().getPart(EntityModelPartNames.HEAD).ifPresentOrElse(part -> part.applyTransform(matrices), () -> {});
+			this.getContextModel().getRootPart().getChild(EntityModelPartNames.HEAD).applyTransform(matrices);
 			matrices.translate(0.02D, -0.8D, -0.03D);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
 			matrices.scale(scale.x, scale.y, scale.z);

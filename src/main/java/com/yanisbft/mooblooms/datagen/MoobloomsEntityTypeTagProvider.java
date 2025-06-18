@@ -6,6 +6,9 @@ import com.yanisbft.mooblooms.api.Cluckshroom;
 import com.yanisbft.mooblooms.api.Moobloom;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.data.tag.ProvidedTagBuilder;
+import net.minecraft.entity.EntityType;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
@@ -21,14 +24,14 @@ public class MoobloomsEntityTypeTagProvider extends FabricTagProvider.EntityType
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        FabricTagBuilder moobloomsTag = this.getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Mooblooms.id("mooblooms")));
+        ProvidedTagBuilder<RegistryKey<EntityType<?>>, EntityType<?>> moobloomsTag = this.builder(TagKey.of(RegistryKeys.ENTITY_TYPE, Mooblooms.id("mooblooms")));
         for (Moobloom moobloom : Moobloom.MOOBLOOM_BY_TYPE.values().stream().sorted(Comparator.comparing(AbstractMoobloom::getName)).toList()) {
-            moobloomsTag.add(moobloom.getName());
+            moobloomsTag.add(RegistryKey.of(RegistryKeys.ENTITY_TYPE, moobloom.getName()));
         }
 
-        FabricTagBuilder cluckshroomsTag = this.getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Mooblooms.id("cluckshrooms")));
+        ProvidedTagBuilder<RegistryKey<EntityType<?>>, EntityType<?>> cluckshroomsTag = this.builder(TagKey.of(RegistryKeys.ENTITY_TYPE, Mooblooms.id("cluckshrooms")));
         for (Cluckshroom cluckshroom : Cluckshroom.CLUCKSHROOM_BY_TYPE.values().stream().sorted(Comparator.comparing(AbstractMoobloom::getName)).toList()) {
-            cluckshroomsTag.add(cluckshroom.getName());
+            cluckshroomsTag.add(RegistryKey.of(RegistryKeys.ENTITY_TYPE, cluckshroom.getName()));
         }
     }
 }
