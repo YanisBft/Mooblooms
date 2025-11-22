@@ -46,13 +46,13 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
-		Block block = this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock();
+		Block block = this.settings.getBlockStateProvider().apply(this.getEntityWorld()).getBlock();
 
 		if (stack.getItem() == Items.SHEARS && this.isShearable()) {
-			if (this.getWorld() instanceof ServerWorld serverWorld) {
+			if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
 				this.sheared(serverWorld, SoundCategory.PLAYERS, stack);
 				this.emitGameEvent(GameEvent.SHEAR, player);
-				stack.damage(1, player, getSlotForHand(hand));
+				stack.damage(1, player, hand.getEquipmentSlot());
 			}
 
 			return ActionResult.SUCCESS;
@@ -74,9 +74,9 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 		world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
 		this.convertTo(EntityType.COW, EntityConversionContext.create(this, false, false), cow -> {
 			world.spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5), this.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
-			Block block = this.settings.getBlockStateProvider().apply(this.getWorld()).getBlock();
+			Block block = this.settings.getBlockStateProvider().apply(this.getEntityWorld()).getBlock();
 			for (int i = 0; i < 5; i++) {
-				this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(block)));
+				this.getEntityWorld().spawnEntity(new ItemEntity(this.getEntityWorld(), this.getX(), this.getY() + this.getHeight(), this.getZ(), new ItemStack(block)));
 			}
 		});
 	}
@@ -113,8 +113,8 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 	
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
-		if (this.getWorld() instanceof ServerWorld serverWorld && !this.isBaby()) {
-			if (!player.getAbilities().creativeMode && player.getPos().isInRange(this.getPos(), 1.5D)) {
+		if (this.getEntityWorld() instanceof ServerWorld serverWorld && !this.isBaby()) {
+			if (!player.getAbilities().creativeMode && player.getEntityPos().isInRange(this.getEntityPos(), 1.5D)) {
 				if (this.isWitherRose() && Mooblooms.config.witherRoseMoobloom.damagePlayers) {
 					player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
 				} else if (this.isCowctus() && Mooblooms.config.cowctus.damagePlayers) {
@@ -129,19 +129,19 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 	@Override
 	public void tickMovement() {
 		if (this.canPlaceBlocks()) {
-			Block blockUnderneath = this.getWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
-			if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getWorld().isAir(this.getBlockPos())) {
+			Block blockUnderneath = this.getEntityWorld().getBlockState(new BlockPos(this.getBlockX(), this.getBlockY() - 1, this.getBlockZ())).getBlock();
+			if (this.settings.getValidBlocks().contains(blockUnderneath) && this.getEntityWorld().isAir(this.getBlockPos())) {
 				int i = this.random.nextInt(1000);
 				if (i == 0) {
-					BlockState state = this.settings.getBlockStateProvider().apply(this.getWorld());
+					BlockState state = this.settings.getBlockStateProvider().apply(this.getEntityWorld());
 					this.placeBlocks(this, state);
 				}
 			}
 		}
 		
-		if (this.getWorld().isClient && this.settings.getParticle() != null) {
+		if (this.getEntityWorld().isClient() && this.settings.getParticle() != null) {
 			for (int i = 0; i < 3; i++) {
-				this.getWorld().addParticleClient(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
+				this.getEntityWorld().addParticleClient(this.settings.getParticle(), this.getX() + (this.random.nextDouble() - 0.5D) * this.getWidth(), this.getY() + this.random.nextDouble() * this.getHeight(), this.getZ() + (this.random.nextDouble() - 0.5D) * this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 		
@@ -149,7 +149,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 	}
 
 	private boolean canPlaceBlocks() {
-		return this.getWorld() instanceof ServerWorld serverWorld
+		return this.getEntityWorld() instanceof ServerWorld serverWorld
 				&& serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)
 				&& this.settings.canPlaceBlocks()
 				&& !this.isBaby()

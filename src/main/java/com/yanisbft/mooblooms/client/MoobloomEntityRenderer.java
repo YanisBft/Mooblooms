@@ -35,7 +35,7 @@ public class MoobloomEntityRenderer extends AgeableMobEntityRenderer<MoobloomEnt
 	public void updateRenderState(MoobloomEntity moobloom, MoobloomEntityRenderState state, float f) {
 		super.updateRenderState(moobloom, state, f);
 		state.name = moobloom.settings.getName();
-		state.blockState = moobloom.settings.getBlockStateProvider().apply(moobloom.getWorld());
+		state.blockState = moobloom.settings.getBlockStateProvider().apply(moobloom.getEntityWorld());
 		state.blockStateRendererScale = moobloom.settings.getBlockStateRendererScale();
 		state.blockStateRendererTranslation = moobloom.settings.getBlockStateRendererTranslation();
 		state.suncower = moobloom.isSuncower();

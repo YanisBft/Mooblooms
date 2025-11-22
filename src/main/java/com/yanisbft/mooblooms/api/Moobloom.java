@@ -66,9 +66,10 @@ public class Moobloom extends AbstractMoobloom {
 
 		if (this.settings.primarySpawnEggColor != 0 && this.settings.secondarySpawnEggColor != 0) {
 			Identifier itemName = Identifier.of(this.settings.name.getNamespace(), this.settings.name.getPath() + "_spawn_egg");
-			this.spawnEgg = new SpawnEggItem(
-					this.entityType,
-					new Item.Settings().maxCount(64).registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName))
+			this.spawnEgg = new SpawnEggItem(new Item.Settings()
+					.registryKey(RegistryKey.of(RegistryKeys.ITEM, itemName))
+					.maxCount(64)
+					.spawnEgg(this.entityType)
 			);
 			ItemGroupEvents.modifyEntriesEvent(this.settings.spawnEggItemGroup).register((entries) -> entries.add(this.spawnEgg));
 			Registry.register(Registries.ITEM, itemName, this.spawnEgg);
