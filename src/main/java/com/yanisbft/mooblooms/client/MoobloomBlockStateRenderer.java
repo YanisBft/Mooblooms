@@ -4,7 +4,7 @@ import com.yanisbft.mooblooms.client.renderstate.MoobloomEntityRenderState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -73,11 +73,11 @@ public class MoobloomBlockStateRenderer extends FeatureRenderer<MoobloomEntityRe
 		}
 	}
 
-	private void renderBlockState(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, boolean renderAsModel, int i, BlockState blockState, int j, BlockStateModel blockStateModel) {
+	private void renderBlockState(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, boolean renderAsModel, int outlineColor, BlockState blockState, int overlay, BlockStateModel blockStateModel) {
 		if (renderAsModel) {
-			queue.submitBlockStateModel(matrices, RenderLayer.getOutline(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE), blockStateModel, 0.0F, 0.0F, 0.0F, light, j, i);
+			queue.submitBlockStateModel(matrices, RenderLayers.outlineNoCull(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE), blockStateModel, 0.0F, 0.0F, 0.0F, light, overlay, outlineColor);
 		} else {
-			queue.submitBlock(matrices, blockState, light, j, i);
+			queue.submitBlock(matrices, blockState, light, overlay, outlineColor);
 		}
 	}
 }

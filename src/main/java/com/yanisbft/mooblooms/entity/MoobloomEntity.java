@@ -29,11 +29,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.rule.GameRules;
 
 public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, Shearable {
 	public Moobloom settings;
@@ -150,7 +150,7 @@ public class MoobloomEntity extends CowEntity implements AnimalWithBlockState, S
 
 	private boolean canPlaceBlocks() {
 		return this.getEntityWorld() instanceof ServerWorld serverWorld
-				&& serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)
+				&& serverWorld.getGameRules().getValue(GameRules.DO_MOB_GRIEFING)
 				&& this.settings.canPlaceBlocks()
 				&& !this.isBaby()
 				&& this.canSpawnBlocks(this.settings.getConfigCategory());
